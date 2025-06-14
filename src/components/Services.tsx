@@ -416,8 +416,8 @@ const ClientLogos: React.FC = () => {
         Trusted by Industry Leaders
       </h3>
       <div className="flex justify-center items-center space-x-8 flex-wrap gap-4">
-        {clientLogos.map((client, index) => (
-          <div key={index} className="flex items-center space-x-2 text-neutral-600 dark:text-neutral-400">
+        {clientLogos.map((client, _index) => (
+          <div key={_index} className="flex items-center space-x-2 text-neutral-600 dark:text-neutral-400">
             <span className="text-2xl">{client.logo}</span>
             <span className="font-medium">{client.name}</span>
           </div>
@@ -458,7 +458,7 @@ const Services: React.FC = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12"
         >
-          {services.map((service, index) => (
+          {services.map((service, _index) => (
             <ServiceCard
               key={service.id}
               service={service}

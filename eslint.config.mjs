@@ -17,6 +17,18 @@ const eslintConfig = [
     "plugin:react/recommended",
     "prettier"
   ),
+  {
+    rules: {
+      "react/react-in-jsx-scope": "off",
+      "react/jsx-uses-react": "off",
+      "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
+    },
+    settings: {
+      react: {
+        version: "detect"
+      }
+    }
+  }
 ];
 
 export default eslintConfig;
