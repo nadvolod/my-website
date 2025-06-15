@@ -81,6 +81,11 @@ export default function Home() {
         <Services />
       </section>
 
+      {/* About Section */}
+      <section id="about" className="relative">
+        <About />
+      </section>
+
       {/* Projects Section */}
       <section id="projects" className="relative">
         <Projects />
@@ -99,11 +104,6 @@ export default function Home() {
       {/* Contact Section */}
       <section id="contact" className="relative">
         <Contact />
-      </section>
-
-      {/* About Section */}
-      <section id="about" className="relative">
-        <About />
       </section>
     </main>
   );

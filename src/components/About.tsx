@@ -323,7 +323,7 @@ const About: React.FC = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-neutral-900 dark:text-white mb-6">
-            About <span className="bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent">Nikolay</span>
+            About <span className="bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent">Me</span>
           </h2>
           <p className="text-xl md:text-2xl text-neutral-600 dark:text-neutral-300 max-w-4xl mx-auto leading-relaxed">
             Transforming how developers and organizations approach test automation with 16+ years of expertise
@@ -339,10 +339,7 @@ const About: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="space-y-8"
           >
-            {/* Professional photo placeholder */}
-            <div className="w-64 h-64 mx-auto lg:mx-0 rounded-2xl bg-gradient-to-br from-primary-400 to-secondary-400 shadow-glow flex items-center justify-center mb-8">
-              <span className="text-white text-6xl font-bold">NA</span>
-            </div>
+
 
             {/* Personal introduction */}
             <div className="prose prose-lg dark:prose-invert max-w-none">

@@ -82,6 +82,30 @@ const FloatingIcon = ({ children, delay = 0, duration = 6 }: { children: React.R
   </motion.div>
 );
 
+// Professional headshot component
+const ProfessionalHeadshot = () => (
+  <motion.div
+    initial={{ opacity: 0, scale: 0.8 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 0.6, delay: 0.2 }}
+    className="mx-auto w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden shadow-2xl border-4 border-white dark:border-neutral-700 mb-8"
+  >
+    <div className="w-full h-full bg-gradient-to-br from-primary-400 via-primary-500 to-secondary-500 flex items-center justify-center relative">
+      {/* Professional silhouette */}
+      <svg 
+        viewBox="0 0 100 100" 
+        className="w-24 h-24 md:w-28 md:h-28 text-white/90"
+        fill="currentColor"
+      >
+        <circle cx="50" cy="35" r="15" />
+        <path d="M20 85 C20 65, 35 55, 50 55 C65 55, 80 65, 80 85 L20 85 Z" />
+      </svg>
+      {/* Subtle overlay for depth */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent" />
+    </div>
+  </motion.div>
+);
+
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollY } = useScroll();
@@ -151,15 +175,8 @@ export default function Hero() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="space-y-8"
         >
-          {/* Profile Image Placeholder */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mx-auto w-32 h-32 md:w-40 md:h-40 rounded-full bg-gradient-to-br from-primary-400 to-secondary-400 shadow-glow flex items-center justify-center mb-8"
-          >
-            <span className="text-white text-4xl md:text-5xl font-bold">NA</span>
-          </motion.div>
+          {/* Professional Headshot */}
+          <ProfessionalHeadshot />
 
           {/* Name */}
           <motion.h1
@@ -190,24 +207,53 @@ export default function Hero() {
             </h2>
           </motion.div>
 
-          {/* Subtitle */}
-          <motion.p
+          {/* Key Statistics/Highlights */}
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-lg md:text-xl lg:text-2xl text-neutral-600 dark:text-neutral-300 max-w-4xl mx-auto leading-relaxed"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto mb-8"
           >
-            Trained <span className="font-bold text-primary-600 dark:text-primary-400">150,000+</span> developers across{" "}
-            <span className="font-bold text-secondary-600 dark:text-secondary-400">190 countries</span> |{" "}
-            International Speaker | Founder of{" "}
-            <span className="font-bold text-accent-600 dark:text-accent-400">UltimateQA</span>
-          </motion.p>
+            <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-xl p-4 shadow-soft">
+              <div className="text-2xl md:text-3xl font-bold text-primary-600 dark:text-primary-400">150,000+</div>
+              <div className="text-sm text-neutral-600 dark:text-neutral-400 font-medium">Developers Trained</div>
+            </div>
+            <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-xl p-4 shadow-soft">
+              <div className="text-2xl md:text-3xl font-bold text-secondary-600 dark:text-secondary-400">190</div>
+              <div className="text-sm text-neutral-600 dark:text-neutral-400 font-medium">Countries Reached</div>
+            </div>
+            <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-xl p-4 shadow-soft">
+              <div className="text-2xl md:text-3xl font-bold text-accent-600 dark:text-accent-400">16+</div>
+              <div className="text-sm text-neutral-600 dark:text-neutral-400 font-medium">Years Experience</div>
+            </div>
+            <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-xl p-4 shadow-soft">
+              <div className="text-lg md:text-xl font-bold text-neutral-700 dark:text-neutral-300">UltimateQA</div>
+              <div className="text-sm text-neutral-600 dark:text-neutral-400 font-medium">Founder</div>
+            </div>
+          </motion.div>
+
+          {/* Expertise Tags */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.7 }}
+            className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto"
+          >
+            {['TypeScript', 'JavaScript', 'C#', 'Java', 'Playwright', 'Cypress'].map((tech) => (
+              <span 
+                key={tech}
+                className="px-4 py-2 bg-gradient-to-r from-primary-100 to-secondary-100 dark:from-primary-900/30 dark:to-secondary-900/30 text-primary-700 dark:text-primary-300 rounded-full text-sm font-medium border border-primary-200 dark:border-primary-700"
+              >
+                {tech}
+              </span>
+            ))}
+          </motion.div>
 
           {/* Location */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.7 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
             className="flex items-center justify-center space-x-2 text-neutral-500 dark:text-neutral-400"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -221,7 +267,7 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
+            transition={{ duration: 0.8, delay: 0.9 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8"
           >
             <Button
@@ -239,51 +285,6 @@ export default function Hero() {
             >
               Explore Courses
             </Button>
-          </motion.div>
-
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1 }}
-            className="pt-16 grid grid-cols-1 md:grid-cols-3 gap-8"
-          >
-            <div className="text-center">
-              <motion.div 
-                className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary-500 to-primary-600 bg-clip-text text-transparent"
-                whileHover={{ scale: 1.1 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                150K+
-              </motion.div>
-              <div className="text-sm md:text-base text-neutral-600 dark:text-neutral-400 font-medium">
-                Developers Trained
-              </div>
-            </div>
-            <div className="text-center">
-              <motion.div 
-                className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-secondary-500 to-secondary-600 bg-clip-text text-transparent"
-                whileHover={{ scale: 1.1 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                190
-              </motion.div>
-              <div className="text-sm md:text-base text-neutral-600 dark:text-neutral-400 font-medium">
-                Countries Reached
-              </div>
-            </div>
-            <div className="text-center">
-              <motion.div 
-                className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-accent-500 to-accent-600 bg-clip-text text-transparent"
-                whileHover={{ scale: 1.1 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                100+
-              </motion.div>
-              <div className="text-sm md:text-base text-neutral-600 dark:text-neutral-400 font-medium">
-                Speaking Events
-              </div>
-            </div>
           </motion.div>
         </motion.div>
       </div>
