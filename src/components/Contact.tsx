@@ -164,7 +164,7 @@ const Contact = () => {
             Get In Touch
           </h2>
           <p className="text-xl text-gray-600 mb-8">
-            Ready to transform your testing strategy? Let's discuss how I can help your team achieve automation excellence.
+            Ready to transform your testing strategy? Let&apos;s discuss how I can help your team achieve automation excellence.
           </p>
           
           {/* Availability Status */}

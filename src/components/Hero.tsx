@@ -22,8 +22,31 @@ const ProfessionalHeadshot = () => (
   </div>
 );
 
+// Navigation helper function
+const scrollToSection = (sectionId: string) => {
+  const element = document.getElementById(sectionId);
+  if (element) {
+    const headerOffset = 80;
+    const elementPosition = element.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    });
+  }
+};
+
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleViewSpeaking = () => {
+    scrollToSection('speaking');
+  };
+
+  const handleExploreCourses = () => {
+    scrollToSection('courses');
+  };
 
   return (
     <section 
@@ -85,6 +108,8 @@ export default function Hero() {
             <Button
               variant="gradient-primary"
               size="lg"
+              onClick={handleViewSpeaking}
+              data-testid="view-speaking-topics"
               className="shadow-glow hover:shadow-xl transform hover:scale-105 transition-all duration-300"
             >
               View Speaking Topics
@@ -93,6 +118,8 @@ export default function Hero() {
             <Button
               variant="outline"
               size="lg"
+              onClick={handleExploreCourses}
+              data-testid="explore-courses"
               className="transform hover:scale-105 transition-all duration-300"
             >
               Explore Courses

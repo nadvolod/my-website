@@ -8,372 +8,331 @@ interface ServiceOffering {
   title: string;
   description: string;
   features: string[];
-}
-
-interface CaseStudy {
-  title: string;
-  url: string;
-}
-
-interface Service {
-  id: string;
-  title: string;
-  headline: string;
-  subheading: string;
-  guarantee?: string;
-  freeTrial?: string;
-  technologies?: string[];
-  socialProof?: string;
-  targetAudience?: string;
-  outcomes?: string;
-  experience?: string;
-  approach?: string;
-  offerings: ServiceOffering[];
-  caseStudies?: CaseStudy[];
-  cta: string;
   icon: string;
+  color: string;
+  badge?: string;
+  id: string;
+  hubspotFormId?: string;
 }
 
-// Service data - Updated per requirements
-const services: Service[] = [
+interface HubSpotFormConfig {
+  portalId: string;
+  formId: string;
+  redirectUrl: string;
+}
+
+// HubSpot form configuration
+const hubspotForms = {
+  automatedTesting: {
+    portalId: "YOUR_PORTAL_ID", // Replace with actual HubSpot portal ID
+    formId: "automated-testing-form", // Replace with actual form ID
+    redirectUrl: "/thank-you/automated-testing"
+  },
+  aiTrainingBusiness: {
+    portalId: "YOUR_PORTAL_ID",
+    formId: "ai-business-form",
+    redirectUrl: "/thank-you/ai-business"
+  },
+  aiTrainingDevelopers: {
+    portalId: "YOUR_PORTAL_ID",
+    formId: "ai-developers-form",
+    redirectUrl: "/thank-you/ai-developers"
+  },
+  webDevelopment: {
+    portalId: "YOUR_PORTAL_ID",
+    formId: "web-development-form",
+    redirectUrl: "/thank-you/web-development"
+  }
+};
+
+// HubSpot Form Modal Component
+const HubSpotFormModal: React.FC<{
+  isOpen: boolean;
+  onClose: () => void;
+  formConfig: HubSpotFormConfig;
+  serviceTitle: string;
+}> = ({ isOpen, onClose, formConfig, serviceTitle }) => {
+  React.useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if (isOpen && typeof window !== 'undefined' && (window as any).hbspt) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (window as any).hbspt.forms.create({
+        portalId: formConfig.portalId,
+        formId: formConfig.formId,
+        target: `#hubspot-form-${formConfig.formId}`,
+        onFormSubmit: () => {
+          // Track conversion
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          if (typeof window !== 'undefined' && (window as any).gtag) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            (window as any).gtag('event', 'form_submit', {
+              form_type: formConfig.formId,
+              service: serviceTitle
+            });
+          }
+          // Close modal after submission
+          setTimeout(() => {
+            onClose();
+          }, 1000);
+        }
+      });
+    }
+  }, [isOpen, formConfig, serviceTitle, onClose]);
+
+  if (!isOpen) return null;
+
+  return (
+    <div 
+      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      data-testid="hubspot-modal"
+    >
+      <div className="bg-white dark:bg-neutral-800 rounded-xl p-6 max-w-md w-full mx-4 relative">
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-neutral-500 hover:text-neutral-700"
+          data-testid="modal-close"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+        <h3 className="text-xl font-bold mb-4 text-neutral-900 dark:text-white">
+          {serviceTitle} - Discovery Call
+        </h3>
+        <div id={`hubspot-form-${formConfig.formId}`}>
+          {/* Fallback form if HubSpot doesn&apos;t load */}
+          <form className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
+                First Name *
+              </label>
+              <input
+                type="text"
+                name="firstname"
+                required
+                className="w-full px-3 py-2 border border-neutral-300 dark:border-neutral-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
+                Last Name *
+              </label>
+              <input
+                type="text"
+                name="lastname"
+                required
+                className="w-full px-3 py-2 border border-neutral-300 dark:border-neutral-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
+                Email *
+              </label>
+              <input
+                type="email"
+                name="email"
+                required
+                className="w-full px-3 py-2 border border-neutral-300 dark:border-neutral-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
+                Company
+              </label>
+              <input
+                type="text"
+                name="company"
+                className="w-full px-3 py-2 border border-neutral-300 dark:border-neutral-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
+                Message
+              </label>
+              <textarea
+                name="message"
+                rows={3}
+                className="w-full px-3 py-2 border border-neutral-300 dark:border-neutral-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                placeholder="Tell us about your testing challenges..."
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full bg-primary-600 text-white py-2 px-4 rounded-md hover:bg-primary-700 transition-colors"
+            >
+              Schedule Discovery Call
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Service data with updated information
+const services: ServiceOffering[] = [
   {
-    id: "automation",
+    id: "automated-testing",
     title: "Automated Testing Services",
-    headline: "Transform Your Testing Strategy with Expert Automation",
-    subheading: "16+ years of experience building enterprise-scale automation frameworks",
-    guarantee: "7 days of free coding",
-    technologies: ["TypeScript", "JavaScript", "C#", "Java", "Playwright", "Cypress", "Selenium"],
-    socialProof: "Trusted by Fortune 500 companies",
-    offerings: [
-      {
-        title: "Complete Program Creation",
-        description: "Build enterprise automation frameworks from scratch",
-        features: [
-          "Custom test architecture design and implementation",
-          "CI/CD pipeline integration and optimization",
-          "Team training and knowledge transfer",
-          "Best practices implementation and documentation"
-        ]
-      },
-      {
-        title: "Selenium to Playwright Migration",
-        description: "Assessment of existing Selenium test suites",
-        features: [
-          "Migration strategy and timeline planning",
-          "Parallel execution optimization (97% faster proven results)",
-          "Cross-browser testing enhancement",
-          "Maintenance overhead reduction"
-        ]
-      },
-      {
-        title: "Cypress to Playwright Migration",
-        description: "Cypress test suite analysis and conversion planning",
-        features: [
-          "Enhanced debugging and testing capabilities",
-          "Multi-browser support implementation",
-          "Performance optimization and reliability improvements",
-          "Team transition training and support"
-        ]
-      }
+    description: "Transform your testing strategy with enterprise-grade automation solutions. Reduce testing time by 80% while improving coverage and reliability.",
+    features: [
+      "Custom automation framework development",
+      "CI/CD pipeline integration",
+      "Cross-browser and mobile testing",
+      "Performance and load testing",
+      "Team training and knowledge transfer"
     ],
-    caseStudies: [
-      {
-        title: "Healthcare Organization: 900 minutes daily time savings",
-        url: "https://ultimateqa.com/automation-development-for-healthcare-organization/"
-      },
-      {
-        title: "International Hotel Brand: 66% test execution time reduction",
-        url: "https://ultimateqa.com/automation-saves-hospitality-business-66-in-test-execution-time/"
-      },
-      {
-        title: "Banking Client: 82% faster feedback loops",
-        url: "https://ultimateqa.com/case-studies/"
-      }
-    ],
-    cta: "Free Discovery Call",
-    icon: "🔧"
+    icon: "🤖",
+    color: "from-blue-500 to-cyan-500",
+    badge: "7 days of free coding",
+    hubspotFormId: "automated-testing-form"
   },
   {
-    id: "ai-business",
+    id: "ai-training-business",
     title: "AI Training for Business",
-    headline: "Accelerate Business Growth with Strategic AI Implementation",
-    subheading: "Turn AI from buzzword to business advantage",
-    targetAudience: "C-suite, Product Managers, Business Leaders",
-    outcomes: "Increase team productivity 40-60% with strategic AI adoption",
-    offerings: [
-      {
-        title: "Executive AI Strategy Workshops",
-        description: "Strategic AI implementation for leadership teams",
-        features: [
-          "AI ROI assessment and implementation roadmaps",
-          "Custom AI integration for business processes",
-          "Team productivity training with AI tools",
-          "AI-powered testing and quality assurance strategies"
-        ]
-      }
+    description: "Empower your organization with AI-driven development and testing practices. Stay ahead of the competition with cutting-edge AI integration.",
+    features: [
+      "AI-powered test generation",
+      "ChatGPT integration for development",
+      "AI code review and optimization",
+      "Executive AI strategy workshops",
+      "ROI measurement and reporting"
     ],
-    cta: "Free Discovery Call",
-    icon: "🤖"
+    icon: "🧠",
+    color: "from-purple-500 to-pink-500"
   },
   {
-    id: "ai-developers",
+    id: "ai-training-developers",
     title: "AI Training for Developers",
-    headline: "Master AI-Powered Development and Testing",
-    subheading: "Stay ahead of the curve with cutting-edge AI development skills",
-    technologies: ["Claude", "ChatGPT", "GitHub Copilot", "AI testing tools"],
-    experience: "Trained 150,000+ developers across 190 countries",
-    offerings: [
-      {
-        title: "AI-Assisted Development Training",
-        description: "Master modern AI development tools and methodologies",
-        features: [
-          "AI-assisted coding workshops (GitHub Copilot, Claude, ChatGPT)",
-          "AI-powered testing methodology training",
-          "Prompt engineering for developers",
-          "AI integration in CI/CD pipelines",
-          "Building AI-enhanced automation frameworks"
-        ]
-      }
+    description: "Level up your development skills with hands-on AI training. Learn to leverage ChatGPT, GitHub Copilot, and other AI tools effectively.",
+    features: [
+      "Hands-on AI tool workshops",
+      "Prompt engineering mastery",
+      "AI-assisted debugging techniques",
+      "Code generation best practices",
+      "Certification programs available"
     ],
-    cta: "Free Discovery Call",
-    icon: "👨‍💻"
+    icon: "👨‍💻",
+    color: "from-green-500 to-teal-500"
   },
   {
-    id: "web-dev",
+    id: "web-development",
     title: "Web Development Services",
-    headline: "Modern Web Applications Built for Scale and Performance",
-    subheading: "Full-stack development with automation-first approach",
-    technologies: ["Next.js", "React", "TypeScript", "Node.js", "Cloud platforms"],
-    approach: "Quality-driven development with built-in automation",
-    offerings: [
-      {
-        title: "Modern Web Development",
-        description: "Full-stack applications with testing-first methodology",
-        features: [
-          "Modern web application development (Next.js, React, TypeScript)",
-          "Testing-first development methodology",
-          "Performance optimization and monitoring",
-          "DevOps and deployment automation",
-          "Technical architecture consulting"
-        ]
-      }
+    description: "Full-stack web development with modern technologies. From concept to deployment, we build scalable, performant web applications.",
+    features: [
+      "React/Next.js development",
+      "TypeScript implementation",
+      "API design and development",
+      "Database architecture",
+      "Performance optimization"
     ],
-    cta: "Free Discovery Call",
-    icon: "🌐"
+    icon: "🌐",
+    color: "from-orange-500 to-red-500"
   }
 ];
 
-// Service card component - Fixed badge positioning and contrast
-interface ServiceCardProps {
-  service: Service;
+// Service Card Component
+const ServiceCard: React.FC<{
+  service: ServiceOffering;
   isActive: boolean;
   onClick: () => void;
-}
-
-const ServiceCard: React.FC<ServiceCardProps> = ({ service, isActive, onClick }) => {
-  return (
-    <motion.div
-      className={`relative p-6 rounded-2xl cursor-pointer transition-all duration-300 ${
-        isActive
-          ? 'bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 border-2 border-primary-200 dark:border-primary-800'
-          : 'bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 hover:border-primary-300 dark:hover:border-primary-700'
-      }`}
-      onClick={onClick}
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
-    >
-      {/* Fixed guarantee badge - only for automated testing */}
-      {service.guarantee && (
-        <div className="absolute -top-2 -right-2 bg-accent-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg z-10">
-          {service.guarantee}
-        </div>
-      )}
-
-      <div className="flex items-start space-x-4">
-        <div className="text-4xl">{service.icon}</div>
-        <div className="flex-1">
-          <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-2">
-            {service.title}
-          </h3>
-          <p className="text-neutral-600 dark:text-neutral-300 mb-4">
-            {service.subheading}
-          </p>
-
-          {/* Technology badges */}
-          {service.technologies && (
-            <div className="flex flex-wrap gap-2 mb-4">
-              {service.technologies.slice(0, 4).map((tech: string, index: number) => (
-                <span key={index} className="px-2 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 text-xs rounded-lg">
-                  {tech}
-                </span>
-              ))}
-              {service.technologies.length > 4 && (
-                <span className="px-2 py-1 bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-400 text-xs rounded-lg">
-                  +{service.technologies.length - 4} more
-                </span>
-              )}
-            </div>
-          )}
-
-          {/* Key highlight */}
-          {service.outcomes && (
-            <p className="text-accent-600 dark:text-accent-400 font-semibold text-sm mb-2">
-              {service.outcomes}
-            </p>
-          )}
-
-          {service.experience && (
-            <p className="text-secondary-600 dark:text-secondary-400 font-semibold text-sm mb-2">
-              {service.experience}
-            </p>
-          )}
+  onDiscoveryCall: () => void;
+}> = ({ service, isActive, onClick, onDiscoveryCall }) => (
+  <div
+    className={`relative p-6 rounded-xl cursor-pointer transition-all duration-300 ${
+      isActive
+        ? 'bg-white dark:bg-neutral-800 shadow-xl scale-105'
+        : 'bg-neutral-50 dark:bg-neutral-900 hover:bg-white dark:hover:bg-neutral-800 shadow-soft hover:shadow-medium'
+    }`}
+    onClick={onClick}
+  >
+    {/* Badge for testing service only */}
+    {service.badge && service.id === "automated-testing" && (
+      <div className="absolute -top-3 -right-3 z-20">
+        <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg transform rotate-12">
+          {service.badge}
         </div>
       </div>
-    </motion.div>
-  );
-};
+    )}
 
-// Detailed service view
-interface ServiceDetailProps {
-  service: Service;
-}
-
-const ServiceDetail: React.FC<ServiceDetailProps> = ({ service }) => {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="bg-white dark:bg-neutral-800 rounded-2xl p-8 shadow-medium"
-    >
-      <div className="mb-8">
-        <h2 className="text-3xl font-bold text-neutral-900 dark:text-white mb-4">
-          {service.headline}
-        </h2>
-        <p className="text-lg text-neutral-600 dark:text-neutral-300 mb-6">
-          {service.subheading}
-        </p>
-
-        {/* Social proof */}
-        {service.socialProof && (
-          <div className="bg-primary-50 dark:bg-primary-900/20 rounded-lg p-4 mb-6">
-            <p className="text-primary-700 dark:text-primary-300 font-medium text-center">
-              {service.socialProof}
-            </p>
-          </div>
-        )}
+    <div className="text-center">
+      <div className={`w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r ${service.color} flex items-center justify-center text-2xl`}>
+        {service.icon}
       </div>
-
-      {/* Service offerings */}
-      <div className="grid md:grid-cols-1 gap-6 mb-8">
-        {service.offerings.map((offering: ServiceOffering, index: number) => (
-          <div key={index} className="border border-neutral-200 dark:border-neutral-700 rounded-xl p-6">
-            <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-3">
-              {offering.title}
-            </h3>
-            <p className="text-neutral-600 dark:text-neutral-300 mb-4">
-              {offering.description}
-            </p>
-            <ul className="space-y-2">
-              {offering.features.map((feature: string, featureIndex: number) => (
-                <li key={featureIndex} className="flex items-start space-x-2">
-                  <span className="text-accent-500 font-bold text-lg">•</span>
-                  <span className="text-neutral-600 dark:text-neutral-300">{feature}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-
-      {/* Case studies */}
-      {service.caseStudies && (
-        <div className="mb-8">
-          <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-4">
-            Proven Results
-          </h3>
-          <div className="grid sm:grid-cols-1 gap-4">
-            {service.caseStudies.map((study: CaseStudy, index: number) => (
-              <a
-                key={index}
-                href={study.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block p-4 bg-gradient-to-r from-accent-50 to-primary-50 dark:from-accent-900/20 dark:to-primary-900/20 rounded-lg hover:shadow-medium transition-all duration-300 group"
-              >
-                <div className="flex items-center space-x-3">
-                  <span className="text-2xl">📈</span>
-                  <div>
-                    <p className="font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
-                      {study.title}
-                    </p>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                      Click to read full case study →
-                    </p>
-                  </div>
-                </div>
-              </a>
-            ))}
-            <a
-              href="https://ultimateqa.com/case-studies/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block p-4 bg-secondary-50 dark:bg-secondary-900/20 rounded-lg hover:shadow-medium transition-all duration-300 group"
-            >
-              <div className="flex items-center space-x-3">
-                <span className="text-2xl">📚</span>
-                <div>
-                  <p className="font-semibold text-neutral-900 dark:text-white group-hover:text-secondary-600 dark:group-hover:text-secondary-400 transition-colors">
-                    Complete Case Studies Portfolio
-                  </p>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                    View all success stories →
-                  </p>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-      )}
-
-      {/* CTA */}
-      <div className="text-center">
-        <Button
-          variant="gradient-primary"
-          size="lg"
-          className="shadow-glow hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-        >
-          {service.cta}
-        </Button>
-      </div>
-    </motion.div>
-  );
-};
-
-// Client logos for social proof - Updated to remove specific company names
-const ClientLogos: React.FC = () => {
-  const logos = [
-    { name: "Fortune 500 Company", logo: "🏢" },
-    { name: "Healthcare Corp", logo: "🏥" },
-    { name: "Banking Group", logo: "🏦" },
-    { name: "Tech Enterprise", logo: "💻" },
-    { name: "Global Retail", logo: "🛍️" }
-  ];
-
-  return (
-    <div className="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-medium mb-8">
-      <h3 className="text-xl font-bold text-center mb-6 text-neutral-900 dark:text-white">
-        Trusted by Industry Leaders
+      <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-2">
+        {service.title}
       </h3>
-      <div className="flex flex-wrap justify-center items-center gap-8">
-        {logos.map((client, index) => (
-          <div key={index} className="flex flex-col items-center space-y-2">
-            <div className="text-4xl">{client.logo}</div>
-            <span className="text-sm text-neutral-600 dark:text-neutral-400 font-medium">
-              {client.name}
-            </span>
+      <p className="text-neutral-600 dark:text-neutral-400 text-sm mb-4">
+        {service.description}
+      </p>
+      
+      {/* Discovery Call Button */}
+      <Button
+        variant="primary"
+        size="sm"
+        onClick={(e) => {
+          e.stopPropagation();
+          onDiscoveryCall();
+        }}
+        data-testid={`${service.id}-discovery-call`}
+        className="w-full"
+      >
+        Free Discovery Call
+      </Button>
+    </div>
+  </div>
+);
+
+// Service Detail Component
+const ServiceDetail: React.FC<{ service: ServiceOffering | null }> = ({ service }) => {
+  if (!service) return null;
+
+  return (
+    <div className="bg-white dark:bg-neutral-800 rounded-xl p-8 shadow-xl">
+      <div className="flex items-center mb-6">
+        <div className={`w-12 h-12 rounded-full bg-gradient-to-r ${service.color} flex items-center justify-center text-xl mr-4`}>
+          {service.icon}
+        </div>
+        <h3 className="text-2xl font-bold text-neutral-900 dark:text-white">
+          {service.title}
+        </h3>
+      </div>
+      
+      <p className="text-neutral-600 dark:text-neutral-400 mb-6 leading-relaxed">
+        {service.description}
+      </p>
+      
+      <div className="mb-6">
+        <h4 className="text-lg font-semibold text-neutral-900 dark:text-white mb-4">
+          What&apos;s Included:
+        </h4>
+        <ul className="space-y-2">
+          {service.features.map((feature, index) => (
+            <li key={index} className="flex items-start">
+              <svg className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              <span className="text-neutral-600 dark:text-neutral-400">{feature}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="text-center">
+        <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">
+          Trusted by Fortune 500 companies
+        </p>
+        <div className="flex justify-center space-x-8 opacity-60">
+          <div className="w-16 h-8 bg-neutral-200 dark:bg-neutral-700 rounded flex items-center justify-center text-xs font-semibold">
+            LOGO
           </div>
-        ))}
+          <div className="w-16 h-8 bg-neutral-200 dark:bg-neutral-700 rounded flex items-center justify-center text-xs font-semibold">
+            LOGO
+          </div>
+          <div className="w-16 h-8 bg-neutral-200 dark:bg-neutral-700 rounded flex items-center justify-center text-xs font-semibold">
+            LOGO
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -381,40 +340,55 @@ const ClientLogos: React.FC = () => {
 
 // Main Services component
 const Services: React.FC = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
   const [activeService, setActiveService] = useState<string>(services[0].id);
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState<ServiceOffering | null>(null);
 
   const activeServiceData = services.find(service => service.id === activeService) || services[0];
 
-  return (
-    <section ref={ref} className="py-20 bg-neutral-50 dark:bg-neutral-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section header */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-neutral-900 dark:text-white mb-6">
-            Services & <span className="bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent">Expertise</span>
-          </h2>
-          <p className="text-xl md:text-2xl text-neutral-600 dark:text-neutral-300 max-w-4xl mx-auto leading-relaxed">
-            Transform your development and testing processes with proven strategies and cutting-edge automation
-          </p>
-        </motion.div>
+  const handleDiscoveryCall = (service: ServiceOffering) => {
+    setSelectedService(service);
+    setModalOpen(true);
+  };
 
-        {/* Client logos */}
+  const getFormConfig = (serviceId: string) => {
+    switch (serviceId) {
+      case 'automated-testing':
+        return hubspotForms.automatedTesting;
+      case 'ai-training-business':
+        return hubspotForms.aiTrainingBusiness;
+      case 'ai-training-developers':
+        return hubspotForms.aiTrainingDevelopers;
+      case 'web-development':
+        return hubspotForms.webDevelopment;
+      default:
+        return hubspotForms.automatedTesting;
+    }
+  };
+
+  return (
+    <section id="services" className="py-20 bg-white dark:bg-neutral-900" ref={sectionRef}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16"
         >
-          <ClientLogos />
+          <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 dark:text-white mb-6">
+            Services & Expertise
+          </h2>
+          <p className="text-xl text-neutral-600 dark:text-neutral-300 max-w-3xl mx-auto leading-relaxed">
+            Comprehensive automation and AI solutions to accelerate your development lifecycle 
+            and improve software quality at enterprise scale.
+          </p>
         </motion.div>
 
-        {/* Service selection */}
+        {/* Service Cards Grid */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -432,6 +406,7 @@ const Services: React.FC = () => {
                 service={service}
                 isActive={activeService === service.id}
                 onClick={() => setActiveService(service.id)}
+                onDiscoveryCall={() => handleDiscoveryCall(service)}
               />
             </motion.div>
           ))}
@@ -446,6 +421,16 @@ const Services: React.FC = () => {
           <ServiceDetail service={activeServiceData} />
         </motion.div>
       </div>
+
+      {/* HubSpot Form Modal */}
+      {selectedService && (
+        <HubSpotFormModal
+          isOpen={modalOpen}
+          onClose={() => setModalOpen(false)}
+          formConfig={getFormConfig(selectedService.id)}
+          serviceTitle={selectedService.title}
+        />
+      )}
     </section>
   );
 };
