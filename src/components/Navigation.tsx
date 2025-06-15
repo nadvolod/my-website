@@ -11,7 +11,19 @@ import {
 } from '@heroicons/react/24/outline';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+
+// Throttle function for performance
+const throttle = <T extends (...args: unknown[]) => void>(func: T, limit: number) => {
+  let inThrottle: boolean;
+  return function(this: unknown, ...args: Parameters<T>) {
+    if (!inThrottle) {
+      func.apply(this, args);
+      inThrottle = true;
+      setTimeout(() => inThrottle = false, limit);
+    }
+  }
+};
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -27,32 +39,33 @@ const Navigation = () => {
     setMounted(true);
   }, []);
 
+  // Optimized scroll handler with throttling
+  const handleScroll = useCallback(throttle(() => {
+    const scrollPosition = window.scrollY;
+    setIsScrolled(scrollPosition > 50);
+    setShowBackToTop(scrollPosition > 500);
+
+    // Simplified active section detection
+    if (scrollPosition < 100) {
+      setActiveSection('hero');
+    } else if (scrollPosition < 800) {
+      setActiveSection('about');
+    } else if (scrollPosition < 1600) {
+      setActiveSection('services');
+    } else if (scrollPosition < 2400) {
+      setActiveSection('speaking');
+    } else if (scrollPosition < 3200) {
+      setActiveSection('courses');
+    } else {
+      setActiveSection('contact');
+    }
+  }, 100), []);
+
   // Handle scroll effects
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      setIsScrolled(scrollPosition > 50);
-      setShowBackToTop(scrollPosition > 500);
-
-      // Update active section based on scroll position
-      const sections = navigationItems.map(item => item.id);
-      const currentSection = sections.find(section => {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
-        }
-        return false;
-      });
-
-      if (currentSection) {
-        setActiveSection(currentSection);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [handleScroll]);
 
   // Handle smooth scroll to section
   const scrollToSection = (sectionId: string) => {

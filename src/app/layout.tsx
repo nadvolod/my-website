@@ -11,13 +11,15 @@ const geist = Geist({
   subsets: ["latin"],
   display: 'swap',
   preload: true,
+  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
-  display: 'swap',
+  display: 'optional',
   preload: false,
+  fallback: ['ui-monospace', 'SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', 'monospace'],
 });
 
 export const viewport: Viewport = {
@@ -32,6 +34,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://nikolayadvolodkin.com'),
   title: "Nikolay Advolodkin - Developer Advocate & Automation Expert",
   description: "Leading automation expert with 16+ years experience. Training 150,000+ developers across 190 countries in test automation, AI, and modern development practices.",
   keywords: [
@@ -86,7 +89,6 @@ export const metadata: Metadata = {
   verification: {
     google: "your-google-verification-code",
   },
-  metadataBase: new URL('https://nikolayadvolodkin.com'),
   alternates: {
     canonical: 'https://nikolayadvolodkin.com',
   },
@@ -100,7 +102,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />

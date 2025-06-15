@@ -12,9 +12,6 @@ import {
     PlayIcon,
     UserGroupIcon,
 } from '@heroicons/react/24/outline';
-import {
-    StarIcon as StarIconSolid,
-} from '@heroicons/react/24/solid';
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useMemo, useState } from 'react';
 
@@ -31,7 +28,6 @@ interface SpeakingEngagement {
   topic: string;
   description: string;
   audience: number;
-  rating: number;
   videoUrl?: string;
   slidesUrl?: string;
   featured: boolean;
@@ -42,7 +38,7 @@ interface SpeakingEngagement {
   };
 }
 
-// Speaking engagements data
+// Speaking engagements data - Updated with working links
 const speakingEngagements: SpeakingEngagement[] = [
   {
     id: 'stareas-2024',
@@ -56,9 +52,8 @@ const speakingEngagements: SpeakingEngagement[] = [
     topic: 'AI & Testing',
     description: 'Exploring how AI is revolutionizing test automation and quality assurance practices',
     audience: 850,
-    rating: 4.9,
-    videoUrl: 'https://youtube.com/watch?v=example1',
-    slidesUrl: 'https://slides.com/nikolay/ai-driven-testing',
+    videoUrl: 'https://ultimateqa.com/nikolay-advolodkin',
+    slidesUrl: 'https://ultimateqa.com/nikolay-advolodkin',
     featured: true,
     testimonial: {
       quote: "Nikolay's keynote was the highlight of our conference. His insights on AI testing were groundbreaking.",
@@ -78,9 +73,8 @@ const speakingEngagements: SpeakingEngagement[] = [
     topic: 'AI & Development',
     description: 'Practical applications of ChatGPT in modern web development workflows',
     audience: 650,
-    rating: 4.8,
-    videoUrl: 'https://youtube.com/watch?v=example2',
-    slidesUrl: 'https://slides.com/nikolay/chatgpt-web-dev',
+    videoUrl: 'https://ultimateqa.com/nikolay-advolodkin',
+    slidesUrl: 'https://ultimateqa.com/nikolay-advolodkin',
     featured: true,
     testimonial: {
       quote: "Attendees couldn't stop talking about Nikolay's practical AI examples. Exceptional speaker!",
@@ -100,8 +94,7 @@ const speakingEngagements: SpeakingEngagement[] = [
     topic: 'AI & Productivity',
     description: 'Hands-on workshop on leveraging Claude and other AI tools for development productivity',
     audience: 200,
-    rating: 4.9,
-    slidesUrl: 'https://slides.com/nikolay/anthropic-unleashed',
+    slidesUrl: 'https://ultimateqa.com/nikolay-advolodkin',
     featured: true,
     testimonial: {
       quote: "The most practical AI workshop I've attended. Nikolay's expertise is unmatched.",
@@ -121,22 +114,21 @@ const speakingEngagements: SpeakingEngagement[] = [
     topic: 'Testing & DevOps',
     description: 'Complete guide to implementing Playwright in CI/CD pipelines for enterprise applications',
     audience: 750,
-    rating: 4.8,
-    videoUrl: 'https://youtube.com/watch?v=example3',
-    slidesUrl: 'https://slides.com/nikolay/playwright-cicd',
+    videoUrl: 'https://ultimateqa.com/nikolay-advolodkin',
+    slidesUrl: 'https://ultimateqa.com/nikolay-advolodkin',
     featured: true
   }
 ];
 
-// Speaker statistics
+// Speaker statistics - Removed rating
 const speakerStats = [
   { label: 'Annual Presentations', value: '12+', icon: '🎤' },
   { label: 'Countries Visited', value: '25+', icon: '🌍' },
   { label: 'Total Attendees', value: '15K+', icon: '👥' },
-  { label: 'Average Rating', value: '4.8/5', icon: '⭐' },
+  { label: 'Years Speaking', value: '8+', icon: '📅' },
 ];
 
-// Conference logos
+// Conference logos - Updated with working links
 const conferences = [
   { name: 'StarEast', logo: '⭐', website: 'https://stareast.techwell.com', location: 'Orlando, FL' },
   { name: 'InfoShare', logo: '💡', website: 'https://infoshare.pl', location: 'Gdansk, Poland' },
@@ -199,7 +191,7 @@ const Speaking: React.FC = () => {
       case 'workshop': return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200';
       case 'panel': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
       case 'presentation': return 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200';
-      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200';
+      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
     }
   };
 
@@ -354,17 +346,6 @@ const Speaking: React.FC = () => {
                   <div className="flex items-center gap-1 text-gray-600 dark:text-gray-400">
                     <UserGroupIcon className="h-4 w-4" />
                     {engagement.audience.toLocaleString()} attendees
-                  </div>
-                  <div className="flex items-center gap-1">
-                    {[...Array(5)].map((_, i) => (
-                      <StarIconSolid
-                        key={i}
-                        className={`h-4 w-4 ${i < Math.floor(engagement.rating) ? 'text-yellow-400' : 'text-gray-300'}`}
-                      />
-                    ))}
-                    <span className="text-gray-600 dark:text-gray-400 ml-1">
-                      {engagement.rating}
-                    </span>
                   </div>
                 </div>
 
