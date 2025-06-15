@@ -1,5 +1,6 @@
 'use client';
 
+import { navigationItems } from '@/lib/links';
 import {
     Bars3Icon,
     ChevronUpIcon,
@@ -19,17 +20,12 @@ const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
-  const { theme, setTheme, mounted } = useTheme();
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
-  const navigationItems = [
-    { id: 'hero', label: 'Home', href: '#hero' },
-    { id: 'services', label: 'Services', href: '#services' },
-    { id: 'projects', label: 'Projects', href: '#projects' },
-    { id: 'speaking', label: 'Speaking', href: '#speaking' },
-    { id: 'courses', label: 'Courses', href: '#courses' },
-    { id: 'contact', label: 'Contact', href: '#contact' },
-    { id: 'about', label: 'About', href: '#about' }
-  ];
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Handle scroll effects
   useEffect(() => {
@@ -127,12 +123,15 @@ const Navigation = () => {
         transition={{ duration: 0.6 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled 
-            ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg' 
+            ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg transform' 
             : 'bg-transparent'
         }`}
+        style={{
+          transform: isScrolled ? 'translateY(0)' : 'translateY(0)',
+        }}
       >
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" role="navigation" aria-label="Main navigation">
-          <div className="flex items-center justify-between h-20">
+          <div className="flex items-center justify-between h-16 sm:h-20">
             
             {/* Logo */}
             <motion.div
@@ -152,18 +151,30 @@ const Navigation = () => {
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
                 {navigationItems.map((item) => (
-                  <button
-                    key={item.id}
-                    onClick={() => scrollToSection(item.id)}
-                    className={`px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
-                      activeSection === item.id
-                        ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20'
-                        : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800'
-                    }`}
-                    aria-current={activeSection === item.id ? 'page' : undefined}
-                  >
-                    {item.label}
-                  </button>
+                  item.external ? (
+                    <a
+                      key={item.id}
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800"
+                    >
+                      {item.label}
+                    </a>
+                  ) : (
+                    <button
+                      key={item.id}
+                      onClick={() => scrollToSection(item.id)}
+                      className={`px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
+                        activeSection === item.id
+                          ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20'
+                          : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800'
+                      }`}
+                      aria-current={activeSection === item.id ? 'page' : undefined}
+                    >
+                      {item.label}
+                    </button>
+                  )
                 ))}
               </div>
             </div>
@@ -205,12 +216,12 @@ const Navigation = () => {
             </div>
 
             {/* Mobile Menu Button */}
-            <div className="md:hidden flex items-center space-x-2">
+            <div className="md:hidden flex items-center space-x-1">
               {/* Mobile Theme Toggle */}
               {mounted && (
                 <button
                   onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                  className="p-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  className="p-3 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors min-h-touch min-w-touch rounded-lg"
                   aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
                 >
                   {theme === 'dark' ? (
@@ -223,7 +234,7 @@ const Navigation = () => {
 
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="menu-button p-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                className="menu-button p-3 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors min-h-touch min-w-touch rounded-lg"
                 aria-label="Toggle mobile menu"
                 aria-expanded={isMenuOpen}
               >
@@ -283,7 +294,7 @@ const Navigation = () => {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'tween', duration: 0.3 }}
-              className="mobile-menu fixed top-0 right-0 h-full w-80 bg-white dark:bg-gray-900 shadow-xl z-50 md:hidden"
+              className="mobile-menu fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white dark:bg-gray-900 shadow-xl z-50 md:hidden"
             >
               <div className="flex flex-col h-full">
                 {/* Mobile Menu Header */}
@@ -302,18 +313,30 @@ const Navigation = () => {
                 <nav className="flex-1 px-6 py-4" role="navigation" aria-label="Mobile navigation">
                   <div className="space-y-2">
                     {navigationItems.map((item) => (
-                      <button
-                        key={item.id}
-                        onClick={() => scrollToSection(item.id)}
-                        className={`w-full text-left px-4 py-3 rounded-lg text-base font-medium transition-all duration-200 ${
-                          activeSection === item.id
-                            ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20'
-                            : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800'
-                        }`}
-                        aria-current={activeSection === item.id ? 'page' : undefined}
-                      >
-                        {item.label}
-                      </button>
+                      item.external ? (
+                        <a
+                          key={item.id}
+                          href={item.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full text-left px-4 py-4 rounded-lg text-base font-medium transition-all duration-200 min-h-touch text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800"
+                        >
+                          {item.label}
+                        </a>
+                      ) : (
+                        <button
+                          key={item.id}
+                          onClick={() => scrollToSection(item.id)}
+                          className={`w-full text-left px-4 py-4 rounded-lg text-base font-medium transition-all duration-200 min-h-touch ${
+                            activeSection === item.id
+                              ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20'
+                              : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800'
+                          }`}
+                          aria-current={activeSection === item.id ? 'page' : undefined}
+                        >
+                          {item.label}
+                        </button>
+                      )
                     ))}
                   </div>
                 </nav>

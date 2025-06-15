@@ -1,10 +1,19 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: [
     './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   darkMode: 'class',
   theme: {
+    // Mobile-first breakpoint strategy
+    screens: {
+      'xs': '320px',   // Extra small phones
+      'sm': '480px',   // Small phones
+      'md': '768px',   // Tablets
+      'lg': '1024px',  // Small laptops
+      'xl': '1280px',  // Large laptops
+      '2xl': '1536px', // Desktop
+    },
     extend: {
       colors: {
         // Brand Colors
@@ -88,10 +97,20 @@ module.exports = {
         '9xl': ['8rem', { lineHeight: '1' }],
       },
       spacing: {
+        '11': '2.75rem', // 44px - minimum touch target
         '18': '4.5rem',
         '88': '22rem',
         '128': '32rem',
         '144': '36rem',
+      },
+      // Touch-friendly minimum sizes
+      minHeight: {
+        'touch': '44px', // Minimum touch target
+        'touch-lg': '48px', // Large touch target
+      },
+      minWidth: {
+        'touch': '44px', // Minimum touch target
+        'touch-lg': '48px', // Large touch target
       },
       borderRadius: {
         'xl': '1rem',
@@ -115,6 +134,8 @@ module.exports = {
         'scale-in': 'scaleIn 0.3s ease-out',
         'bounce-gentle': 'bounceGentle 2s infinite',
         'pulse-glow': 'pulseGlow 2s ease-in-out infinite alternate',
+        'slide-down': 'slideDown 0.3s ease-out',
+        'slide-up': 'slideUp 0.3s ease-out',
       },
       keyframes: {
         fadeIn: {
@@ -148,6 +169,14 @@ module.exports = {
         pulseGlow: {
           '0%': { boxShadow: '0 0 20px rgba(0, 102, 204, 0.3)' },
           '100%': { boxShadow: '0 0 30px rgba(0, 102, 204, 0.6)' },
+        },
+        slideDown: {
+          '0%': { opacity: '0', transform: 'translateY(-10px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        slideUp: {
+          '0%': { opacity: '0', transform: 'translateY(10px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
         },
       },
       backdropBlur: {

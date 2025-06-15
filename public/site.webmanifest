@@ -1,0 +1,131 @@
+{
+  "name": "Nikolay Advolodkin - Developer Advocate & Automation Expert",
+  "short_name": "Nikolay Advolodkin",
+  "description": "Leading automation expert with 16+ years experience. Training 150,000+ developers across 190 countries in test automation, AI, and modern development practices.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0066CC",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en-US",
+  "dir": "ltr",
+  "categories": [
+    "education",
+    "productivity",
+    "business"
+  ],
+  "icons": [
+    {
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/desktop-home.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Home page on desktop"
+    },
+    {
+      "src": "/screenshots/mobile-home.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Home page on mobile"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Contact",
+      "short_name": "Contact",
+      "description": "Get in touch with Nikolay",
+      "url": "/#contact",
+      "icons": [
+        {
+          "src": "/icons/contact-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Courses",
+      "short_name": "Courses",
+      "description": "View automation courses",
+      "url": "/#courses",
+      "icons": [
+        {
+          "src": "/icons/courses-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Speaking",
+      "short_name": "Speaking",
+      "description": "Speaking engagements and talks",
+      "url": "/#speaking",
+      "icons": [
+        {
+          "src": "/icons/speaking-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Blog",
+      "short_name": "Blog",
+      "description": "Read latest articles",
+      "url": "https://ultimateqa.com/blog/",
+      "icons": [
+        {
+          "src": "/icons/blog-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "web",
+      "url": "https://ultimateqa.com/"
+    }
+  ],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  }
+} 

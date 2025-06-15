@@ -2,12 +2,16 @@
   "name": "personal-website",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "test:performance": "node scripts/performance-test.js",
+    "test:links": "node scripts/link-validator.js",
+    "analyze": "npm run build && npx @next/bundle-analyzer"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.4",
@@ -24,12 +28,16 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@next/bundle-analyzer": "^15.3.3",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "chrome-launcher": "^1.1.2",
     "eslint": "^9",
     "eslint-config-next": "15.3.3",
+    "lighthouse": "^12.0.0",
+    "puppeteer": "^23.0.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   },
