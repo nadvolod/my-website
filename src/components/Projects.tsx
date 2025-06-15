@@ -87,12 +87,12 @@ const featuredProjects: FeaturedProject[] = [
   {
     id: 'testing-frameworks',
     name: 'Testing Frameworks',
-    description: 'Custom automation solutions for Fortune 500',
+    description: 'Custom automation solutions for enterprise clients',
     techStack: ['Selenium', 'Playwright', 'Cypress', 'TestNG', 'Junit'],
     status: 'live',
     highlights: [
-      'Fortune 500 implementations',
-      'Enterprise-grade solutions',
+      'Enterprise-grade implementations',
+      'Scalable automation solutions',
       'Cross-browser automation',
       'CI/CD integration',
     ],

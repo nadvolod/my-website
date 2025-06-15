@@ -1,5 +1,4 @@
 "use client";
-import { motion } from "framer-motion";
 import { forwardRef } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -20,28 +19,23 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
   ({ variant = "default", hover = true, children, className, ...props }, ref) => {
     const baseClasses = "rounded-2xl transition-all duration-300 ease-smooth";
     const variantClasses = cardVariants[variant];
+    const hoverClasses = hover ? "hover:shadow-lg hover:-translate-y-1" : "";
     
     const cardClasses = twMerge(
       baseClasses,
       variantClasses,
+      hoverClasses,
       className
     );
 
-    const MotionDiv = hover ? motion.div : "div";
-    const motionProps = hover ? {
-      whileHover: { y: -4, scale: 1.02 },
-      transition: { type: "spring", stiffness: 300, damping: 20 }
-    } : {};
-
     return (
-      <MotionDiv
+      <div
         ref={ref}
         className={cardClasses}
-        {...(hover ? motionProps : {})}
         {...props}
       >
         {children}
-      </MotionDiv>
+      </div>
     );
   }
 );
