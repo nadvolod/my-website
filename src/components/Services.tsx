@@ -34,16 +34,16 @@ interface Service {
   icon: string;
 }
 
-// Service data
+// Service data - Updated per requirements
 const services: Service[] = [
   {
     id: "automation",
     title: "Automated Testing Services",
     headline: "Transform Your Testing Strategy with Expert Automation",
     subheading: "16+ years of experience building enterprise-scale automation frameworks",
-    guarantee: "All coding services include 7 days of free development work, no strings attached",
+    guarantee: "7 days of free coding",
     technologies: ["TypeScript", "JavaScript", "C#", "Java", "Playwright", "Cypress", "Selenium"],
-    socialProof: "Trusted by Fortune 500 companies including Salesforce, Hilton, Microsoft",
+    socialProof: "Trusted by Fortune 500 companies",
     offerings: [
       {
         title: "Complete Program Creation",
@@ -90,7 +90,7 @@ const services: Service[] = [
         url: "https://ultimateqa.com/case-studies/"
       }
     ],
-    cta: "Book Discovery Call to Discuss Your Strategy",
+    cta: "Free Discovery Call",
     icon: "🔧"
   },
   {
@@ -98,7 +98,6 @@ const services: Service[] = [
     title: "AI Training for Business",
     headline: "Accelerate Business Growth with Strategic AI Implementation",
     subheading: "Turn AI from buzzword to business advantage",
-    freeTrial: "1 Week Free Trial - No Strings Attached",
     targetAudience: "C-suite, Product Managers, Business Leaders",
     outcomes: "Increase team productivity 40-60% with strategic AI adoption",
     offerings: [
@@ -113,7 +112,7 @@ const services: Service[] = [
         ]
       }
     ],
-    cta: "Book AI Strategy Session",
+    cta: "Free Discovery Call",
     icon: "🤖"
   },
   {
@@ -121,7 +120,6 @@ const services: Service[] = [
     title: "AI Training for Developers",
     headline: "Master AI-Powered Development and Testing",
     subheading: "Stay ahead of the curve with cutting-edge AI development skills",
-    guarantee: "All coding services include 7 days of free development work, no strings attached",
     technologies: ["Claude", "ChatGPT", "GitHub Copilot", "AI testing tools"],
     experience: "Trained 150,000+ developers across 190 countries",
     offerings: [
@@ -137,7 +135,7 @@ const services: Service[] = [
         ]
       }
     ],
-    cta: "Book Discovery Call for Developer Training",
+    cta: "Free Discovery Call",
     icon: "👨‍💻"
   },
   {
@@ -145,7 +143,6 @@ const services: Service[] = [
     title: "Web Development Services",
     headline: "Modern Web Applications Built for Scale and Performance",
     subheading: "Full-stack development with automation-first approach",
-    guarantee: "All coding services include 7 days of free development work, no strings attached",
     technologies: ["Next.js", "React", "TypeScript", "Node.js", "Cloud platforms"],
     approach: "Quality-driven development with built-in automation",
     offerings: [
@@ -161,61 +158,12 @@ const services: Service[] = [
         ]
       }
     ],
-    cta: "Book Discovery Call for Your Project",
+    cta: "Free Discovery Call",
     icon: "🌐"
   }
 ];
 
-// Client logos for social proof
-const clientLogos = [
-  { name: "Salesforce", logo: "🟢" },
-  { name: "Hilton", logo: "🏨" },
-  { name: "Microsoft", logo: "🟦" },
-  { name: "Healthcare Corp", logo: "🏥" },
-  { name: "Banking Group", logo: "🏦" }
-];
-
-// Service comparison matrix component
-const ServiceMatrix: React.FC = () => {
-  const comparisonData = [
-    { feature: "Enterprise Scale", automation: "✅", aiBusiness: "✅", aiDev: "✅", webDev: "✅" },
-    { feature: "Free Trial Period", automation: "7 days", aiBusiness: "1 week", aiDev: "7 days", webDev: "7 days" },
-    { feature: "Training Included", automation: "✅", aiBusiness: "✅", aiDev: "✅", webDev: "✅" },
-    { feature: "Ongoing Support", automation: "✅", aiBusiness: "✅", aiDev: "✅", webDev: "✅" }
-  ];
-
-  return (
-    <div className="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-medium">
-      <h3 className="text-xl font-bold mb-4 text-center">Service Comparison</h3>
-      <div className="overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b">
-              <th className="text-left py-2">Feature</th>
-              <th className="text-center py-2">Testing</th>
-              <th className="text-center py-2">AI Business</th>
-              <th className="text-center py-2">AI Dev</th>
-              <th className="text-center py-2">Web Dev</th>
-            </tr>
-          </thead>
-          <tbody>
-            {comparisonData.map((row, index) => (
-              <tr key={index} className="border-b last:border-b-0">
-                <td className="py-2 font-medium">{row.feature}</td>
-                <td className="text-center py-2">{row.automation}</td>
-                <td className="text-center py-2">{row.aiBusiness}</td>
-                <td className="text-center py-2">{row.aiDev}</td>
-                <td className="text-center py-2">{row.webDev}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
-};
-
-// Service card component
+// Service card component - Fixed badge positioning and contrast
 interface ServiceCardProps {
   service: Service;
   isActive: boolean;
@@ -234,16 +182,10 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, isActive, onClick })
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
     >
-      {/* Guarantee badge */}
+      {/* Fixed guarantee badge - only for automated testing */}
       {service.guarantee && (
-        <div className="absolute -top-3 -right-3 bg-accent-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
-          7 Days Free!
-        </div>
-      )}
-
-      {service.freeTrial && (
-        <div className="absolute -top-3 -right-3 bg-secondary-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
-          Free Trial!
+        <div className="absolute -top-2 -right-2 bg-accent-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg z-10">
+          {service.guarantee}
         </div>
       )}
 
@@ -408,18 +350,28 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ service }) => {
   );
 };
 
-// Client logos carousel
+// Client logos for social proof - Updated to remove specific company names
 const ClientLogos: React.FC = () => {
+  const logos = [
+    { name: "Fortune 500 Company", logo: "🏢" },
+    { name: "Healthcare Corp", logo: "🏥" },
+    { name: "Banking Group", logo: "🏦" },
+    { name: "Tech Enterprise", logo: "💻" },
+    { name: "Global Retail", logo: "🛍️" }
+  ];
+
   return (
-    <div className="bg-neutral-50 dark:bg-neutral-900/50 rounded-2xl p-6">
-      <h3 className="text-center text-lg font-semibold text-neutral-700 dark:text-neutral-300 mb-4">
+    <div className="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-medium mb-8">
+      <h3 className="text-xl font-bold text-center mb-6 text-neutral-900 dark:text-white">
         Trusted by Industry Leaders
       </h3>
-      <div className="flex justify-center items-center space-x-8 flex-wrap gap-4">
-        {clientLogos.map((client, _index) => (
-          <div key={_index} className="flex items-center space-x-2 text-neutral-600 dark:text-neutral-400">
-            <span className="text-2xl">{client.logo}</span>
-            <span className="font-medium">{client.name}</span>
+      <div className="flex flex-wrap justify-center items-center gap-8">
+        {logos.map((client, index) => (
+          <div key={index} className="flex flex-col items-center space-y-2">
+            <div className="text-4xl">{client.logo}</div>
+            <span className="text-sm text-neutral-600 dark:text-neutral-400 font-medium">
+              {client.name}
+            </span>
           </div>
         ))}
       </div>
@@ -429,13 +381,15 @@ const ClientLogos: React.FC = () => {
 
 // Main Services component
 const Services: React.FC = () => {
-  const [activeService, setActiveService] = useState<Service>(services[0]);
-  const sectionRef = useRef<HTMLElement>(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
+  const [activeService, setActiveService] = useState<string>(services[0].id);
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  const activeServiceData = services.find(service => service.id === activeService) || services[0];
 
   return (
-    <section ref={sectionRef} className="py-24 px-4 bg-gradient-to-br from-neutral-50 via-white to-primary-50/30 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900" id="services">
-      <div className="max-w-7xl mx-auto">
+    <section ref={ref} className="py-20 bg-neutral-50 dark:bg-neutral-900">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -451,20 +405,35 @@ const Services: React.FC = () => {
           </p>
         </motion.div>
 
-        {/* Service selector */}
+        {/* Client logos */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <ClientLogos />
+        </motion.div>
+
+        {/* Service selection */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
           className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12"
         >
-          {services.map((service, _index) => (
-            <ServiceCard
+          {services.map((service, index) => (
+            <motion.div
               key={service.id}
-              service={service}
-              isActive={activeService.id === service.id}
-              onClick={() => setActiveService(service)}
-            />
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.8, delay: 0.1 * index }}
+            >
+              <ServiceCard
+                service={service}
+                isActive={activeService === service.id}
+                onClick={() => setActiveService(service.id)}
+              />
+            </motion.div>
           ))}
         </motion.div>
 
@@ -472,29 +441,9 @@ const Services: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="mb-12"
-        >
-          <ServiceDetail service={activeService} />
-        </motion.div>
-
-        {/* Service comparison matrix */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="mb-12"
         >
-          <ServiceMatrix />
-        </motion.div>
-
-        {/* Client logos */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-        >
-          <ClientLogos />
+          <ServiceDetail service={activeServiceData} />
         </motion.div>
       </div>
     </section>

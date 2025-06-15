@@ -3,8 +3,7 @@
 import {
     ClockIcon,
     EnvelopeIcon,
-    MapPinIcon,
-    PhoneIcon
+    MapPinIcon
 } from '@heroicons/react/24/solid';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
@@ -32,8 +31,7 @@ const Contact = () => {
   }, []);
 
   const contactInfo = {
-    email: 'nadvolod@gmail.com',
-    phone: '(240) 750-0689',
+    email: 'nikolay@ultimateqa.com',
     location: 'Miami, FL',
     timezone: 'Eastern Time (UTC-5)'
   };
@@ -204,28 +202,18 @@ const Contact = () => {
                 </div>
                 
                 <div className="flex items-center gap-3">
-                  <PhoneIcon className="h-5 w-5 text-green-600" />
-                  <div>
-                    <div className="font-medium text-gray-900">Phone</div>
-                    <a href={`tel:${contactInfo.phone}`} className="text-green-600 hover:text-green-700">
-                      {contactInfo.phone}
-                    </a>
-                  </div>
-                </div>
-                
-                <div className="flex items-center gap-3">
-                  <MapPinIcon className="h-5 w-5 text-red-600" />
+                  <MapPinIcon className="h-5 w-5 text-blue-600" />
                   <div>
                     <div className="font-medium text-gray-900">Location</div>
-                    <span className="text-gray-600">{contactInfo.location}</span>
+                    <div className="text-gray-600">{contactInfo.location}</div>
                   </div>
                 </div>
                 
                 <div className="flex items-center gap-3">
-                  <ClockIcon className="h-5 w-5 text-purple-600" />
+                  <ClockIcon className="h-5 w-5 text-blue-600" />
                   <div>
                     <div className="font-medium text-gray-900">Timezone</div>
-                    <span className="text-gray-600">{contactInfo.timezone}</span>
+                    <div className="text-gray-600">{contactInfo.timezone}</div>
                   </div>
                 </div>
               </div>
@@ -241,52 +229,42 @@ const Contact = () => {
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    transition={{ duration: 0.3, delay: index * 0.1 }}
                     whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     className={`${link.color} text-white p-3 rounded-lg text-center transition-all duration-200 shadow-md hover:shadow-lg`}
                   >
-                    <div className="text-2xl mb-1">{link.icon}</div>
+                    <div className="text-lg mb-1">{link.icon}</div>
                     <div className="text-xs font-medium">{link.name}</div>
                   </motion.a>
                 ))}
               </div>
             </div>
 
-            {/* Response Time SLA */}
+            {/* Response Time Info */}
             <div className="bg-white rounded-xl p-6 shadow-lg">
-              <h3 className="text-xl font-bold text-gray-900 mb-6">Response Time Commitment</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-6">Response Times</h3>
               <div className="space-y-3">
-                {responseTimeInfo.map((item, index) => (
-                  <div key={index} className="flex items-center justify-between">
-                    <span className="text-sm text-gray-600">{item.type}</span>
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-medium text-gray-900">{item.time}</span>
-                      <div className={`w-2 h-2 rounded-full ${
-                        item.priority === 'urgent' ? 'bg-red-500' :
-                        item.priority === 'high' ? 'bg-yellow-500' : 'bg-green-500'
-                      }`}></div>
-                    </div>
+                {responseTimeInfo.map((info, index) => (
+                  <div key={index} className="flex justify-between items-center">
+                    <span className="text-sm text-gray-600">{info.type}</span>
+                    <span className={`text-xs px-2 py-1 rounded-full font-medium ${
+                      info.priority === 'urgent' ? 'bg-red-100 text-red-700' :
+                      info.priority === 'high' ? 'bg-yellow-100 text-yellow-700' :
+                      'bg-green-100 text-green-700'
+                    }`}>
+                      {info.time}
+                    </span>
                   </div>
                 ))}
               </div>
             </div>
-
-            {/* Meeting Scheduler */}
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-6 text-white">
-              <h3 className="text-xl font-bold mb-4">Schedule a Meeting</h3>
-              <p className="text-blue-100 mb-4">
-                Book a 30-minute consultation to discuss your automation needs
-              </p>
-              <button className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors w-full">
-                Book Free Consultation
-              </button>
-            </div>
           </motion.div>
 
-          {/* Contact Forms */}
+          {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -294,53 +272,45 @@ const Contact = () => {
             transition={{ duration: 0.6 }}
             className="lg:col-span-2"
           >
-            {/* Form Type Selection */}
-            <div className="bg-white rounded-xl p-6 shadow-lg mb-8">
-              <h3 className="text-xl font-bold text-gray-900 mb-6">What can I help you with?</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {formTypes.map((type) => (
-                  <button
-                    key={type.id}
-                    onClick={() => setSelectedFormType(type.id)}
-                    className={`p-4 rounded-lg border-2 transition-all duration-200 text-left ${
-                      selectedFormType === type.id
-                        ? 'border-blue-500 bg-blue-50'
-                        : 'border-gray-200 hover:border-gray-300'
-                    }`}
-                  >
-                    <div className="text-2xl mb-2">{type.icon}</div>
-                    <div className="font-semibold text-gray-900 mb-1">{type.name}</div>
-                    <div className="text-sm text-gray-600">{type.description}</div>
-                  </button>
-                ))}
+            <div className="bg-white rounded-xl p-8 shadow-lg">
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">Send a Message</h3>
+              
+              {/* Form Type Selector */}
+              <div className="mb-8">
+                <label className="block text-sm font-medium text-gray-700 mb-3">
+                  What can I help you with?
+                </label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                  {formTypes.map((type) => (
+                    <motion.button
+                      key={type.id}
+                      onClick={() => setSelectedFormType(type.id)}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className={`p-3 rounded-lg border-2 text-left transition-all duration-200 ${
+                        selectedFormType === type.id
+                          ? 'border-blue-500 bg-blue-50 text-blue-900'
+                          : 'border-gray-200 hover:border-gray-300 text-gray-700'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-lg">{type.icon}</span>
+                        <span className="font-medium text-sm">{type.name}</span>
+                      </div>
+                      <p className="text-xs text-gray-600">{type.description}</p>
+                    </motion.button>
+                  ))}
+                </div>
               </div>
-            </div>
 
-            {/* Selected Contact Form */}
-            <ContactForm 
-              formType={selectedFormType}
-              leadScore={formTypes.find(t => t.id === selectedFormType)?.leadScore || 5}
-            />
+              {/* Contact Form */}
+              <ContactForm 
+                formType={selectedFormType}
+                leadScore={formTypes.find(t => t.id === selectedFormType)?.leadScore || 5}
+              />
+            </div>
           </motion.div>
         </div>
-
-        {/* Interactive Map */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mt-16 bg-white rounded-xl p-6 shadow-lg"
-        >
-          <h3 className="text-xl font-bold text-gray-900 mb-6">Location</h3>
-          <div className="bg-gray-100 rounded-lg h-64 flex items-center justify-center">
-            <div className="text-center">
-              <MapPinIcon className="h-12 w-12 text-red-600 mx-auto mb-2" />
-              <div className="font-semibold text-gray-900">Miami, Florida</div>
-              <div className="text-gray-600">Available for on-site visits in South Florida</div>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
