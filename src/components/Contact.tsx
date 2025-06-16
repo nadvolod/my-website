@@ -7,11 +7,16 @@ import {
 } from '@heroicons/react/24/solid';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import ContactForm from './ContactForm';
 
 const Contact = () => {
-  const [selectedFormType, setSelectedFormType] = useState('general');
   const [isAvailable, setIsAvailable] = useState(true);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   // Check availability based on Miami timezone
   useEffect(() => {
@@ -29,6 +34,26 @@ const Contact = () => {
     const interval = setInterval(checkAvailability, 60000); // Check every minute
     return () => clearInterval(interval);
   }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    try {
+      // Simulate form submission
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', message: '' });
+    } catch {
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleInputChange = (field: keyof typeof formData, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
 
   const contactInfo = {
     email: 'nikolay@ultimateqa.com',
@@ -73,79 +98,6 @@ const Contact = () => {
       icon: '🐦',
       color: 'bg-black hover:bg-gray-800'
     }
-  ];
-
-  const formTypes = [
-    {
-      id: 'general',
-      name: 'General Contact',
-      description: 'General inquiries and consultation requests',
-      icon: '💬',
-      leadScore: 5
-    },
-    {
-      id: 'speaking',
-      name: 'Speaking Engagement',
-      description: 'Conference talks, keynotes, and workshops',
-      icon: '🎤',
-      leadScore: 15
-    },
-    {
-      id: 'corporate-training',
-      name: 'Corporate Training',
-      description: 'Team training and enterprise workshops',
-      icon: '🏢',
-      leadScore: 20
-    },
-    {
-      id: 'automation-services',
-      name: 'Automation Services',
-      description: 'Test automation consulting and implementation',
-      icon: '🤖',
-      leadScore: 25
-    },
-    {
-      id: 'ai-business',
-      name: 'AI Training for Business',
-      description: 'Executive AI workshops and business transformation',
-      icon: '🧠',
-      leadScore: 20
-    },
-    {
-      id: 'ai-developers',
-      name: 'AI Training for Developers',
-      description: 'Developer-focused AI tools and techniques',
-      icon: '👨‍💻',
-      leadScore: 15
-    },
-    {
-      id: 'web-development',
-      name: 'Web Development',
-      description: 'Custom web applications and development services',
-      icon: '🌐',
-      leadScore: 18
-    },
-    {
-      id: 'education-partnership',
-      name: 'Education Partnership',
-      description: 'Course collaborations and educational content',
-      icon: '🎓',
-      leadScore: 12
-    },
-    {
-      id: 'newsletter',
-      name: 'Newsletter Subscription',
-      description: 'Stay updated with latest insights and content',
-      icon: '📧',
-      leadScore: 3
-    }
-  ];
-
-  const responseTimeInfo = [
-    { type: 'General Inquiries', time: '24 hours', priority: 'standard' },
-    { type: 'Speaking Engagements', time: '12 hours', priority: 'high' },
-    { type: 'Corporate Training', time: '6 hours', priority: 'urgent' },
-    { type: 'Automation Services', time: '4 hours', priority: 'urgent' }
   ];
 
   return (
@@ -223,91 +175,116 @@ const Contact = () => {
             <div className="bg-white rounded-xl p-6 shadow-lg">
               <h3 className="text-xl font-bold text-gray-900 mb-6">Connect With Me</h3>
               <div className="grid grid-cols-2 gap-3">
-                {socialLinks.map((link, index) => (
+                {socialLinks.map((link) => (
                   <motion.a
                     key={link.name}
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: index * 0.1 }}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className={`${link.color} text-white p-3 rounded-lg text-center transition-all duration-200 shadow-md hover:shadow-lg`}
+                    className={`${link.color} text-white p-3 rounded-lg text-center transition-colors flex flex-col items-center gap-1`}
                   >
-                    <div className="text-lg mb-1">{link.icon}</div>
-                    <div className="text-xs font-medium">{link.name}</div>
+                    <span className="text-xl">{link.icon}</span>
+                    <span className="text-sm font-medium">{link.name}</span>
                   </motion.a>
-                ))}
-              </div>
-            </div>
-
-            {/* Response Time Info */}
-            <div className="bg-white rounded-xl p-6 shadow-lg">
-              <h3 className="text-xl font-bold text-gray-900 mb-6">Response Times</h3>
-              <div className="space-y-3">
-                {responseTimeInfo.map((info, index) => (
-                  <div key={index} className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">{info.type}</span>
-                    <span className={`text-xs px-2 py-1 rounded-full font-medium ${
-                      info.priority === 'urgent' ? 'bg-red-100 text-red-700' :
-                      info.priority === 'high' ? 'bg-yellow-100 text-yellow-700' :
-                      'bg-green-100 text-green-700'
-                    }`}>
-                      {info.time}
-                    </span>
-                  </div>
                 ))}
               </div>
             </div>
           </motion.div>
 
-          {/* Contact Form */}
+          {/* Simple Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
             className="lg:col-span-2"
           >
             <div className="bg-white rounded-xl p-8 shadow-lg">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Send a Message</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">Send Me a Message</h3>
               
-              {/* Form Type Selector */}
-              <div className="mb-8">
-                <label className="block text-sm font-medium text-gray-700 mb-3">
-                  What can I help you with?
-                </label>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                  {formTypes.map((type) => (
-                    <motion.button
-                      key={type.id}
-                      onClick={() => setSelectedFormType(type.id)}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className={`p-3 rounded-lg border-2 text-left transition-all duration-200 ${
-                        selectedFormType === type.id
-                          ? 'border-blue-500 bg-blue-50 text-blue-900'
-                          : 'border-gray-200 hover:border-gray-300 text-gray-700'
-                      }`}
-                    >
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="text-lg">{type.icon}</span>
-                        <span className="font-medium text-sm">{type.name}</span>
-                      </div>
-                      <p className="text-xs text-gray-600">{type.description}</p>
-                    </motion.button>
-                  ))}
+              {submitStatus === 'success' ? (
+                <div className="text-center py-8">
+                  <div className="text-6xl mb-4">✅</div>
+                  <h4 className="text-xl font-bold text-gray-900 mb-2">Thank You!</h4>
+                  <p className="text-gray-600 mb-4">Your message has been sent successfully. I&apos;ll get back to you soon!</p>
+                  <button
+                    onClick={() => setSubmitStatus('idle')}
+                    className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                  >
+                    Send Another Message
+                  </button>
                 </div>
-              </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                      Name *
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      required
+                      value={formData.name}
+                      onChange={(e) => handleInputChange('name', e.target.value)}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="Your full name"
+                    />
+                  </div>
 
-              {/* Contact Form */}
-              <ContactForm 
-                formType={selectedFormType}
-                leadScore={formTypes.find(t => t.id === selectedFormType)?.leadScore || 5}
-              />
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                      Email *
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      required
+                      value={formData.email}
+                      onChange={(e) => handleInputChange('email', e.target.value)}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="your.email@example.com"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                      Message *
+                    </label>
+                    <textarea
+                      id="message"
+                      required
+                      rows={6}
+                      value={formData.message}
+                      onChange={(e) => handleInputChange('message', e.target.value)}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="Tell me about your project or how I can help..."
+                    />
+                  </div>
+
+                  {submitStatus === 'error' && (
+                    <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+                      There was an error sending your message. Please try again or email me directly.
+                    </div>
+                  )}
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                        Sending...
+                      </>
+                    ) : (
+                      'Send Message'
+                    )}
+                  </button>
+                </form>
+              )}
             </div>
           </motion.div>
         </div>

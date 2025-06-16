@@ -57,10 +57,11 @@ const featuredProjects: FeaturedProject[] = [
   },
   {
     id: 'vollqai',
-    name: 'VollQAI',
-    description: 'AI-powered testing platform (paused for strategic reasons)',
+    name: 'VollQ.ai',
+    description: 'AI-powered testing platform for intelligent test automation',
     techStack: ['TypeScript', 'Next.js', 'OpenAI', 'PostgreSQL', 'Prisma'],
-    status: 'paused',
+    demoUrl: 'https://vollq.ai',
+    status: 'live',
     highlights: [
       'AI test case generation',
       'Natural language to automation',
