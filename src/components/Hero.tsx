@@ -178,7 +178,7 @@ const AutomationTicTacToe = ({
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.2 }}
       >
-        Automation vs Manual Testing
+        Automation Tic Tac Toe
       </motion.h2>
       
       {/* Fixed 3x3 Game Board */}
@@ -189,23 +189,24 @@ const AutomationTicTacToe = ({
         transition={{ delay: 0.4 }}
       >
         {/* Tic Tac Toe Grid with visible borders */}
-        <div className="bg-white/20 p-4 rounded-2xl backdrop-blur-md border border-white/30">
-          <div className="grid grid-cols-3 gap-2">
+        <div className="bg-white/25 p-6 rounded-3xl backdrop-blur-lg border border-white/40 shadow-2xl">
+          <div className="grid grid-cols-3 gap-3">
             {gameState.board.map((cell, index) => (
               <motion.button
                 key={index}
                 className={`
                   w-full h-24 md:h-28 lg:h-32
-                  bg-white/10 backdrop-blur-sm
-                  border-2 border-white/30
-                  rounded-lg
+                  bg-white/15 backdrop-blur-sm
+                  border-2 border-white/40
+                  rounded-xl
                   flex items-center justify-center
                   text-4xl md:text-5xl lg:text-6xl
                   font-bold
                   transition-all duration-200
+                  shadow-lg
                   ${cell 
-                    ? 'cursor-not-allowed bg-white/20 border-white/50' 
-                    : 'hover:bg-white/20 hover:border-cyan-400/60 hover:scale-105 cursor-pointer'
+                    ? 'cursor-not-allowed bg-white/30 border-white/60 shadow-inner' 
+                    : 'hover:bg-white/25 hover:border-cyan-400/70 hover:scale-105 cursor-pointer hover:shadow-xl'
                   }
                 `}
                 onClick={() => handleCellClick(index)}
@@ -223,7 +224,7 @@ const AutomationTicTacToe = ({
                       damping: 20,
                       duration: 0.4 
                     }}
-                    className="select-none"
+                    className="select-none drop-shadow-lg"
                   >
                     {cell}
                   </motion.span>
@@ -236,13 +237,15 @@ const AutomationTicTacToe = ({
       
       {/* Game Message */}
       <motion.div 
-        className="text-lg md:text-xl lg:text-2xl text-center mb-8 min-h-[4rem] flex items-center justify-center max-w-lg px-6 py-4 bg-white/10 backdrop-blur-md rounded-xl border border-white/20"
+        className="text-lg md:text-xl lg:text-2xl text-center mb-8 min-h-[4rem] flex items-center justify-center max-w-2xl px-8 py-6 bg-white/20 backdrop-blur-lg rounded-2xl border border-white/40 shadow-2xl"
         key={gameState.message}
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        {gameState.message}
+        <span className="text-white font-semibold drop-shadow-lg">
+          {gameState.message}
+        </span>
       </motion.div>
       
       {/* Game Actions */}
@@ -274,35 +277,37 @@ const AutomationTicTacToe = ({
         </motion.div>
       )}
       
-      {/* Navigation to Next Section */}
-      <motion.div
-        className="flex flex-col items-center gap-4"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-      >
-        <p className="text-white/60 text-center">
-          Discover more about my expertise and services
-        </p>
-        <Button
-          variant="outline"
-          size="md"
-          onClick={onNavigateToNext}
-          data-testid="explore-more-button"
-          className="border-white/30 text-white hover:bg-white/10 hover:border-white/50 transition-all duration-300"
-        >
-          Explore More ↓
-        </Button>
-      </motion.div>
+             {/* Navigation to Next Section */}
+       <motion.div
+         className="flex flex-col items-center gap-4"
+         initial={{ opacity: 0, y: 20 }}
+         animate={{ opacity: 1, y: 0 }}
+         transition={{ delay: 0.5 }}
+       >
+         <p className="text-white/80 text-center text-lg font-medium drop-shadow-md">
+           Discover more about my expertise and services
+         </p>
+         <Button
+           variant="outline"
+           size="md"
+           onClick={onNavigateToNext}
+           data-testid="explore-more-button"
+           className="border-white/40 text-white hover:bg-white/15 hover:border-white/60 transition-all duration-300 shadow-lg hover:shadow-xl"
+         >
+           Explore More ↓
+         </Button>
+       </motion.div>
       
       {/* Game Legend */}
       <motion.div
-        className="mt-8 text-center text-sm md:text-base text-white/60 px-4 py-2 bg-white/5 rounded-lg border border-white/10"
+        className="mt-8 text-center text-sm md:text-base text-white/90 px-6 py-4 bg-white/15 rounded-xl border border-white/30 backdrop-blur-md shadow-lg"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1 }}
       >
-        <p>You: Automation Tools (⚡🤖🔧) • Computer: Manual Testing (👤📝🐌)</p>
+        <p className="font-medium drop-shadow-md">
+          <span className="text-cyan-300">You:</span> Automation Tools (⚡🤖🔧) • <span className="text-pink-300">Computer:</span> Manual Testing (👤📝🐌)
+        </p>
       </motion.div>
     </motion.div>
   );

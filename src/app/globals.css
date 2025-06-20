@@ -350,3 +350,107 @@ html {
     opacity: 0.5;
   }
 }
+
+/* HubSpot Form Styling Overrides for Light Theme */
+.light-theme-form .hs-form,
+.light-theme-form .hs-form fieldset {
+  background: white !important;
+}
+
+.light-theme-form .hs-form label {
+  color: #374151 !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  margin-bottom: 6px !important;
+  display: block !important;
+}
+
+.light-theme-form .hs-form input[type="text"],
+.light-theme-form .hs-form input[type="email"],
+.light-theme-form .hs-form input[type="tel"],
+.light-theme-form .hs-form textarea,
+.light-theme-form .hs-form select {
+  background: white !important;
+  color: #111827 !important;
+  border: 2px solid #d1d5db !important;
+  border-radius: 8px !important;
+  padding: 12px !important;
+  font-size: 16px !important;
+  width: 100% !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.light-theme-form .hs-form input[type="text"]:focus,
+.light-theme-form .hs-form input[type="email"]:focus,
+.light-theme-form .hs-form input[type="tel"]:focus,
+.light-theme-form .hs-form textarea:focus,
+.light-theme-form .hs-form select:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+  outline: none !important;
+}
+
+.light-theme-form .hs-form input[type="text"]::placeholder,
+.light-theme-form .hs-form input[type="email"]::placeholder,
+.light-theme-form .hs-form input[type="tel"]::placeholder,
+.light-theme-form .hs-form textarea::placeholder {
+  color: #9ca3af !important;
+}
+
+.light-theme-form .hs-form .hs-button {
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 12px 24px !important;
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  margin-top: 16px !important;
+}
+
+.light-theme-form .hs-form .hs-button:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4) !important;
+}
+
+.light-theme-form .hs-form .hs-error-msg {
+  color: #dc2626 !important;
+  font-size: 14px !important;
+  margin-top: 4px !important;
+}
+
+.light-theme-form .hs-form .hs-form-required {
+  color: #dc2626 !important;
+}
+
+.light-theme-form .hs-form .hs-fieldtype-text,
+.light-theme-form .hs-form .hs-fieldtype-textarea,
+.light-theme-form .hs-form .hs-fieldtype-select {
+  margin-bottom: 20px !important;
+}
+
+/* Ensure all text is dark in the form */
+.light-theme-form .hs-form * {
+  color: #374151 !important;
+}
+
+.light-theme-form .hs-form input,
+.light-theme-form .hs-form textarea,
+.light-theme-form .hs-form select {
+  color: #111827 !important;
+}
+
+/* Override any dark theme styles that might be applied */
+.light-theme-form .hs-form .hs-input {
+  background: white !important;
+  color: #111827 !important;
+}
+
+.light-theme-form .hs-form .hs-fieldtype-text .hs-input,
+.light-theme-form .hs-form .hs-fieldtype-email .hs-input,
+.light-theme-form .hs-form .hs-fieldtype-textarea .hs-input {
+  background: white !important;
+  color: #111827 !important;
+}

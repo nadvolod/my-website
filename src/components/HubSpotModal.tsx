@@ -33,24 +33,24 @@ const HubSpotModal: React.FC<HubSpotModalProps> = ({
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.9, opacity: 0, y: 20 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="bg-white dark:bg-gray-800 rounded-2xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
+            className="bg-white rounded-2xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                <h2 className="text-2xl font-bold text-gray-900">
                   {title}
                 </h2>
                 {subtitle && (
-                  <p className="text-gray-600 dark:text-gray-300 mt-2">
+                  <p className="text-gray-600 mt-2">
                     {subtitle}
                   </p>
                 )}
               </div>
               <button
                 onClick={onClose}
-                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+                className="text-gray-500 hover:text-gray-700 transition-colors p-2 rounded-lg hover:bg-gray-100"
                 aria-label="Close modal"
               >
                 <XMarkIcon className="h-6 w-6" />
@@ -58,7 +58,7 @@ const HubSpotModal: React.FC<HubSpotModalProps> = ({
             </div>
 
             {/* HubSpot Form */}
-            <div className="hubspot-modal-form">
+            <div className="hubspot-modal-form light-theme-form">
               <HubSpotForm 
                 formTitle=""
                 className="modal-hubspot-form"
