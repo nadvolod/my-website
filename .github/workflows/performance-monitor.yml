@@ -1,0 +1,150 @@
+name: ⚡ Performance Monitor
+
+on:
+  schedule:
+    # Run every day at 6 AM UTC
+    - cron: '0 6 * * *'
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  lighthouse-audit:
+    name: 🔍 Lighthouse Audit
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: 📥 Install dependencies
+        run: npm ci
+
+      - name: 🎭 Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: ⚡ Run Lighthouse audit (Mobile)
+        run: |
+          npx lighthouse https://nikolayadvolodkin.com \
+            --output=json \
+            --output-path=lighthouse-mobile.json \
+            --chrome-flags="--headless" \
+            --emulated-form-factor=mobile \
+            --throttling-method=devtools
+
+      - name: ⚡ Run Lighthouse audit (Desktop)
+        run: |
+          npx lighthouse https://nikolayadvolodkin.com \
+            --output=json \
+            --output-path=lighthouse-desktop.json \
+            --chrome-flags="--headless" \
+            --emulated-form-factor=desktop \
+            --throttling-method=devtools
+
+      - name: 📊 Parse Lighthouse results
+        run: |
+          echo "## ⚡ Performance Audit Results - $(date)" > performance-report.md
+          echo "" >> performance-report.md
+          
+          # Mobile results
+          echo "### 📱 Mobile Performance" >> performance-report.md
+          MOBILE_PERFORMANCE=$(cat lighthouse-mobile.json | jq '.categories.performance.score * 100' | cut -d. -f1)
+          MOBILE_ACCESSIBILITY=$(cat lighthouse-mobile.json | jq '.categories.accessibility.score * 100' | cut -d. -f1)
+          MOBILE_BEST_PRACTICES=$(cat lighthouse-mobile.json | jq '.categories["best-practices"].score * 100' | cut -d. -f1)
+          MOBILE_SEO=$(cat lighthouse-mobile.json | jq '.categories.seo.score * 100' | cut -d. -f1)
+          
+          echo "- Performance: ${MOBILE_PERFORMANCE}/100" >> performance-report.md
+          echo "- Accessibility: ${MOBILE_ACCESSIBILITY}/100" >> performance-report.md
+          echo "- Best Practices: ${MOBILE_BEST_PRACTICES}/100" >> performance-report.md
+          echo "- SEO: ${MOBILE_SEO}/100" >> performance-report.md
+          echo "" >> performance-report.md
+          
+          # Desktop results
+          echo "### 🖥️ Desktop Performance" >> performance-report.md
+          DESKTOP_PERFORMANCE=$(cat lighthouse-desktop.json | jq '.categories.performance.score * 100' | cut -d. -f1)
+          DESKTOP_ACCESSIBILITY=$(cat lighthouse-desktop.json | jq '.categories.accessibility.score * 100' | cut -d. -f1)
+          DESKTOP_BEST_PRACTICES=$(cat lighthouse-desktop.json | jq '.categories["best-practices"].score * 100' | cut -d. -f1)
+          DESKTOP_SEO=$(cat lighthouse-desktop.json | jq '.categories.seo.score * 100' | cut -d. -f1)
+          
+          echo "- Performance: ${DESKTOP_PERFORMANCE}/100" >> performance-report.md
+          echo "- Accessibility: ${DESKTOP_ACCESSIBILITY}/100" >> performance-report.md
+          echo "- Best Practices: ${DESKTOP_BEST_PRACTICES}/100" >> performance-report.md
+          echo "- SEO: ${DESKTOP_SEO}/100" >> performance-report.md
+          echo "" >> performance-report.md
+          
+          # Core Web Vitals
+          echo "### 🎯 Core Web Vitals (Mobile)" >> performance-report.md
+          LCP=$(cat lighthouse-mobile.json | jq '.audits["largest-contentful-paint"].numericValue / 1000')
+          FID=$(cat lighthouse-mobile.json | jq '.audits["max-potential-fid"].numericValue')
+          CLS=$(cat lighthouse-mobile.json | jq '.audits["cumulative-layout-shift"].numericValue')
+          
+          echo "- Largest Contentful Paint: ${LCP}s" >> performance-report.md
+          echo "- First Input Delay: ${FID}ms" >> performance-report.md
+          echo "- Cumulative Layout Shift: ${CLS}" >> performance-report.md
+          echo "" >> performance-report.md
+          
+          # Set environment variables for GitHub Actions summary
+          echo "MOBILE_PERFORMANCE=${MOBILE_PERFORMANCE}" >> $GITHUB_ENV
+          echo "DESKTOP_PERFORMANCE=${DESKTOP_PERFORMANCE}" >> $GITHUB_ENV
+
+      - name: 📊 Generate GitHub Actions summary
+        run: |
+          echo "## ⚡ Performance Audit Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📱 Mobile: ${MOBILE_PERFORMANCE}/100" >> $GITHUB_STEP_SUMMARY
+          echo "### 🖥️ Desktop: ${DESKTOP_PERFORMANCE}/100" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Full report available in artifacts." >> $GITHUB_STEP_SUMMARY
+
+      - name: 📊 Upload Lighthouse reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-reports-${{ github.run_number }}
+          path: |
+            lighthouse-mobile.json
+            lighthouse-desktop.json
+            performance-report.md
+          retention-days: 90
+
+      - name: ⚠️ Check performance thresholds
+        run: |
+          if [ "$MOBILE_PERFORMANCE" -lt 90 ] || [ "$DESKTOP_PERFORMANCE" -lt 95 ]; then
+            echo "⚠️ Performance below target thresholds!"
+            echo "Mobile: $MOBILE_PERFORMANCE/100 (target: 90+)"
+            echo "Desktop: $DESKTOP_PERFORMANCE/100 (target: 95+)"
+            exit 1
+          else
+            echo "✅ Performance meets target thresholds"
+          fi
+
+  core-web-vitals:
+    name: 🎯 Core Web Vitals Check
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: 📥 Install dependencies
+        run: npm ci
+
+      - name: 🧪 Run Core Web Vitals tests
+        run: npm run test:performance
+
+      - name: 📊 Upload CWV results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: core-web-vitals-${{ github.run_number }}
+          path: test-results/
+          retention-days: 30 
