@@ -2,7 +2,6 @@
 
 import { navigationItems } from '@/lib/links';
 import {
-    Bars3Icon,
     ChevronUpIcon,
     MagnifyingGlassIcon,
     MoonIcon,
@@ -12,17 +11,26 @@ import {
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
 import React, { useCallback, useEffect, useState } from 'react';
+import Button from './ui/Button';
 
-// Throttle function for performance
-const throttle = <T extends (...args: unknown[]) => void>(func: T, limit: number) => {
-  let inThrottle: boolean;
-  return function(this: unknown, ...args: Parameters<T>) {
-    if (!inThrottle) {
-      func.apply(this, args);
-      inThrottle = true;
-      setTimeout(() => inThrottle = false, limit);
+// Throttle function for scroll events
+const throttle = (func: (...args: unknown[]) => void, delay: number) => {
+  let timeoutId: NodeJS.Timeout | null = null;
+  let lastExecTime = 0;
+  return (...args: unknown[]) => {
+    const currentTime = Date.now();
+    
+    if (currentTime - lastExecTime > delay) {
+      func(...args);
+      lastExecTime = currentTime;
+    } else {
+      if (timeoutId) clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func(...args);
+        lastExecTime = Date.now();
+      }, delay - (currentTime - lastExecTime));
     }
-  }
+  };
 };
 
 const Navigation = () => {
@@ -32,39 +40,41 @@ const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
-  const { theme, setTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Optimized scroll handler with throttling
-  const handleScroll = useCallback(throttle(() => {
-    const scrollPosition = window.scrollY;
-    setIsScrolled(scrollPosition > 50);
-    setShowBackToTop(scrollPosition > 500);
+  // Throttled scroll handler - 100ms throttle for better performance
+  const handleScroll = useCallback(
+    throttle(() => {
+      const scrollPosition = window.scrollY;
+      setIsScrolled(scrollPosition > 50);
+      setShowBackToTop(scrollPosition > 500);
 
-    // Simplified active section detection
-    if (scrollPosition < 100) {
-      setActiveSection('hero');
-    } else if (scrollPosition < 800) {
-      setActiveSection('about');
-    } else if (scrollPosition < 1600) {
-      setActiveSection('services');
-    } else if (scrollPosition < 2400) {
-      setActiveSection('speaking');
-    } else if (scrollPosition < 3200) {
-      setActiveSection('courses');
-    } else {
-      setActiveSection('contact');
-    }
-  }, 100), []);
+      // Simplified active section detection
+      if (scrollPosition < 100) {
+        setActiveSection('hero');
+      } else if (scrollPosition < 800) {
+        setActiveSection('about');
+      } else if (scrollPosition < 1600) {
+        setActiveSection('services');
+      } else if (scrollPosition < 2400) {
+        setActiveSection('speaking');
+      } else if (scrollPosition < 3200) {
+        setActiveSection('courses');
+      } else {
+        setActiveSection('contact');
+      }
+    }, 100),
+    []
+  );
 
-  // Handle scroll effects
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
   // Handle smooth scroll to section
@@ -126,6 +136,58 @@ const Navigation = () => {
       document.body.style.overflow = 'unset';
     };
   }, [isMenuOpen]);
+
+  // Theme toggle handler
+  const toggleTheme = () => {
+    setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
+  };
+
+  // Mobile menu toggle
+  const toggleMobileMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  // Don't render theme toggle until mounted
+  if (!mounted) {
+    return (
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md border-b border-neutral-200 dark:border-neutral-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex-shrink-0">
+              <span className="text-2xl font-bold text-neutral-900 dark:text-white">
+                NA
+              </span>
+            </div>
+            <div className="hidden md:block">
+              <div className="ml-10 flex items-baseline space-x-8">
+                {navigationItems.map((item) => (
+                  item.external ? (
+                    <a
+                      key={item.id}
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-neutral-600 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 px-3 py-2 text-sm font-medium transition-colors"
+                    >
+                      {item.label}
+                    </a>
+                  ) : (
+                    <button
+                      key={item.id}
+                      onClick={() => scrollToSection(item.id)}
+                      className="text-neutral-600 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 px-3 py-2 text-sm font-medium transition-colors"
+                    >
+                      {item.label}
+                    </button>
+                  )
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    );
+  }
 
   return (
     <>
@@ -207,11 +269,12 @@ const Navigation = () => {
               {/* Theme Toggle */}
               {mounted && (
                 <button
-                  onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                  onClick={toggleTheme}
+                  data-testid="theme-toggle"
                   className="p-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                  aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+                  aria-label={`Switch to ${resolvedTheme === 'dark' ? 'light' : 'dark'} mode`}
                 >
-                  {theme === 'dark' ? (
+                  {resolvedTheme === 'dark' ? (
                     <SunIcon className="h-5 w-5" />
                   ) : (
                     <MoonIcon className="h-5 w-5" />
@@ -220,42 +283,55 @@ const Navigation = () => {
               )}
 
               {/* CTA Button */}
-              <button
+              <Button
+                variant="primary"
+                size="md"
                 onClick={() => scrollToSection('contact')}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               >
                 Get In Touch
-              </button>
+              </Button>
             </div>
 
             {/* Mobile Menu Button */}
             <div className="md:hidden flex items-center space-x-1">
-              {/* Mobile Theme Toggle */}
-              {mounted && (
-                <button
-                  onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                  className="p-3 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors min-h-touch min-w-touch rounded-lg"
-                  aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-                >
-                  {theme === 'dark' ? (
-                    <SunIcon className="h-5 w-5" />
-                  ) : (
-                    <MoonIcon className="h-5 w-5" />
-                  )}
-                </button>
-              )}
-
               <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="menu-button p-3 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors min-h-touch min-w-touch rounded-lg"
+                onClick={toggleMobileMenu}
+                data-testid="mobile-menu-toggle"
+                className="p-3 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors min-h-touch min-w-touch rounded-lg"
                 aria-label="Toggle mobile menu"
                 aria-expanded={isMenuOpen}
               >
-                {isMenuOpen ? (
-                  <XMarkIcon className="h-6 w-6" />
-                ) : (
-                  <Bars3Icon className="h-6 w-6" />
-                )}
+                <AnimatePresence mode="wait">
+                  {isMenuOpen ? (
+                    <motion.svg
+                      key="close"
+                      initial={{ rotate: -90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: 90, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="w-6 h-6"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </motion.svg>
+                  ) : (
+                    <motion.svg
+                      key="menu"
+                      initial={{ rotate: 90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: -90, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="w-6 h-6"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                    </motion.svg>
+                  )}
+                </AnimatePresence>
               </button>
             </div>
           </div>
@@ -371,12 +447,14 @@ const Navigation = () => {
 
                 {/* Mobile CTA */}
                 <div className="px-6 py-4 border-t border-gray-200 dark:border-gray-700">
-                  <button
+                  <Button
+                    variant="primary"
+                    size="md"
                     onClick={() => scrollToSection('contact')}
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                    className="w-full"
                   >
                     Get In Touch
-                  </button>
+                  </Button>
                 </div>
               </div>
             </motion.div>
@@ -387,16 +465,22 @@ const Navigation = () => {
       {/* Back to Top Button */}
       <AnimatePresence>
         {showBackToTop && (
-          <motion.button
+          <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
-            onClick={scrollToTop}
-            className="fixed bottom-8 right-8 z-40 p-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-            aria-label="Back to top"
+            className="fixed bottom-8 right-8 z-40"
           >
-            <ChevronUpIcon className="h-6 w-6" />
-          </motion.button>
+            <Button
+              variant="primary"
+              size="md"
+              onClick={scrollToTop}
+              className="!p-3 rounded-full shadow-lg"
+              aria-label="Back to top"
+            >
+              <ChevronUpIcon className="h-6 w-6" />
+            </Button>
+          </motion.div>
         )}
       </AnimatePresence>
     </>

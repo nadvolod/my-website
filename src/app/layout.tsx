@@ -1,4 +1,4 @@
-import FloatingActionButton from "@/components/FloatingActionButton";
+import ClientLayout from "@/components/ClientLayout";
 import Navigation from "@/components/Navigation";
 import StructuredData from "@/components/StructuredData";
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -35,7 +35,10 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://nikolayadvolodkin.com'),
-  title: "Nikolay Advolodkin - Developer Advocate & Automation Expert",
+  title: {
+    default: 'Nikolay Advolodkin - Developer Advocate & Automation Expert',
+    template: '%s | Nikolay Advolodkin'
+  },
   description: "Leading automation expert with 16+ years experience. Training 150,000+ developers across 190 countries in test automation, AI, and modern development practices.",
   keywords: [
     "test automation",
@@ -47,7 +50,17 @@ export const metadata: Metadata = {
     "typescript",
     "AI training",
     "software testing",
-    "quality assurance"
+    "quality assurance",
+    "Developer Advocate",
+    "Test Automation",
+    "Selenium",
+    "Playwright",
+    "Cypress",
+    "AI Training",
+    "Software Testing",
+    "UltimateQA",
+    "International Speaker",
+    "Automation Expert"
   ],
   authors: [{ name: "Nikolay Advolodkin" }],
   creator: "Nikolay Advolodkin",
@@ -92,6 +105,12 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://nikolayadvolodkin.com',
   },
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon-16x16.png',
+    apple: '/apple-touch-icon.png',
+  },
+  manifest: '/site.webmanifest',
 };
 
 export default function RootLayout({
@@ -123,16 +142,61 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
         
         <StructuredData />
+
+        {/* Service Worker Registration */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                  navigator.serviceWorker.register('/sw.js')
+                    .then(function(registration) {
+                      console.log('SW registered: ', registration);
+                    })
+                    .catch(function(registrationError) {
+                      console.log('SW registration failed: ', registrationError);
+                    });
+                });
+              }
+            `,
+          }}
+        />
+
+        {/* HubSpot Script for Form Integration */}
+        <script
+          type="text/javascript"
+          id="hs-script-loader"
+          async
+          defer
+          src="//js.hs-scripts.com/YOUR_PORTAL_ID.js"
+        />
+        {/* Google Analytics (if needed) */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'GA_MEASUREMENT_ID');
+            `,
+          }}
+        />
       </head>
       <body
         className={`${geist.variable} ${geistMono.variable} antialiased bg-background text-foreground min-h-screen`}
+        suppressHydrationWarning
       >
         <ThemeProvider>
           <Navigation />
           <main className="pt-16 sm:pt-20">
-            {children}
+            <ClientLayout>
+              {children}
+            </ClientLayout>
           </main>
-          <FloatingActionButton />
         </ThemeProvider>
       </body>
     </html>

@@ -12,6 +12,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useEffect, useMemo, useState } from 'react';
+import Button from './ui/Button';
 
 // Types
 interface GitHubRepo {
@@ -57,10 +58,11 @@ const featuredProjects: FeaturedProject[] = [
   },
   {
     id: 'vollqai',
-    name: 'VollQAI',
-    description: 'AI-powered testing platform (paused for strategic reasons)',
+    name: 'VollQ.ai',
+    description: 'AI-powered testing platform for intelligent test automation',
     techStack: ['TypeScript', 'Next.js', 'OpenAI', 'PostgreSQL', 'Prisma'],
-    status: 'paused',
+    demoUrl: 'https://vollq.ai',
+    status: 'live',
     highlights: [
       'AI test case generation',
       'Natural language to automation',
@@ -87,12 +89,12 @@ const featuredProjects: FeaturedProject[] = [
   {
     id: 'testing-frameworks',
     name: 'Testing Frameworks',
-    description: 'Custom automation solutions for Fortune 500',
+    description: 'Custom automation solutions for enterprise clients',
     techStack: ['Selenium', 'Playwright', 'Cypress', 'TestNG', 'Junit'],
     status: 'live',
     highlights: [
-      'Fortune 500 implementations',
-      'Enterprise-grade solutions',
+      'Enterprise-grade implementations',
+      'Scalable automation solutions',
       'Cross-browser automation',
       'CI/CD integration',
     ],
@@ -163,7 +165,6 @@ const Projects: React.FC = () => {
   const [githubRepos, setGithubRepos] = useState<GitHubRepo[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedTech, setSelectedTech] = useState<string>('All');
   const [showFeatured, setShowFeatured] = useState(true);
 
   useEffect(() => {
@@ -175,21 +176,6 @@ const Projects: React.FC = () => {
 
     return () => clearTimeout(timer);
   }, []);
-
-  const allTechnologies = useMemo(() => {
-    const techSet = new Set<string>();
-
-    featuredProjects.forEach(project => {
-      project.techStack.forEach(tech => techSet.add(tech));
-    });
-
-    githubRepos.forEach(repo => {
-      if (repo.language) techSet.add(repo.language);
-      repo.topics.forEach(topic => techSet.add(topic));
-    });
-
-    return ['All', ...Array.from(techSet).sort()];
-  }, [githubRepos]);
 
   const filteredProjects = useMemo(() => {
     let projects = showFeatured ? [...featuredProjects] : [];
@@ -209,20 +195,8 @@ const Projects: React.FC = () => {
       );
     }
 
-    if (selectedTech !== 'All') {
-      const tech = selectedTech.toLowerCase();
-      projects = projects.filter(project =>
-        project.techStack.some(t => t.toLowerCase().includes(tech))
-      );
-      repos = repos.filter(
-        repo =>
-          (repo.language && repo.language.toLowerCase().includes(tech)) ||
-          repo.topics.some(topic => topic.toLowerCase().includes(tech))
-      );
-    }
-
     return { projects, repos };
-  }, [searchTerm, selectedTech, showFeatured, githubRepos]);
+  }, [searchTerm, showFeatured, githubRepos]);
 
   const getStatusIndicator = (status: FeaturedProject['status']) => {
     switch (status) {
@@ -272,18 +246,6 @@ const Projects: React.FC = () => {
             Explore my work in automation, AI, and developer education that has impacted
             thousands of engineers worldwide.
           </p>
-
-          {/* GitHub Activity Graph Placeholder */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-4xl mx-auto mb-8 shadow-sm border border-gray-200 dark:border-gray-700">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-              GitHub Activity
-            </h3>
-            <div className="h-32 bg-gradient-to-r from-green-100 to-blue-100 dark:from-green-900 dark:to-blue-900 rounded-lg flex items-center justify-center">
-              <p className="text-gray-600 dark:text-gray-300">
-                GitHub contribution graph integration ready
-              </p>
-            </div>
-          </div>
         </motion.div>
 
         {/* Controls */}
@@ -294,7 +256,7 @@ const Projects: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="mb-12"
         >
-          <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
+          <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
             {/* Search */}
             <div className="relative flex-1 max-w-md">
               <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
@@ -305,23 +267,6 @@ const Projects: React.FC = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white"
               />
-            </div>
-
-            {/* Technology Filter */}
-            <div className="flex flex-wrap gap-2">
-              {allTechnologies.map((tech) => (
-                <button
-                  key={tech}
-                  onClick={() => setSelectedTech(tech)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                    selectedTech === tech
-                      ? 'bg-blue-600 text-white shadow-md'
-                      : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 hover:border-blue-300'
-                  }`}
-                >
-                  {tech}
-                </button>
-              ))}
             </div>
 
             {/* Toggle Featured */}
@@ -357,7 +302,7 @@ const Projects: React.FC = () => {
         {!loading && (
           <AnimatePresence mode="wait">
             <motion.div
-              key={`${searchTerm}-${selectedTech}-${showFeatured}`}
+              key={`${searchTerm}-${showFeatured}`}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -426,26 +371,32 @@ const Projects: React.FC = () => {
 
                     <div className="flex gap-3">
                       {project.demoUrl && (
-                        <a
-                          href={project.demoUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                        <Button
+                          variant="primary"
+                          size="sm"
+                          onClick={() => {
+                            if (project.demoUrl) {
+                              window.open(project.demoUrl, '_blank');
+                            }
+                          }}
+                          leftIcon={<EyeIcon className="h-4 w-4" />}
                         >
-                          <EyeIcon className="h-4 w-4" />
                           View Demo
-                        </a>
+                        </Button>
                       )}
                       {project.repoUrl && (
-                        <a
-                          href={project.repoUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium"
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          onClick={() => {
+                            if (project.repoUrl) {
+                              window.open(project.repoUrl, '_blank');
+                            }
+                          }}
+                          leftIcon={<CodeBracketIcon className="h-4 w-4" />}
                         >
-                          <CodeBracketIcon className="h-4 w-4" />
                           View Code
-                        </a>
+                        </Button>
                       )}
                     </div>
                   </div>
@@ -515,25 +466,27 @@ const Projects: React.FC = () => {
                     </div>
 
                     <div className="flex gap-3">
-                      <a
-                        href={repo.html_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium"
+                      <Button
+                        variant="secondary"
+                        size="sm"
+                        onClick={() => window.open(repo.html_url, '_blank')}
+                        leftIcon={<CodeBracketIcon className="h-4 w-4" />}
                       >
-                        <CodeBracketIcon className="h-4 w-4" />
                         View Code
-                      </a>
+                      </Button>
                       {repo.homepage && (
-                        <a
-                          href={repo.homepage}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                        <Button
+                          variant="primary"
+                          size="sm"
+                          onClick={() => {
+                            if (repo.homepage) {
+                              window.open(repo.homepage, '_blank');
+                            }
+                          }}
+                          leftIcon={<LinkIcon className="h-4 w-4" />}
                         >
-                          <LinkIcon className="h-4 w-4" />
                           Live Demo
-                        </a>
+                        </Button>
                       )}
                     </div>
                   </div>

@@ -1,5 +1,6 @@
 'use client';
 
+import { WEBSITE_STATS } from '@/config/stats';
 import {
     AcademicCapIcon,
     BookOpenIcon,
@@ -9,7 +10,7 @@ import {
     StarIcon,
     UserGroupIcon,
     VideoCameraIcon
-} from '@heroicons/react/24/solid';
+} from '@heroicons/react/24/outline';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
@@ -146,6 +147,7 @@ const Courses = () => {
     onClose: () => void;
   }
 
+  // eslint-disable-next-line react/prop-types
   const VideoModal: React.FC<VideoModalProps> = ({ video, onClose }) => {
     if (!video) return null;
 
@@ -168,11 +170,15 @@ const Courses = () => {
             <PlayIcon className="h-16 w-16 text-white opacity-50" />
           </div>
           <div className="p-6">
+            {/* eslint-disable-next-line react/prop-types */}
             <h3 className="text-xl font-bold mb-2">{video.title}</h3>
             <div className="flex items-center gap-4 text-gray-600">
+              {/* eslint-disable-next-line react/prop-types */}
               <span>{video.views} views</span>
+              {/* eslint-disable-next-line react/prop-types */}
               <span>{video.duration}</span>
               <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-sm">
+                {/* eslint-disable-next-line react/prop-types */}
                 {video.category}
               </span>
             </div>
@@ -198,7 +204,7 @@ const Courses = () => {
             Educational Content & Courses
           </h2>
           <p className="text-xl text-gray-600 mb-8">
-            Empowering 150,000+ students across 190 countries with cutting-edge automation skills
+            Empowering {WEBSITE_STATS.studentsTraught} students across {WEBSITE_STATS.countriesReached} countries with cutting-edge automation skills
           </p>
           
           {/* Stats */}
@@ -236,7 +242,7 @@ const Courses = () => {
           <div className="text-center">
             <h3 className="text-3xl font-bold mb-4">UltimateQA Platform</h3>
             <p className="text-xl mb-6 text-purple-100">
-              All content is FREE - Join 150,000+ developers learning automation
+              All content is FREE - Join {WEBSITE_STATS.studentsTraught} developers learning automation
             </p>
             <div className="grid md:grid-cols-3 gap-6 mb-8">
               <div className="bg-white/10 rounded-lg p-4">
@@ -263,7 +269,7 @@ const Courses = () => {
               whileTap={{ scale: 0.95 }}
               className="inline-block bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-purple-50 transition-colors"
             >
-              Join 150,000+ developers
+              Join {WEBSITE_STATS.studentsTraught} developers
             </motion.a>
           </div>
         </motion.div>
@@ -357,7 +363,7 @@ const Courses = () => {
 
                   {/* Testimonial */}
                   <div className="bg-gray-50 rounded-lg p-4 mb-4">
-                    <p className="text-sm text-gray-700 italic mb-2">"{course.testimonial}"</p>
+                    <p className="text-sm text-gray-700 italic mb-2">&quot;{course.testimonial}&quot;</p>
                     <p className="text-xs text-gray-600">- {course.studentName}</p>
                   </div>
 
