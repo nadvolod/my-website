@@ -470,7 +470,11 @@ const Projects: React.FC = () => {
                         <Button
                           variant="primary"
                           size="sm"
-                          onClick={() => window.open(repo.homepage, '_blank')}
+                          onClick={() => {
+                            if (repo.homepage) {
+                              window.open(repo.homepage, '_blank');
+                            }
+                          }}
                           leftIcon={<LinkIcon className="h-4 w-4" />}
                         >
                           Live Demo
