@@ -374,7 +374,11 @@ const Projects: React.FC = () => {
                         <Button
                           variant="primary"
                           size="sm"
-                          onClick={() => window.open(project.demoUrl, '_blank')}
+                          onClick={() => {
+                            if (project.demoUrl) {
+                              window.open(project.demoUrl, '_blank');
+                            }
+                          }}
                           leftIcon={<EyeIcon className="h-4 w-4" />}
                         >
                           View Demo
@@ -384,7 +388,11 @@ const Projects: React.FC = () => {
                         <Button
                           variant="secondary"
                           size="sm"
-                          onClick={() => window.open(project.repoUrl, '_blank')}
+                          onClick={() => {
+                            if (project.repoUrl) {
+                              window.open(project.repoUrl, '_blank');
+                            }
+                          }}
                           leftIcon={<CodeBracketIcon className="h-4 w-4" />}
                         >
                           View Code
