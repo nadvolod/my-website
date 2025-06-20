@@ -4,96 +4,62 @@ import {
     ClockIcon,
     EnvelopeIcon,
     MapPinIcon
-} from '@heroicons/react/24/solid';
+} from '@heroicons/react/24/outline';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import HubSpotForm from './HubSpotForm';
 
 const Contact = () => {
-  const [isAvailable, setIsAvailable] = useState(true);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [isAvailable, setIsAvailable] = useState(false);
 
-  // Check availability based on Miami timezone
+  // Check if it's business hours (9 AM - 6 PM EST)
   useEffect(() => {
     const checkAvailability = () => {
       const now = new Date();
-      const miamiTime = new Date(now.toLocaleString("en-US", {timeZone: "America/New_York"}));
-      const hour = miamiTime.getHours();
-      const day = miamiTime.getDay();
+      const est = new Date(now.toLocaleString("en-US", {timeZone: "America/New_York"}));
+      const hour = est.getHours();
+      const day = est.getDay();
       
-      // Available Mon-Fri 9AM-6PM Miami time
-      setIsAvailable(day >= 1 && day <= 5 && hour >= 9 && hour <= 18);
+      // Monday = 1, Friday = 5, Saturday = 6, Sunday = 0
+      const isWeekday = day >= 1 && day <= 5;
+      const isBusinessHours = hour >= 9 && hour < 18;
+      
+      setIsAvailable(isWeekday && isBusinessHours);
     };
 
     checkAvailability();
     const interval = setInterval(checkAvailability, 60000); // Check every minute
+
     return () => clearInterval(interval);
   }, []);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    try {
-      // Simulate form submission
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', message: '' });
-    } catch {
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleInputChange = (field: keyof typeof formData, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-  };
 
   const contactInfo = {
     email: 'nikolay@ultimateqa.com',
     location: 'Miami, FL',
-    timezone: 'Eastern Time (UTC-5)'
+    timezone: 'Eastern Time (EST/EDT)',
   };
 
   const socialLinks = [
     {
       name: 'LinkedIn',
-      url: 'https://www.linkedin.com/in/nikolayadvolodkin/',
+      url: 'https://linkedin.com/in/nikolayadvolodkin',
       icon: '💼',
       color: 'bg-blue-600 hover:bg-blue-700'
     },
     {
-      name: 'GitHub',
-      url: 'https://github.com/nadvolod',
-      icon: '🐙',
-      color: 'bg-gray-800 hover:bg-gray-900'
-    },
-    {
-      name: 'UltimateQA',
-      url: 'https://ultimateqa.com/nikolay-advolodkin',
-      icon: '🎯',
-      color: 'bg-purple-600 hover:bg-purple-700'
-    },
-    {
-      name: 'Udemy',
-      url: 'https://www.udemy.com/user/nikolaya/',
-      icon: '📚',
-      color: 'bg-orange-600 hover:bg-orange-700'
-    },
-    {
       name: 'YouTube',
-      url: 'https://youtube.com/@nikolayadvolodkin',
+      url: 'https://youtube.com/@UltimateQA',
       icon: '📺',
       color: 'bg-red-600 hover:bg-red-700'
     },
     {
-      name: 'Twitter/X',
+      name: 'GitHub',
+      url: 'https://github.com/nikolayadvolodkin',
+      icon: '🐙',
+      color: 'bg-gray-800 hover:bg-gray-900'
+    },
+    {
+      name: 'Twitter',
       url: 'https://twitter.com/nikolayadvolod',
       icon: '🐦',
       color: 'bg-black hover:bg-gray-800'
@@ -193,7 +159,7 @@ const Contact = () => {
             </div>
           </motion.div>
 
-          {/* Simple Contact Form */}
+          {/* HubSpot Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -202,89 +168,10 @@ const Contact = () => {
             className="lg:col-span-2"
           >
             <div className="bg-white rounded-xl p-8 shadow-lg">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Send Me a Message</h3>
-              
-              {submitStatus === 'success' ? (
-                <div className="text-center py-8">
-                  <div className="text-6xl mb-4">✅</div>
-                  <h4 className="text-xl font-bold text-gray-900 mb-2">Thank You!</h4>
-                  <p className="text-gray-600 mb-4">Your message has been sent successfully. I&apos;ll get back to you soon!</p>
-                  <button
-                    onClick={() => setSubmitStatus('idle')}
-                    className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-                  >
-                    Send Another Message
-                  </button>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                      Name *
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      required
-                      value={formData.name}
-                      onChange={(e) => handleInputChange('name', e.target.value)}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      placeholder="Your full name"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                      Email *
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      required
-                      value={formData.email}
-                      onChange={(e) => handleInputChange('email', e.target.value)}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      placeholder="your.email@example.com"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                      Message *
-                    </label>
-                    <textarea
-                      id="message"
-                      required
-                      rows={6}
-                      value={formData.message}
-                      onChange={(e) => handleInputChange('message', e.target.value)}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      placeholder="Tell me about your project or how I can help..."
-                    />
-                  </div>
-
-                  {submitStatus === 'error' && (
-                    <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
-                      There was an error sending your message. Please try again or email me directly.
-                    </div>
-                  )}
-
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                        Sending...
-                      </>
-                    ) : (
-                      'Send Message'
-                    )}
-                  </button>
-                </form>
-              )}
+              <HubSpotForm 
+                formTitle="Send Me a Message"
+                className="hubspot-contact-form"
+              />
             </div>
           </motion.div>
         </div>

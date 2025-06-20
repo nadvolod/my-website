@@ -1,4 +1,4 @@
-import FloatingActionButton from "@/components/FloatingActionButton";
+import ClientLayout from "@/components/ClientLayout";
 import Navigation from "@/components/Navigation";
 import StructuredData from "@/components/StructuredData";
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -174,9 +174,10 @@ export default function RootLayout({
         <ThemeProvider>
           <Navigation />
           <main className="pt-16 sm:pt-20">
-            {children}
+            <ClientLayout>
+              {children}
+            </ClientLayout>
           </main>
-          <FloatingActionButton />
         </ThemeProvider>
       </body>
     </html>

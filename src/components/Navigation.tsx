@@ -11,6 +11,7 @@ import {
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
 import React, { useCallback, useEffect, useState } from 'react';
+import Button from './ui/Button';
 
 // Throttle function for scroll events
 const throttle = (func: (...args: unknown[]) => void, delay: number) => {
@@ -282,12 +283,13 @@ const Navigation = () => {
               )}
 
               {/* CTA Button */}
-              <button
+              <Button
+                variant="primary"
+                size="md"
                 onClick={() => scrollToSection('contact')}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               >
                 Get In Touch
-              </button>
+              </Button>
             </div>
 
             {/* Mobile Menu Button */}
@@ -445,12 +447,14 @@ const Navigation = () => {
 
                 {/* Mobile CTA */}
                 <div className="px-6 py-4 border-t border-gray-200 dark:border-gray-700">
-                  <button
+                  <Button
+                    variant="primary"
+                    size="md"
                     onClick={() => scrollToSection('contact')}
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                    className="w-full"
                   >
                     Get In Touch
-                  </button>
+                  </Button>
                 </div>
               </div>
             </motion.div>
@@ -461,16 +465,22 @@ const Navigation = () => {
       {/* Back to Top Button */}
       <AnimatePresence>
         {showBackToTop && (
-          <motion.button
+          <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
-            onClick={scrollToTop}
-            className="fixed bottom-8 right-8 z-40 p-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-            aria-label="Back to top"
+            className="fixed bottom-8 right-8 z-40"
           >
-            <ChevronUpIcon className="h-6 w-6" />
-          </motion.button>
+            <Button
+              variant="primary"
+              size="md"
+              onClick={scrollToTop}
+              className="!p-3 rounded-full shadow-lg"
+              aria-label="Back to top"
+            >
+              <ChevronUpIcon className="h-6 w-6" />
+            </Button>
+          </motion.div>
         )}
       </AnimatePresence>
     </>

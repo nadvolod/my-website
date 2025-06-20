@@ -2,6 +2,7 @@
 
 import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
 import { motion } from 'framer-motion';
+import Button from './ui/Button';
 
 interface FloatingActionButtonProps {
   onContactClick?: () => void;
@@ -29,16 +30,20 @@ const FloatingActionButton = ({ onContactClick }: FloatingActionButtonProps) => 
 
   return (
     <div className="fixed bottom-6 right-6 z-50 md:hidden">
-      {/* Simple contact button */}
-      <motion.button
-        onClick={handleContactClick}
-        className="flex items-center justify-center w-14 h-14 rounded-full shadow-lg bg-blue-600 hover:bg-blue-700 text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+      <motion.div
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        aria-label="Contact me"
       >
-        <ChatBubbleLeftRightIcon className="h-6 w-6" />
-      </motion.button>
+        <Button
+          variant="primary"
+          size="lg"
+          onClick={handleContactClick}
+          className="!w-14 !h-14 !p-0 rounded-full shadow-lg"
+          aria-label="Contact me"
+        >
+          <ChatBubbleLeftRightIcon className="h-6 w-6" />
+        </Button>
+      </motion.div>
     </div>
   );
 };
