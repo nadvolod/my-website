@@ -14,7 +14,8 @@
 [![PWA Ready](https://img.shields.io/badge/PWA-Ready-purple?style=for-the-badge&logo=pwa&logoColor=white)](https://web.dev/progressive-web-apps/)
 [![SEO Optimized](https://img.shields.io/badge/SEO-Optimized-orange?style=for-the-badge&logo=google&logoColor=white)](https://developers.google.com/search/docs)
 
-[![Playwright](https://img.shields.io/badge/Testing-Playwright-2EAD33?style=for-the-badge&logo=playwright&logoColor=white)](https://playwright.dev/)
+[![Playwright](https://img.shields.io/badge/E2E_Testing-Playwright-2EAD33?style=for-the-badge&logo=playwright&logoColor=white)](https://playwright.dev/)
+[![Vitest](https://img.shields.io/badge/Unit_Testing-Vitest-6E9F18?style=for-the-badge&logo=vitest&logoColor=white)](https://vitest.dev/)
 [![Vercel](https://img.shields.io/badge/Deployed_on-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
 [![CI/CD](https://img.shields.io/badge/CI%2FCD-GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white)](https://github.com/features/actions)
 [![License](https://img.shields.io/badge/License-Private-red?style=for-the-badge)](https://choosealicense.com/licenses/)
@@ -195,6 +196,7 @@ npm run lint
 
 ### Development & Quality
 - **🎭 Playwright** - End-to-end testing framework
+- **🧩 Vitest** - Fast unit testing framework
 - **🔍 ESLint** - Code quality and consistency
 - **💅 Prettier** - Code formatting
 - **📊 Lighthouse** - Performance monitoring
@@ -309,7 +311,7 @@ To enable CI/CD, configure these GitHub repository secrets:
 ### 🎭 Playwright Testing Suite
 
 ```bash
-# Run all tests
+# Run all end-to-end tests
 npm run test
 
 # Run tests with UI
@@ -327,6 +329,16 @@ npm run test:performance:playwright # Performance tests
 npm run test:report
 ```
 
+### 🧩 Unit Testing with Vitest
+
+```bash
+# Run all unit tests
+npm run test:unit
+
+# Run unit tests in watch mode
+npm run test:unit:watch
+```
+
 ### 🔍 Performance Testing
 
 ```bash
@@ -341,6 +353,10 @@ npm run test:links
 ```
 
 ### 📊 Test Coverage
+- **Unit Tests** - Core utility functions and services
+  - GitHub API integration
+  - Link validation utilities
+  - Performance optimization utilities
 - **Button Functionality** - All interactive elements
 - **Link Validation** - External link checking
 - **Performance Metrics** - Core Web Vitals monitoring
