@@ -5,11 +5,7 @@
   "installCommand": "npm ci",
   "devCommand": "npm run dev",
   "regions": ["iad1"],
-  "functions": {
-    "src/app/api/**/*.ts": {
-      "runtime": "nodejs18.x"
-    }
-  },
+
   "headers": [
     {
       "source": "/(.*)",
@@ -46,7 +42,16 @@
       ]
     },
     {
-      "source": "/(.*\\.(css|js|jpg|jpeg|png|gif|ico|svg|woff|woff2|ttf|eot))",
+      "source": "/_next/static/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/favicon.ico",
       "headers": [
         {
           "key": "Cache-Control",
@@ -60,12 +65,6 @@
       "source": "/blog",
       "destination": "/",
       "permanent": false
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "/api/$1"
     }
   ]
 } 
