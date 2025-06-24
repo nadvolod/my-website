@@ -26,23 +26,23 @@ interface HubSpotFormConfig {
 const hubspotForms = {
   automatedTesting: {
     portalId: "YOUR_PORTAL_ID", // Replace with actual HubSpot portal ID
-    formId: "automated-testing-form", // Replace with actual form ID
-    redirectUrl: "/thank-you/automated-testing"
+    formId: "enterprise-automation-form", // Updated form ID
+    redirectUrl: "/thank-you/enterprise-automation"
   },
   aiTrainingBusiness: {
     portalId: "YOUR_PORTAL_ID",
-    formId: "ai-business-form",
-    redirectUrl: "/thank-you/ai-business"
+    formId: "ai-team-training-form", // Updated form ID
+    redirectUrl: "/thank-you/ai-team-training"
   },
   aiTrainingDevelopers: {
     portalId: "YOUR_PORTAL_ID",
-    formId: "ai-developers-form",
-    redirectUrl: "/thank-you/ai-developers"
+    formId: "ai-developer-workshops-form", // Updated form ID
+    redirectUrl: "/thank-you/ai-developer-workshops"
   },
-  webDevelopment: {
+  speakingConsulting: {
     portalId: "YOUR_PORTAL_ID",
-    formId: "web-development-form",
-    redirectUrl: "/thank-you/web-development"
+    formId: "speaking-consulting-form", // New form ID
+    redirectUrl: "/thank-you/speaking-consulting"
   }
 };
 
@@ -50,14 +50,14 @@ const hubspotForms = {
 const serviceOfferings: ServiceOffering[] = [
   {
     id: "automated-testing",
-    title: "Automated Testing Services",
-    description: `Transform your testing strategy with enterprise-grade automation solutions. Reduce testing time by ${WEBSITE_STATS.testingTimeReduction} while improving coverage and reliability.`,
+    title: "Enterprise Test Automation Consulting",
+    description: `Transform your testing strategy with 15+ years of expertise. Helped 100s of corporate customers reduce testing time by ${WEBSITE_STATS.testingTimeReduction} while achieving enterprise-scale quality.`,
     features: [
-      "Custom test automation framework development",
-      "CI/CD pipeline integration",
-      "Cross-browser and mobile testing",
-      "Performance and load testing",
-      "Test maintenance and optimization",
+      "Custom automation framework architecture",
+      "AI-powered test generation and maintenance",
+      "Cross-browser and mobile automation",
+      "CI/CD pipeline optimization",
+      "Performance and load testing solutions",
       "Team training and knowledge transfer"
     ],
     icon: "🤖",
@@ -66,49 +66,50 @@ const serviceOfferings: ServiceOffering[] = [
   },
   {
     id: "ai-training-business",
-    title: "AI Training for Business",
-    description: "Empower your organization with AI-driven development and testing practices. Stay ahead of the competition with cutting-edge AI integration.",
+    title: "AI-Powered Testing Training for Teams",
+    description: "Leading-edge AI integration training based on insights from 9 international conferences and training 150,000+ developers worldwide.",
     features: [
-      "AI-powered test generation",
-      "Intelligent test maintenance",
-      "Automated bug detection",
-      "Smart test data management",
-      "AI testing strategy consulting",
-      "Executive AI readiness workshops"
+      "ChatGPT-4 for test automation workflows",
+      "AI-driven test case generation",
+      "Intelligent bug detection systems",
+      "Modern testing with AI tools",
+      "Executive AI strategy workshops",
+      "Corporate team transformation programs"
     ],
     icon: "🧠",
     color: "from-purple-500 to-pink-500",
-    badge: "7 days of free coding"
+    badge: "Conference Speaker Expertise"
   },
   {
     id: "ai-training-developers",
-    title: "AI Training for Developers",
-    description: "Level up your development skills with hands-on AI training. Learn to leverage ChatGPT, GitHub Copilot, and other AI tools effectively.",
+    title: "Developer AI Integration Workshops",
+    description: "Hands-on training from a Top 33 Test Automation Leader and contributing author to industry publications. Master AI tools for development excellence.",
     features: [
-      "Hands-on AI tool workshops",
-      "Code generation best practices",
-      "AI-assisted debugging techniques",
-      "Prompt engineering for developers",
-      "AI testing methodologies",
-      "Practical project implementations"
+      "ChatGPT integration for developers",
+      "AI-assisted debugging and optimization",
+      "Prompt engineering for code generation",
+      "Modern JavaScript/TypeScript with AI",
+      "Playwright and Cypress with AI enhancement",
+      "Real-world project implementations"
     ],
     icon: "👨‍💻",
     color: "from-green-500 to-emerald-500"
   },
   {
-    id: "web-development",
-    title: "Web Development Services",
-    description: "Full-stack web development with modern technologies. From concept to deployment, we build scalable, performant web applications.",
+    id: "speaking-consulting",
+    title: "Conference Speaking & Consulting",
+    description: "International speaker with presentations at All Things Open, StarEast, InfoShare, and more. Available for keynotes, workshops, and strategic consulting.",
     features: [
-      "React/Next.js development",
-      "TypeScript implementation",
-      "API design and development",
-      "Database architecture",
-      "Performance optimization",
-      "Deployment and DevOps"
+      "Conference keynotes and presentations",
+      "AI in testing and development workshops",
+      "Executive strategy consulting",
+      "Team transformation roadmaps",
+      "Industry thought leadership",
+      "Custom workshop development"
     ],
-    icon: "🌐",
-    color: "from-orange-500 to-red-500"
+    icon: "🎤",
+    color: "from-orange-500 to-red-500",
+    badge: "International Speaker"
   }
 ];
 

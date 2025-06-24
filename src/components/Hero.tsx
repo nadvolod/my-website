@@ -392,13 +392,29 @@ const LandingState = ({ onStartGame }: { onStartGame: () => void }) => {
         Nikolay Advolodkin
       </motion.h1>
       
-      <motion.p 
-        className="text-xl md:text-2xl lg:text-3xl text-center mb-12 text-white/80 max-w-4xl"
+      <motion.div
+        className="text-center mb-6"
         initial={{ y: 30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.5, duration: 0.8 }}
+        transition={{ delay: 0.4, duration: 0.8 }}
       >
-        My purpose is to elevate how people create technology
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-white/90 mb-2">
+          CEO & Founder of UltimateQA
+        </h2>
+        <p className="text-lg md:text-xl text-cyan-400 font-medium">
+          Training 150,000+ developers worldwide • 15+ years experience
+        </p>
+      </motion.div>
+      
+      <motion.p 
+        className="text-xl md:text-2xl lg:text-3xl text-center mb-12 text-white/80 max-w-4xl leading-relaxed"
+        initial={{ y: 30, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.6, duration: 0.8 }}
+      >
+        Revolutionizing web development with cutting-edge automation, 
+        <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"> AI integration</span>, 
+        and testing excellence
       </motion.p>
       
       <motion.div

@@ -33,28 +33,43 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
+    // API-only tests project (no browser needed)
+    {
+      name: 'api-tests',
+      testMatch: '**/link-validation.spec.ts',
+      use: {
+        // No browser context needed for API tests
+      },
+    },
+    
+    // Browser-based UI tests
     {
       name: 'chromium',
+      testIgnore: '**/link-validation.spec.ts', // Exclude API tests from browser projects
       use: { ...devices['Desktop Chrome'] },
     },
 
     {
       name: 'firefox',
+      testIgnore: '**/link-validation.spec.ts', // Exclude API tests from browser projects
       use: { ...devices['Desktop Firefox'] },
     },
 
     {
       name: 'webkit',
+      testIgnore: '**/link-validation.spec.ts', // Exclude API tests from browser projects
       use: { ...devices['Desktop Safari'] },
     },
 
     /* Test against mobile viewports. */
     {
       name: 'Mobile Chrome',
+      testIgnore: '**/link-validation.spec.ts', // Exclude API tests from browser projects
       use: { ...devices['Pixel 5'] },
     },
     {
       name: 'Mobile Safari',
+      testIgnore: '**/link-validation.spec.ts', // Exclude API tests from browser projects
       use: { ...devices['iPhone 12'] },
     },
 

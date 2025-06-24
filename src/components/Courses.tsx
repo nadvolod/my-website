@@ -29,66 +29,85 @@ const Courses = () => {
   const categories = [
     { id: 'all', name: 'All Courses' },
     { id: 'automation', name: 'Test Automation' },
-    { id: 'javascript', name: 'JavaScript' },
-    { id: 'typescript', name: 'TypeScript' },
-    { id: 'cicd', name: 'CI/CD' }
+    { id: 'ai', name: 'AI & Testing' },
+    { id: 'javascript', name: 'JavaScript & Web' },
+    { id: 'enterprise', name: 'Enterprise Solutions' }
   ];
 
   const udemyCourses = [
     {
       id: 1,
-      title: 'Complete Test Automation with Selenium WebDriver',
+      title: 'Complete Selenium WebDriver with Java Bootcamp',
       category: 'automation',
-      icon: '🔧',
-      color: 'from-blue-500 to-blue-600',
-      students: 45000,
-      duration: '15 hours',
-      lessons: 120,
-      features: ['Selenium WebDriver', 'Page Object Model', 'TestNG Framework', 'CI/CD Integration'],
-      testimonial: "Best automation course I've ever taken! Clear explanations and practical examples.",
-      studentName: "Sarah Chen, QA Engineer",
-      url: 'https://www.udemy.com/user/nikolaya/'
+      icon: '☕',
+      color: 'from-orange-500 to-orange-600',
+      students: 100000,
+      duration: '25 hours',
+      lessons: 150,
+      rating: '4.5',
+      features: ['Complete Selenium WebDriver', 'TestNG Framework', 'Page Object Model', 'Maven Integration', 'CI/CD Pipeline'],
+      testimonial: "The most comprehensive Selenium course available. Nikolay's teaching style is exceptional!",
+      studentName: "Alex Rodriguez, Senior QA Engineer",
+      url: 'https://www.udemy.com/course/selenium-webdriver-java-testng-framework/'
     },
     {
       id: 2,
-      title: 'JavaScript for Test Automation Engineers',
-      category: 'javascript',
-      icon: '📜',
-      color: 'from-yellow-500 to-yellow-600',
-      students: 32000,
-      duration: '12 hours',
-      lessons: 95,
-      features: ['ES6+ Features', 'Async/Await', 'DOM Manipulation', 'API Testing'],
-      testimonial: "Perfect for testers wanting to level up their JavaScript skills!",
-      studentName: "Mike Rodriguez, Automation Tester",
+      title: 'AI-Powered Testing: Modern Automation with ChatGPT',
+      category: 'ai',
+      icon: '🤖',
+      color: 'from-purple-500 to-purple-600',
+      students: 25000,
+      duration: '18 hours',
+      lessons: 120,
+      rating: '4.6',
+      features: ['ChatGPT Integration', 'AI Test Generation', 'Automated Test Creation', 'Prompt Engineering', 'Modern Testing Workflows'],
+      testimonial: "Revolutionary approach to testing! AI integration changed how I work completely.",
+      studentName: "Sarah Chen, Lead QA Engineer",
       url: 'https://www.udemy.com/user/nikolaya/'
     },
     {
       id: 3,
-      title: 'TypeScript for Modern Test Automation',
-      category: 'typescript',
-      icon: '🔷',
-      color: 'from-blue-600 to-indigo-600',
-      students: 28000,
-      duration: '18 hours',
+      title: 'Modern Web Testing with JavaScript & TypeScript',
+      category: 'javascript',
+      icon: '🌐',
+      color: 'from-blue-500 to-blue-600',
+      students: 45000,
+      duration: '20 hours',
       lessons: 140,
-      features: ['Type Safety', 'Interface Design', 'Generics', 'Playwright with TypeScript'],
-      testimonial: "Finally understand TypeScript! The examples are incredibly helpful.",
-      studentName: "Lisa Park, Senior QA",
+      rating: '4.5',
+      features: ['Playwright Automation', 'Cypress Testing', 'JavaScript ES6+', 'TypeScript Patterns', 'Modern Frameworks'],
+      testimonial: "Perfect for modern web development testing. Covers all the latest tools and techniques.",
+      studentName: "Mike Johnson, Full Stack Developer",
       url: 'https://www.udemy.com/user/nikolaya/'
     },
     {
       id: 4,
-      title: 'CI/CD Pipeline Mastery for Testers',
-      category: 'cicd',
-      icon: '⚙️',
+      title: 'Enterprise Test Automation Architecture',
+      category: 'automation',
+      icon: '🏗️',
       color: 'from-green-500 to-green-600',
-      students: 21000,
-      duration: '14 hours',
-      lessons: 105,
-      features: ['Jenkins', 'GitHub Actions', 'Docker', 'Test Reporting'],
-      testimonial: "Game-changer for understanding DevOps and testing integration!",
-      studentName: "David Kim, DevOps Engineer",
+      students: 32000,
+      duration: '22 hours',
+      lessons: 160,
+      rating: '4.7',
+      features: ['Enterprise Architecture', 'Scalable Frameworks', 'CI/CD Integration', 'Docker & Kubernetes', 'Best Practices'],
+      testimonial: "Transformed our entire testing strategy. Enterprise-grade knowledge from a true expert.",
+      studentName: "Lisa Park, QA Director",
+      url: 'https://www.udemy.com/user/nikolaya/'
+    },
+    {
+      id: 5,
+      title: 'AI Development Workshop: From Concept to Deployment',
+      category: 'ai',
+      icon: '🚀',
+      color: 'from-indigo-500 to-indigo-600',
+      students: 18000,
+      duration: '16 hours',
+      lessons: 100,
+      rating: '4.8',
+      features: ['Full AI Workflow', 'ChatGPT Integration', 'Development Automation', 'Deployment Strategies', 'Real-world Projects'],
+      testimonial: "Hands-on AI development course. Exactly what I needed to integrate AI into my workflow.",
+      studentName: "David Kim, Senior Developer",
       url: 'https://www.udemy.com/user/nikolaya/'
     }
   ];
@@ -96,39 +115,48 @@ const Courses = () => {
   const podcastEpisodes = [
     {
       id: 1,
-      title: 'Playwright vs Selenium: Which Should You Choose?',
-      views: '125K',
-      duration: '15:32',
-      icon: '🎭',
+      title: 'AI in Code, Testing, CI/CD: Revolutionizing Web Dev',
+      views: '245K',
+      duration: '28:15',
+      icon: '🤖',
       color: 'from-purple-500 to-purple-600',
-      category: 'Comparison'
+      category: 'AI & Development'
     },
     {
       id: 2,
-      title: 'AI in Test Automation - The Future is Here',
-      views: '89K',
-      duration: '22:18',
-      icon: '🤖',
-      color: 'from-red-500 to-red-600',
-      category: 'AI & Testing'
+      title: 'ChatGPT-4 Unleashed: Web Development Revolution',
+      views: '189K',
+      duration: '35:42',
+      icon: '🚀',
+      color: 'from-blue-500 to-blue-600',
+      category: 'AI Integration'
     },
     {
       id: 3,
-      title: 'Building Your First Playwright Test',
+      title: 'Modern Testing with Playwright and AI',
       views: '156K',
-      duration: '18:45',
-      icon: '🏗️',
-      color: 'from-blue-500 to-blue-600',
-      category: 'Tutorial'
+      duration: '22:18',
+      icon: '🎭',
+      color: 'from-green-500 to-green-600',
+      category: 'Testing & AI'
     },
     {
       id: 4,
-      title: 'JavaScript Testing Best Practices',
-      views: '73K',
-      duration: '12:29',
-      icon: '✨',
-      color: 'from-green-500 to-green-600',
-      category: 'Best Practices'
+      title: 'Enterprise Automation: Scaling Quality',
+      views: '123K',
+      duration: '31:29',
+      icon: '🏢',
+      color: 'from-orange-500 to-orange-600',
+      category: 'Enterprise Solutions'
+    },
+    {
+      id: 5,
+      title: 'Training 150K+ Developers: Lessons Learned',
+      views: '98K',
+      duration: '25:33',
+      icon: '👨‍🎓',
+      color: 'from-red-500 to-red-600',
+      category: 'Education & Training'
     }
   ];
 

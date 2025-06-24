@@ -55,8 +55,8 @@ jobs:
           path: playwright-report/
           retention-days: 30
 
-      - name: 🔗 Run link validation
-        run: npm run test:links
+      - name: 🔗 Run API-based link validation
+        run: npm run test:links:api
 
       - name: ⚡ Run performance tests
         run: npm run test:performance
@@ -231,6 +231,12 @@ jobs:
           # Run basic health check
           curl -f https://nikolayadvolodkin.com || exit 1
           echo "✅ Site is responding"
+
+      - name: 🔗 Validate critical links post-deployment
+        run: |
+          echo "Validating critical business links on production..."
+          npm run test:links:api
+        continue-on-error: true
 
       - name: ⚡ Run production performance audit
         run: |
