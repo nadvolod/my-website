@@ -91,8 +91,9 @@ export const CONFERENCE_LINKS = {
 export const GITHUB_LINKS = {
   mainProfile: "https://github.com/nadvolod",
   // PRIORITY: Development Skills Projects
-  vollqAI: "https://github.com/nadvolod/vollq-ai", // ✅ AI-Supported test automation platform
+  vollqAI: "https://vollq.ai", // ✅ AI-Supported test automation platform (private repo)
   visionBoardBliss: "https://github.com/nadvolod/vision-board-bliss-e3561110", // ✅ AI-powered vision board app
+  achieveHub: "https://github.com/nadvolod/achieve-hub", // ✅ Goal tracking and reflection app
   personalWebsite: "https://github.com/nadvolod/personal-website", // ✅ Next.js personal website
   jsCodeExamples: "https://github.com/nadvolod/js-code", // ✅ JavaScript development examples
   reactDashboard: "https://github.com/nadvolod/react-dashboard", // Modern React dashboard
@@ -137,6 +138,15 @@ export const CONTENT_LINKS = {
   // Add podcast or video series links here
 } as const;
 
+// Demo and Live Application Links
+export const DEMO_LINKS = {
+  vollqAI: "https://vollq.ai", // ✅ VERIFIED - AI automation platform
+  visionBoardBliss: "https://vision-board-bliss.lovable.app/", // ✅ VERIFIED - Vision board app
+  achieveHub: "https://achieve-hub.lovable.app/landing", // ✅ VERIFIED - Goal tracking app
+  personalWebsite: "https://nikolayadvolodkin.com", // ✅ VERIFIED - Personal portfolio
+  ultimateQA: "https://ultimateqa.com", // ✅ VERIFIED - Education platform
+} as const;
+
 // ===== LINK COLLECTIONS FOR TESTING =====
 // These collect all links for easy testing
 
@@ -148,6 +158,7 @@ export const ALL_EXTERNAL_LINKS = {
   ...EDUCATION_LINKS,
   ...BUSINESS_LINKS,
   ...CONTENT_LINKS,
+  ...DEMO_LINKS,
 } as const;
 
 // Critical links that MUST work for business operations
@@ -156,13 +167,15 @@ export const CRITICAL_LINKS = {
   linkedinProfile: SOCIAL_LINKS.linkedin,
   githubProfile: GITHUB_LINKS.mainProfile,
   nikolayProfilePage: EDUCATION_LINKS.nikolayProfilePage,
+  vollqAI: DEMO_LINKS.vollqAI,
+  visionBoardBliss: DEMO_LINKS.visionBoardBliss,
+  achieveHub: DEMO_LINKS.achieveHub,
   // Note: Removed udemyProfile due to 403 responses (likely rate limiting)
 } as const;
 
 // Links that may need updates (repositories that might not exist yet)
 export const LINKS_NEED_VERIFICATION = {
   // PRIORITY: Development projects that may need creation
-  vollqAI: GITHUB_LINKS.vollqAI,
   reactDashboard: GITHUB_LINKS.reactDashboard,
   nodeApiServer: GITHUB_LINKS.nodeApiServer,
   // HIDDEN: Testing repositories
