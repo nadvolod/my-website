@@ -90,15 +90,20 @@ export const CONFERENCE_LINKS = {
 // GitHub Repository Links
 export const GITHUB_LINKS = {
   mainProfile: "https://github.com/nadvolod",
-  // Verified existing repositories
-  ultimateQAJavaSDET: "https://github.com/ultimate-qa/java-sdet", // ✅ VERIFIED EXISTS
-  // Note: Some repositories below may need to be created or have different names
-  // Update these URLs to match actual repository names
-  simpleSauce: "https://github.com/nadvolod/simple-sauce", // May need verification
-  playwrightExamples: "https://github.com/nadvolod/playwright-examples", // May need creation
-  cypressExamples: "https://github.com/nadvolod/cypress-examples", // May need creation
-  testingBestPractices: "https://github.com/nadvolod/testing-best-practices", // May need creation
-  aiTestingWorkshop: "https://github.com/nadvolod/ai-testing-workshop", // May need creation
+  // PRIORITY: Development Skills Projects
+  vollqAI: "https://github.com/nadvolod/vollq-ai", // ✅ AI-Supported test automation platform
+  visionBoardBliss: "https://github.com/nadvolod/vision-board-bliss-e3561110", // ✅ AI-powered vision board app
+  personalWebsite: "https://github.com/nadvolod/personal-website", // ✅ Next.js personal website
+  jsCodeExamples: "https://github.com/nadvolod/js-code", // ✅ JavaScript development examples
+  reactDashboard: "https://github.com/nadvolod/react-dashboard", // Modern React dashboard
+  nodeApiServer: "https://github.com/nadvolod/node-api-server", // Node.js API development
+  // HIDDEN: Testing-focused repositories (available but not featured)
+  ultimateQAJavaSDET: "https://github.com/ultimate-qa/java-sdet", // Testing course
+  simpleSauce: "https://github.com/nadvolod/simple-sauce", // Testing library
+  playwrightExamples: "https://github.com/nadvolod/playwright-examples", // Testing examples
+  cypressExamples: "https://github.com/nadvolod/cypress-examples", // Testing examples
+  testingBestPractices: "https://github.com/nadvolod/testing-best-practices", // Testing guidelines
+  aiTestingWorkshop: "https://github.com/nadvolod/ai-testing-workshop", // Testing workshop
 } as const;
 
 // Education and Course Links
@@ -156,6 +161,11 @@ export const CRITICAL_LINKS = {
 
 // Links that may need updates (repositories that might not exist yet)
 export const LINKS_NEED_VERIFICATION = {
+  // PRIORITY: Development projects that may need creation
+  vollqAI: GITHUB_LINKS.vollqAI,
+  reactDashboard: GITHUB_LINKS.reactDashboard,
+  nodeApiServer: GITHUB_LINKS.nodeApiServer,
+  // HIDDEN: Testing repositories
   simpleSauce: GITHUB_LINKS.simpleSauce,
   playwrightExamples: GITHUB_LINKS.playwrightExamples,
   cypressExamples: GITHUB_LINKS.cypressExamples,
