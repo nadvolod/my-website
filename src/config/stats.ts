@@ -93,11 +93,9 @@ export const GITHUB_LINKS = {
   // PRIORITY: Development Skills Projects
   vollqAI: "https://vollq.ai", // ✅ AI-Supported test automation platform (private repo)
   visionBoardBliss: "https://github.com/nadvolod/vision-board-bliss-e3561110", // ✅ AI-powered vision board app
-  achieveHub: "https://github.com/nadvolod/achieve-hub", // ✅ Goal tracking and reflection app
   personalWebsite: "https://github.com/nadvolod/personal-website", // ✅ Next.js personal website
+  achieveHub: "https://github.com/nadvolod/achieve-hub", // ✅ Goal tracking and reflection app
   jsCodeExamples: "https://github.com/nadvolod/js-code", // ✅ JavaScript development examples
-  reactDashboard: "https://github.com/nadvolod/react-dashboard", // Modern React dashboard
-  nodeApiServer: "https://github.com/nadvolod/node-api-server", // Node.js API development
   // HIDDEN: Testing-focused repositories (available but not featured)
   ultimateQAJavaSDET: "https://github.com/ultimate-qa/java-sdet", // Testing course
   simpleSauce: "https://github.com/nadvolod/simple-sauce", // Testing library
@@ -142,9 +140,8 @@ export const CONTENT_LINKS = {
 export const DEMO_LINKS = {
   vollqAI: "https://vollq.ai", // ✅ VERIFIED - AI automation platform
   visionBoardBliss: "https://vision-board-bliss.lovable.app/", // ✅ VERIFIED - Vision board app
-  achieveHub: "https://achieve-hub.lovable.app/landing", // ✅ VERIFIED - Goal tracking app
   personalWebsite: "https://nikolayadvolodkin.com", // ✅ VERIFIED - Personal portfolio
-  ultimateQA: "https://ultimateqa.com", // ✅ VERIFIED - Education platform
+  achieveHub: "https://achieve-hub.lovable.app/landing", // ✅ VERIFIED - Goal tracking app
 } as const;
 
 // ===== LINK COLLECTIONS FOR TESTING =====
@@ -175,9 +172,6 @@ export const CRITICAL_LINKS = {
 
 // Links that may need updates (repositories that might not exist yet)
 export const LINKS_NEED_VERIFICATION = {
-  // PRIORITY: Development projects that may need creation
-  reactDashboard: GITHUB_LINKS.reactDashboard,
-  nodeApiServer: GITHUB_LINKS.nodeApiServer,
   // HIDDEN: Testing repositories
   simpleSauce: GITHUB_LINKS.simpleSauce,
   playwrightExamples: GITHUB_LINKS.playwrightExamples,

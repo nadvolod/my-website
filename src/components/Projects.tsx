@@ -39,7 +39,7 @@ interface FeaturedProject {
   featured: boolean;
 }
 
-// Featured projects data - PRIORITIZING DEVELOPMENT SKILLS (6 PROJECTS)
+// Featured projects data - MANUALLY CURATED PROJECTS ONLY
 const featuredProjects: FeaturedProject[] = [
   {
     id: 'vollq-ai',
@@ -73,22 +73,6 @@ const featuredProjects: FeaturedProject[] = [
     featured: true,
   },
   {
-    id: 'achieve-hub',
-    name: 'Achieve Hub',
-    description: 'Modern goal tracking and reflection application with mood analytics and streak tracking',
-    techStack: ['React', 'TypeScript', 'Vite', 'Supabase', 'Tailwind CSS'],
-    repoUrl: 'https://github.com/nadvolod/achieve-hub',
-    demoUrl: 'https://achieve-hub.lovable.app/landing',
-    status: 'live',
-    highlights: [
-      'Daily reflection prompts',
-      'Mood tracking & analytics',
-      'Real-time progress tracking',
-      'Performance optimized (< 0.5s loading)',
-    ],
-    featured: true,
-  },
-  {
     id: 'personal-website',
     name: 'Personal Portfolio Website',
     description: 'Modern Next.js portfolio website with advanced performance optimization',
@@ -104,25 +88,25 @@ const featuredProjects: FeaturedProject[] = [
     ],
     featured: true,
   },
-
   {
-    id: 'ultimateqa',
-    name: 'UltimateQA Platform',
-    description: 'Global developer education platform training 150K+ engineers',
-    techStack: ['React', 'Node.js', 'MongoDB', 'AWS', 'Docker'],
-    demoUrl: 'https://ultimateqa.com',
+    id: 'achieve-hub',
+    name: 'Achieve Hub',
+    description: 'Modern goal tracking and reflection application with mood analytics and streak tracking',
+    techStack: ['React', 'TypeScript', 'Vite', 'Supabase', 'Tailwind CSS'],
+    repoUrl: 'https://github.com/nadvolod/achieve-hub',
+    demoUrl: 'https://achieve-hub.lovable.app/landing',
     status: 'live',
     highlights: [
-      '150,000+ students trained',
-      '190 countries reached',
-      'Industry-leading curriculum',
-      'Corporate training partnerships',
+      'Daily reflection prompts',
+      'Mood tracking & analytics',
+      'Real-time progress tracking',
+      'Performance optimized (< 0.5s loading)',
     ],
     featured: true,
   },
 ];
 
-// Mock GitHub repositories - PRIORITIZING DEVELOPMENT SKILLS (6 PROJECTS)
+// Mock GitHub repositories - MANUALLY CURATED PROJECTS ONLY
 const mockGitHubRepos: GitHubRepo[] = [
   {
     id: 1,
@@ -147,17 +131,6 @@ const mockGitHubRepos: GitHubRepo[] = [
     topics: ['react', 'nextjs', 'ai', 'vision-board', 'goal-setting', 'typescript'],
   },
   {
-    id: 3,
-    name: 'achieve-hub',
-    description: 'Modern goal tracking and reflection application with mood analytics and streak tracking',
-    html_url: 'https://github.com/nadvolod/achieve-hub',
-    homepage: 'https://achieve-hub.lovable.app/landing',
-    stargazers_count: 89,
-    forks_count: 12,
-    language: 'TypeScript',
-    topics: ['react', 'vite', 'supabase', 'goal-tracking', 'mood-analytics', 'typescript'],
-  },
-  {
     id: 4,
     name: 'personal-website',
     description: 'Modern Next.js portfolio website with advanced performance optimization',
@@ -168,17 +141,16 @@ const mockGitHubRepos: GitHubRepo[] = [
     language: 'TypeScript',
     topics: ['nextjs', 'react', 'typescript', 'tailwindcss', 'portfolio', 'performance'],
   },
-
   {
-    id: 5,
-    name: 'ultimateqa-platform',
-    description: 'Global developer education platform training 150K+ engineers',
-    html_url: 'https://github.com/nadvolod/ultimateqa-platform',
-    homepage: 'https://ultimateqa.com',
-    stargazers_count: 567,
-    forks_count: 123,
-    language: 'JavaScript',
-    topics: ['react', 'nodejs', 'mongodb', 'aws', 'docker', 'education'],
+    id: 3,
+    name: 'achieve-hub',
+    description: 'Modern goal tracking and reflection application with mood analytics and streak tracking',
+    html_url: 'https://github.com/nadvolod/achieve-hub',
+    homepage: 'https://achieve-hub.lovable.app/landing',
+    stargazers_count: 89,
+    forks_count: 12,
+    language: 'TypeScript',
+    topics: ['react', 'vite', 'supabase', 'goal-tracking', 'mood-analytics', 'typescript'],
   },
 ];
 
@@ -212,6 +184,10 @@ const Projects: React.FC = () => {
   const filteredProjects = useMemo(() => {
     let projects = showFeatured ? [...featuredProjects] : [];
     let repos = [...githubRepos];
+
+    // Remove repos that are already surfaced as featured projects
+    const featuredNames = new Set(projects.map(p => p.id));
+    repos = repos.filter(r => !featuredNames.has(r.name));
 
     if (searchTerm) {
       const term = searchTerm.toLowerCase();
