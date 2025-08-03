@@ -42,6 +42,53 @@ interface FeaturedProject {
 // Featured projects data - MANUALLY CURATED PROJECTS ONLY
 const featuredProjects: FeaturedProject[] = [
   {
+    id: 'vollq-ai',
+    name: 'VollQ.ai',
+    description: 'AI-Supported, zero code, test automation platform revolutionizing quality assurance',
+    techStack: ['React', 'TypeScript', 'AI/ML', 'Node.js', 'AWS', 'Docker'],
+    demoUrl: 'https://vollq.ai',
+    status: 'live',
+    highlights: [
+      'Zero-code AI automation platform',
+      'Enterprise-grade architecture',
+      'Machine learning integration',
+      'Cloud-native deployment',
+    ],
+    featured: true,
+  },
+  {
+    id: 'vision-board-bliss',
+    name: 'Vision Board Bliss',
+    description: 'AI-powered vision board application for goal setting and manifestation',
+    techStack: ['React', 'TypeScript', 'AI', 'Next.js', 'Tailwind CSS'],
+    repoUrl: 'https://github.com/nadvolod/vision-board-bliss-e3561110',
+    demoUrl: 'https://vision-board-bliss.lovable.app/',
+    status: 'live',
+    highlights: [
+      'AI-powered goal visualization',
+      'Interactive vision board creation',
+      'Modern React architecture',
+      'Responsive design system',
+    ],
+    featured: true,
+  },
+  {
+    id: 'personal-website',
+    name: 'Personal Portfolio Website',
+    description: 'Modern Next.js portfolio website with advanced performance optimization',
+    techStack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
+    repoUrl: 'https://github.com/nadvolod/personal-website',
+    demoUrl: 'https://nikolayadvolodkin.com',
+    status: 'live',
+    highlights: [
+      'Next.js 15 with App Router',
+      'Advanced performance optimization',
+      'Responsive design system',
+      'SEO & accessibility focused',
+    ],
+    featured: true,
+  },
+  {
     id: 'achieve-hub',
     name: 'Achieve Hub',
     description: 'Modern goal tracking and reflection application with mood analytics and streak tracking',
@@ -57,25 +104,43 @@ const featuredProjects: FeaturedProject[] = [
     ],
     featured: true,
   },
-  {
-    id: 'ultimateqa',
-    name: 'UltimateQA Platform',
-    description: 'Global developer education platform training 150K+ engineers',
-    techStack: ['React', 'Node.js', 'MongoDB', 'AWS', 'Docker'],
-    demoUrl: 'https://ultimateqa.com',
-    status: 'live',
-    highlights: [
-      '150,000+ students trained',
-      '190 countries reached',
-      'Industry-leading curriculum',
-      'Corporate training partnerships',
-    ],
-    featured: true,
-  },
 ];
 
 // Mock GitHub repositories - MANUALLY CURATED PROJECTS ONLY
 const mockGitHubRepos: GitHubRepo[] = [
+  {
+    id: 1,
+    name: 'vollq-ai',
+    description: 'AI-Supported, zero code, test automation platform revolutionizing quality assurance',
+    html_url: 'https://vollq.ai', // Private repository - link to demo
+    homepage: 'https://vollq.ai',
+    stargazers_count: 445,
+    forks_count: 87,
+    language: 'TypeScript',
+    topics: ['ai', 'automation', 'typescript', 'react', 'nodejs', 'machine-learning'],
+  },
+  {
+    id: 2,
+    name: 'vision-board-bliss-e3561110',
+    description: 'AI-powered vision board application for goal setting and manifestation',
+    html_url: 'https://github.com/nadvolod/vision-board-bliss-e3561110',
+    homepage: 'https://vision-board-bliss.lovable.app/',
+    stargazers_count: 78,
+    forks_count: 15,
+    language: 'TypeScript',
+    topics: ['react', 'nextjs', 'ai', 'vision-board', 'goal-setting', 'typescript'],
+  },
+  {
+    id: 4,
+    name: 'personal-website',
+    description: 'Modern Next.js portfolio website with advanced performance optimization',
+    html_url: 'https://github.com/nadvolod/personal-website',
+    homepage: 'https://nikolayadvolodkin.com',
+    stargazers_count: 156,
+    forks_count: 34,
+    language: 'TypeScript',
+    topics: ['nextjs', 'react', 'typescript', 'tailwindcss', 'portfolio', 'performance'],
+  },
   {
     id: 3,
     name: 'achieve-hub',
@@ -86,17 +151,6 @@ const mockGitHubRepos: GitHubRepo[] = [
     forks_count: 12,
     language: 'TypeScript',
     topics: ['react', 'vite', 'supabase', 'goal-tracking', 'mood-analytics', 'typescript'],
-  },
-  {
-    id: 5,
-    name: 'ultimateqa-platform',
-    description: 'Global developer education platform training 150K+ engineers',
-    html_url: 'https://github.com/nadvolod/ultimateqa-platform',
-    homepage: 'https://ultimateqa.com',
-    stargazers_count: 567,
-    forks_count: 123,
-    language: 'JavaScript',
-    topics: ['react', 'nodejs', 'mongodb', 'aws', 'docker', 'education'],
   },
 ];
 
@@ -130,6 +184,10 @@ const Projects: React.FC = () => {
   const filteredProjects = useMemo(() => {
     let projects = showFeatured ? [...featuredProjects] : [];
     let repos = [...githubRepos];
+
+    // Remove repos that are already surfaced as featured projects
+    const featuredNames = new Set(projects.map(p => p.id));
+    repos = repos.filter(r => !featuredNames.has(r.name));
 
     if (searchTerm) {
       const term = searchTerm.toLowerCase();

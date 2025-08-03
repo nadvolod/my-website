@@ -91,6 +91,9 @@ export const CONFERENCE_LINKS = {
 export const GITHUB_LINKS = {
   mainProfile: "https://github.com/nadvolod",
   // PRIORITY: Development Skills Projects
+  vollqAI: "https://vollq.ai", // ✅ AI-Supported test automation platform (private repo)
+  visionBoardBliss: "https://github.com/nadvolod/vision-board-bliss-e3561110", // ✅ AI-powered vision board app
+  personalWebsite: "https://github.com/nadvolod/personal-website", // ✅ Next.js personal website
   achieveHub: "https://github.com/nadvolod/achieve-hub", // ✅ Goal tracking and reflection app
   jsCodeExamples: "https://github.com/nadvolod/js-code", // ✅ JavaScript development examples
   // HIDDEN: Testing-focused repositories (available but not featured)
@@ -135,8 +138,10 @@ export const CONTENT_LINKS = {
 
 // Demo and Live Application Links
 export const DEMO_LINKS = {
+  vollqAI: "https://vollq.ai", // ✅ VERIFIED - AI automation platform
+  visionBoardBliss: "https://vision-board-bliss.lovable.app/", // ✅ VERIFIED - Vision board app
+  personalWebsite: "https://nikolayadvolodkin.com", // ✅ VERIFIED - Personal portfolio
   achieveHub: "https://achieve-hub.lovable.app/landing", // ✅ VERIFIED - Goal tracking app
-  ultimateQA: "https://ultimateqa.com", // ✅ VERIFIED - Education platform
 } as const;
 
 // ===== LINK COLLECTIONS FOR TESTING =====
@@ -159,6 +164,8 @@ export const CRITICAL_LINKS = {
   linkedinProfile: SOCIAL_LINKS.linkedin,
   githubProfile: GITHUB_LINKS.mainProfile,
   nikolayProfilePage: EDUCATION_LINKS.nikolayProfilePage,
+  vollqAI: DEMO_LINKS.vollqAI,
+  visionBoardBliss: DEMO_LINKS.visionBoardBliss,
   achieveHub: DEMO_LINKS.achieveHub,
   // Note: Removed udemyProfile due to 403 responses (likely rate limiting)
 } as const;
