@@ -1,32 +1,18 @@
 'use client';
 
 import {
-    CheckCircleIcon,
-    ClockIcon,
-    CodeBracketIcon,
-    ExclamationTriangleIcon,
-    EyeIcon,
-    LinkIcon,
-    MagnifyingGlassIcon,
-    StarIcon,
+  CheckCircleIcon,
+  ClockIcon,
+  CodeBracketIcon,
+  ExclamationTriangleIcon,
+  EyeIcon,
+  MagnifyingGlassIcon,
 } from '@heroicons/react/24/outline';
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useEffect, useMemo, useState } from 'react';
 import Button from './ui/Button';
 
 // Types
-interface GitHubRepo {
-  id: number;
-  name: string;
-  description: string | null;
-  html_url: string;
-  homepage: string | null;
-  stargazers_count: number;
-  forks_count: number;
-  language: string | null;
-  topics: string[];
-}
-
 interface FeaturedProject {
   id: string;
   name: string;
@@ -44,8 +30,9 @@ const featuredProjects: FeaturedProject[] = [
   {
     id: 'vollq-ai',
     name: 'VollQ.ai',
-    description: 'AI-Supported, zero code, test automation platform revolutionizing quality assurance',
-    techStack: ['React', 'TypeScript', 'AI/ML', 'Node.js', 'AWS', 'Docker'],
+    description:
+      'AI-Supported, zero code, test automation platform revolutionizing quality assurance',
+    techStack: ['React', 'TypeScript', 'AI/ML', 'Node.js', 'GCP'],
     demoUrl: 'https://vollq.ai',
     status: 'live',
     highlights: [
@@ -58,14 +45,13 @@ const featuredProjects: FeaturedProject[] = [
   },
   {
     id: 'vision-board-bliss',
-    name: 'Vision Board Bliss',
+    name: 'Abundance Board',
     description: 'AI-powered vision board application for goal setting and manifestation',
-    techStack: ['React', 'TypeScript', 'AI', 'Next.js', 'Tailwind CSS'],
-    repoUrl: 'https://github.com/nadvolod/vision-board-bliss-e3561110',
-    demoUrl: 'https://vision-board-bliss.lovable.app/',
+    techStack: ['React', 'TypeScript', 'AI', 'Next.js', 'Tailwind CSS', 'Supabase', 'Vercel'],
+    repoUrl: 'https://github.com/nadvolod/abundance-board',
+    demoUrl: 'https://myvision0.vercel.app/',
     status: 'live',
     highlights: [
-      'AI-powered goal visualization',
       'Interactive vision board creation',
       'Modern React architecture',
       'Responsive design system',
@@ -77,8 +63,8 @@ const featuredProjects: FeaturedProject[] = [
     name: 'Personal Portfolio Website',
     description: 'Modern Next.js portfolio website with advanced performance optimization',
     techStack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
-    repoUrl: 'https://github.com/nadvolod/personal-website',
-    demoUrl: 'https://nikolayadvolodkin.com',
+    repoUrl: 'https://github.com/nadvolod/my-website',
+    demoUrl: 'https://nikolaydev.vercel.app/',
     status: 'live',
     highlights: [
       'Next.js 15 with App Router',
@@ -91,10 +77,11 @@ const featuredProjects: FeaturedProject[] = [
   {
     id: 'achieve-hub',
     name: 'Achieve Hub',
-    description: 'Modern goal tracking and reflection application with mood analytics and streak tracking',
+    description:
+      'Modern goal tracking and reflection application with mood analytics and streak tracking',
     techStack: ['React', 'TypeScript', 'Vite', 'Supabase', 'Tailwind CSS'],
     repoUrl: 'https://github.com/nadvolod/achieve-hub',
-    demoUrl: 'https://achieve-hub.lovable.app/landing',
+    demoUrl: 'https://achievehub0.vercel.app/',
     status: 'live',
     highlights: [
       'Daily reflection prompts',
@@ -103,54 +90,6 @@ const featuredProjects: FeaturedProject[] = [
       'Performance optimized (< 0.5s loading)',
     ],
     featured: true,
-  },
-];
-
-// Mock GitHub repositories - MANUALLY CURATED PROJECTS ONLY
-const mockGitHubRepos: GitHubRepo[] = [
-  {
-    id: 1,
-    name: 'vollq-ai',
-    description: 'AI-Supported, zero code, test automation platform revolutionizing quality assurance',
-    html_url: 'https://vollq.ai', // Private repository - link to demo
-    homepage: 'https://vollq.ai',
-    stargazers_count: 445,
-    forks_count: 87,
-    language: 'TypeScript',
-    topics: ['ai', 'automation', 'typescript', 'react', 'nodejs', 'machine-learning'],
-  },
-  {
-    id: 2,
-    name: 'vision-board-bliss-e3561110',
-    description: 'AI-powered vision board application for goal setting and manifestation',
-    html_url: 'https://github.com/nadvolod/vision-board-bliss-e3561110',
-    homepage: 'https://vision-board-bliss.lovable.app/',
-    stargazers_count: 78,
-    forks_count: 15,
-    language: 'TypeScript',
-    topics: ['react', 'nextjs', 'ai', 'vision-board', 'goal-setting', 'typescript'],
-  },
-  {
-    id: 4,
-    name: 'personal-website',
-    description: 'Modern Next.js portfolio website with advanced performance optimization',
-    html_url: 'https://github.com/nadvolod/personal-website',
-    homepage: 'https://nikolayadvolodkin.com',
-    stargazers_count: 156,
-    forks_count: 34,
-    language: 'TypeScript',
-    topics: ['nextjs', 'react', 'typescript', 'tailwindcss', 'portfolio', 'performance'],
-  },
-  {
-    id: 3,
-    name: 'achieve-hub',
-    description: 'Modern goal tracking and reflection application with mood analytics and streak tracking',
-    html_url: 'https://github.com/nadvolod/achieve-hub',
-    homepage: 'https://achieve-hub.lovable.app/landing',
-    stargazers_count: 89,
-    forks_count: 12,
-    language: 'TypeScript',
-    topics: ['react', 'vite', 'supabase', 'goal-tracking', 'mood-analytics', 'typescript'],
   },
 ];
 
@@ -166,7 +105,6 @@ const techColors: Record<string, string> = {
 };
 
 const Projects: React.FC = () => {
-  const [githubRepos, setGithubRepos] = useState<GitHubRepo[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [showFeatured, setShowFeatured] = useState(true);
@@ -174,7 +112,6 @@ const Projects: React.FC = () => {
   useEffect(() => {
     // Simulate API loading
     const timer = setTimeout(() => {
-      setGithubRepos(mockGitHubRepos);
       setLoading(false);
     }, 1500);
 
@@ -183,28 +120,18 @@ const Projects: React.FC = () => {
 
   const filteredProjects = useMemo(() => {
     let projects = showFeatured ? [...featuredProjects] : [];
-    let repos = [...githubRepos];
-
-    // Remove repos that are already surfaced as featured projects
-    const featuredNames = new Set(projects.map(p => p.id));
-    repos = repos.filter(r => !featuredNames.has(r.name));
 
     if (searchTerm) {
       const term = searchTerm.toLowerCase();
       projects = projects.filter(
-        project =>
+        (project) =>
           project.name.toLowerCase().includes(term) ||
-          project.description.toLowerCase().includes(term)
-      );
-      repos = repos.filter(
-        repo =>
-          repo.name.toLowerCase().includes(term) ||
-          (repo.description && repo.description.toLowerCase().includes(term))
+          project.description.toLowerCase().includes(term),
       );
     }
 
-    return { projects, repos };
-  }, [searchTerm, showFeatured, githubRepos]);
+    return { projects };
+  }, [searchTerm, showFeatured]);
 
   const getStatusIndicator = (status: FeaturedProject['status']) => {
     switch (status) {
@@ -251,8 +178,8 @@ const Projects: React.FC = () => {
             Development Portfolio
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8">
-            Explore my full-stack development projects showcasing modern web technologies, 
-            AI integration, and scalable architecture solutions.
+            Explore my full-stack development projects showcasing modern web technologies, AI
+            integration, and scalable architecture solutions.
           </p>
         </motion.div>
 
@@ -346,9 +273,7 @@ const Projects: React.FC = () => {
                       </span>
                     </div>
 
-                    <p className="text-gray-600 dark:text-gray-300 mb-4">
-                      {project.description}
-                    </p>
+                    <p className="text-gray-600 dark:text-gray-300 mb-4">{project.description}</p>
 
                     <div className="mb-4">
                       <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-2">
@@ -410,102 +335,12 @@ const Projects: React.FC = () => {
                   </div>
                 </motion.div>
               ))}
-
-              {/* GitHub Repositories */}
-              {filteredProjects.repos.map((repo, index) => (
-                <motion.div
-                  key={repo.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: (filteredProjects.projects.length + index) * 0.1 }}
-                  whileHover={{ y: -5 }}
-                  className="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700 overflow-hidden"
-                >
-                  <div className="p-6">
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="flex items-center gap-3">
-                        <div className="p-2 bg-gray-100 dark:bg-gray-700 rounded-lg">
-                          <CodeBracketIcon className="h-6 w-6 text-gray-600 dark:text-gray-400" />
-                        </div>
-                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                          {repo.name}
-                        </h3>
-                      </div>
-                    </div>
-
-                    <p className="text-gray-600 dark:text-gray-300 mb-4">
-                      {repo.description || 'No description available'}
-                    </p>
-
-                    <div className="flex items-center gap-4 mb-4 text-sm text-gray-500 dark:text-gray-400">
-                      <div className="flex items-center gap-1">
-                        <StarIcon className="h-4 w-4" />
-                        {repo.stargazers_count}
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <CodeBracketIcon className="h-4 w-4" />
-                        {repo.forks_count}
-                      </div>
-                      {repo.language && (
-                        <div className="flex items-center gap-1">
-                          <div className="w-3 h-3 rounded-full bg-blue-500"></div>
-                          {repo.language}
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="mb-6">
-                      <div className="flex flex-wrap gap-2">
-                        {repo.language && (
-                          <span className={`px-2 py-1 text-xs font-medium rounded-full ${getTechBadgeColor(repo.language)}`}>
-                            {repo.language}
-                          </span>
-                        )}
-                        {repo.topics.slice(0, 3).map((topic) => (
-                          <span
-                            key={topic}
-                            className={`px-2 py-1 text-xs font-medium rounded-full ${getTechBadgeColor(topic)}`}
-                          >
-                            {topic}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="flex gap-3">
-                      <Button
-                        variant="secondary"
-                        size="sm"
-                        onClick={() => window.open(repo.html_url, '_blank')}
-                        leftIcon={<CodeBracketIcon className="h-4 w-4" />}
-                      >
-                        View Code
-                      </Button>
-                      {repo.homepage && (
-                        <Button
-                          variant="primary"
-                          size="sm"
-                          onClick={() => {
-                            if (repo.homepage) {
-                              window.open(repo.homepage, '_blank');
-                            }
-                          }}
-                          leftIcon={<LinkIcon className="h-4 w-4" />}
-                        >
-                          Live Demo
-                        </Button>
-                      )}
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
             </motion.div>
           </AnimatePresence>
         )}
 
         {/* No Results */}
-        {!loading && filteredProjects.projects.length === 0 && filteredProjects.repos.length === 0 && (
+        {!loading && filteredProjects.projects.length === 0 && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -522,4 +357,4 @@ const Projects: React.FC = () => {
   );
 };
 
-export default Projects; 
+export default Projects;
