@@ -9,9 +9,9 @@ body:
     attributes:
       value: |
         ## Add New Project to Portfolio
-        
+
         This template helps you add a new project to the Development Portfolio section. All information provided will be used to create a project card that showcases your work.
-        
+
         **Note**: Projects added through this template will be manually reviewed and integrated into the codebase.
 
   - type: input
@@ -32,15 +32,15 @@ body:
     validations:
       required: true
 
-  - type: checkboxes
+  - type: dropdown
     id: project-status
     attributes:
       label: Project Status
-      description: Current status of the project
+      description: Select the current status of the project
       options:
-        - label: Live (publicly accessible and fully functional)
-        - label: In Development (work in progress)
-        - label: Paused (temporarily on hold)
+        - Live (publicly accessible and fully functional)
+        - In Development (work in progress)
+        - Paused (temporarily on hold)
     validations:
       required: true
 

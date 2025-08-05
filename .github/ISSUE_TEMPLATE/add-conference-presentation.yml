@@ -9,9 +9,9 @@ body:
     attributes:
       value: |
         ## Add New Conference Presentation
-        
+
         This template helps you add a new conference presentation to the International Speaking section. All information provided will be used to create a speaking engagement card.
-        
+
         **Note**: Presentations added through this template will be manually reviewed and integrated into the codebase.
 
   - type: input

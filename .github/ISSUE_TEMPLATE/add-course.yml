@@ -9,9 +9,9 @@ body:
     attributes:
       value: |
         ## Add New Course to Educational Content
-        
+
         This template helps you add a new course to the Educational Content & Courses section. All information provided will be used to create a course card that showcases your educational offerings.
-        
+
         **Note**: Courses added through this template will be manually reviewed and integrated into the codebase.
 
   - type: input
@@ -113,7 +113,7 @@ body:
       description: List the main features/topics covered (one per line, maximum 5)
       placeholder: |
         Complete Selenium WebDriver
-        TestNG Framework  
+        TestNG Framework
         Page Object Model
         Maven Integration
         CI/CD Pipeline
