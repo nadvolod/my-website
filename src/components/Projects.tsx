@@ -10,6 +10,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useEffect, useMemo, useState } from 'react';
+import { DEMO_LINKS, GITHUB_LINKS } from '../config/stats';
 import Button from './ui/Button';
 
 // Types
@@ -97,8 +98,8 @@ const featuredProjects: FeaturedProject[] = [
     description:
       'A lightweight e-commerce web application built with Next.js 14+ and TypeScript for testing and workshop purposes. Features product catalog, shopping cart functionality, authentication system, and REST API endpoints - all using in-memory data.',
     techStack: ['Next.js', 'TypeScript', 'REST API', 'GitHub Spark AI'],
-    repoUrl: 'https://github.com/nadvolod/e-commerce-web-app-w',
-    demoUrl: 'https://nextjs-e-commerce-wo--nadvolod.github.app',
+    repoUrl: GITHUB_LINKS.ecommerceTestApp,
+    demoUrl: DEMO_LINKS.ecommerceTestApp,
     status: 'live',
     highlights: [
       'Product catalog with search & filtering',
@@ -116,6 +117,8 @@ const techColors: Record<string, string> = {
   JavaScript: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
   React: 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200',
   'Node.js': 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
+  'REST API': 'bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200',
+  'GitHub Spark AI': 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200',
   Python: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
   Java: 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200',
   default: 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200',

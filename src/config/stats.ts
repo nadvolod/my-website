@@ -95,6 +95,7 @@ export const GITHUB_LINKS = {
   visionBoardBliss: "https://github.com/nadvolod/vision-board-bliss-e3561110", // ✅ AI-powered vision board app
   personalWebsite: "https://github.com/nadvolod/personal-website", // ✅ Next.js personal website
   achieveHub: "https://github.com/nadvolod/achieve-hub", // ✅ Goal tracking and reflection app
+  ecommerceTestApp: "https://github.com/nadvolod/e-commerce-web-app-w", // ✅ NextJS e-commerce test application
   jsCodeExamples: "https://github.com/nadvolod/js-code", // ✅ JavaScript development examples
   // HIDDEN: Testing-focused repositories (available but not featured)
   ultimateQAJavaSDET: "https://github.com/ultimate-qa/java-sdet", // Testing course
@@ -142,6 +143,7 @@ export const DEMO_LINKS = {
   visionBoardBliss: "https://vision-board-bliss.lovable.app/", // ✅ VERIFIED - Vision board app
   personalWebsite: "https://nikolayadvolodkin.com", // ✅ VERIFIED - Personal portfolio
   achieveHub: "https://achieve-hub.lovable.app/landing", // ✅ VERIFIED - Goal tracking app
+  ecommerceTestApp: "https://nextjs-e-commerce-wo--nadvolod.github.app", // ✅ NextJS e-commerce test application
 } as const;
 
 // ===== LINK COLLECTIONS FOR TESTING =====
@@ -179,6 +181,9 @@ export const LINKS_NEED_VERIFICATION = {
   testingBestPractices: GITHUB_LINKS.testingBestPractices,
   aiTestingWorkshop: GITHUB_LINKS.aiTestingWorkshop,
   javaSdetBootcamp: EDUCATION_LINKS.javaSdetBootcamp,
+  // Test applications with potentially unreliable hosting
+  ecommerceTestApp: GITHUB_LINKS.ecommerceTestApp,
+  ecommerceTestAppDemo: DEMO_LINKS.ecommerceTestApp,
   // Add conference links that may change
   browserConference: CONFERENCE_LINKS.browserConference,
   testingStage: CONFERENCE_LINKS.testingStage,
