@@ -1,0 +1,183 @@
+name: 🎤 Add Conference Presentation
+description: Add a new conference presentation to the International Speaking section
+title: "Add Presentation: [PRESENTATION TITLE]"
+labels: ["content", "speaking", "conference", "enhancement"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Add New Conference Presentation
+        
+        This template helps you add a new conference presentation to the International Speaking section. All information provided will be used to create a speaking engagement card.
+        
+        **Note**: Presentations added through this template will be manually reviewed and integrated into the codebase.
+
+  - type: input
+    id: presentation-title
+    attributes:
+      label: Presentation Title
+      description: The full title of your presentation
+      placeholder: "e.g., AI in Code, Testing, CI/CD: Revolutionizing Web Dev"
+    validations:
+      required: true
+
+  - type: input
+    id: conference-name
+    attributes:
+      label: Conference Name
+      description: Name of the conference or event
+      placeholder: "e.g., All Things Open 2024"
+    validations:
+      required: true
+
+  - type: input
+    id: location
+    attributes:
+      label: Location
+      description: City and state/country, or 'Virtual'
+      placeholder: "e.g., Raleigh, NC or San Francisco + Virtual"
+    validations:
+      required: true
+
+  - type: input
+    id: country
+    attributes:
+      label: Country
+      description: Country where the conference took place
+      placeholder: "e.g., USA, Poland, Global"
+    validations:
+      required: true
+
+  - type: input
+    id: presentation-date
+    attributes:
+      label: Presentation Date
+      description: Date of the presentation (YYYY-MM-DD format)
+      placeholder: "2024-10-29"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: presentation-type
+    attributes:
+      label: Presentation Type
+      description: Type of speaking engagement
+      options:
+        - keynote
+        - presentation
+        - workshop
+        - panel
+    validations:
+      required: true
+
+  - type: input
+    id: topic-category
+    attributes:
+      label: Topic Category
+      description: Main topic area of the presentation
+      placeholder: "e.g., AI & Development, AI & Testing, Testing Automation"
+    validations:
+      required: true
+
+  - type: textarea
+    id: presentation-description
+    attributes:
+      label: Presentation Description
+      description: Brief description of what the presentation covered (1-2 sentences)
+      placeholder: "Latest talk on AI integration in development workflows"
+    validations:
+      required: true
+
+  - type: number
+    id: audience-size
+    attributes:
+      label: Audience Size
+      description: Approximate number of attendees
+      placeholder: "1200"
+    validations:
+      required: true
+
+  - type: input
+    id: video-url
+    attributes:
+      label: Video/Recording URL
+      description: Link to video recording (if available)
+      placeholder: "https://conference-website.com/videos"
+
+  - type: input
+    id: slides-url
+    attributes:
+      label: Slides URL
+      description: Link to presentation slides (if available)
+      placeholder: "https://slideshare.net/..."
+
+  - type: checkboxes
+    id: featured-presentation
+    attributes:
+      label: Featured Presentation
+      description: Should this presentation be marked as featured?
+      options:
+        - label: Mark as featured presentation (will be prominently displayed)
+
+  - type: textarea
+    id: testimonial-quote
+    attributes:
+      label: Testimonial Quote (Optional)
+      description: A testimonial quote about the presentation
+      placeholder: "Nikolay's insights on AI integration were groundbreaking and immediately actionable."
+
+  - type: input
+    id: testimonial-author
+    attributes:
+      label: Testimonial Author (Optional)
+      description: Name of the person who gave the testimonial
+      placeholder: "Todd Lewis"
+
+  - type: input
+    id: testimonial-role
+    attributes:
+      label: Testimonial Author Role (Optional)
+      description: Role/title of the testimonial author
+      placeholder: "Conference Director, All Things Open"
+
+  - type: input
+    id: conference-website
+    attributes:
+      label: Conference Website
+      description: Main website of the conference
+      placeholder: "https://allthingsopen.org/"
+
+  - type: textarea
+    id: key-topics
+    attributes:
+      label: Key Topics Covered
+      description: List the main topics or technologies discussed (one per line)
+      placeholder: |
+        AI integration in development
+        Test automation with AI
+        CI/CD pipeline optimization
+        Modern development workflows
+
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Additional Information
+      description: Any other relevant details about the presentation
+      placeholder: "Awards received, media coverage, follow-up opportunities, etc."
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Verification
+      description: Please confirm the following
+      options:
+        - label: I have provided accurate information about this presentation
+          required: true
+        - label: All URLs provided are functional and appropriate for public viewing
+          required: true
+        - label: I have permission to use any testimonials provided
+          required: true
+        - label: The presentation details are complete and ready for public showcase
+          required: true
