@@ -1,0 +1,114 @@
+name: 🚀 Add New Project
+description: Add a new project to the Development Portfolio section
+title: "Add Project: [PROJECT NAME]"
+labels: ["content", "project", "enhancement"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Add New Project to Portfolio
+
+        This template helps you add a new project to the Development Portfolio section. All information provided will be used to create a project card that showcases your work.
+
+        **Note**: Projects added through this template will be manually reviewed and integrated into the codebase.
+
+  - type: input
+    id: project-name
+    attributes:
+      label: Project Name
+      description: The display name of your project
+      placeholder: "e.g., VollQ.ai, Personal Portfolio Website"
+    validations:
+      required: true
+
+  - type: textarea
+    id: project-description
+    attributes:
+      label: Project Description
+      description: A brief description of what the project does (1-2 sentences)
+      placeholder: "e.g., AI-Supported, zero code, test automation platform revolutionizing quality assurance"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: project-status
+    attributes:
+      label: Project Status
+      description: Select the current status of the project
+      options:
+        - Live (publicly accessible and fully functional)
+        - In Development (work in progress)
+        - Paused (temporarily on hold)
+    validations:
+      required: true
+
+  - type: input
+    id: demo-url
+    attributes:
+      label: Demo/Live URL
+      description: Link to the live version of the project (if available)
+      placeholder: "https://example.com"
+
+  - type: input
+    id: repo-url
+    attributes:
+      label: Repository URL
+      description: Link to the source code repository (if public)
+      placeholder: "https://github.com/username/project-name"
+
+  - type: textarea
+    id: tech-stack
+    attributes:
+      label: Technology Stack
+      description: List the main technologies used (one per line)
+      placeholder: |
+        React
+        TypeScript
+        Next.js
+        Tailwind CSS
+        Node.js
+    validations:
+      required: true
+
+  - type: textarea
+    id: key-highlights
+    attributes:
+      label: Key Highlights
+      description: List 3-4 key features or achievements of this project (one per line)
+      placeholder: |
+        Zero-code AI automation platform
+        Enterprise-grade architecture
+        Machine learning integration
+        Cloud-native deployment
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: featured-project
+    attributes:
+      label: Featured Project
+      description: Should this project be marked as featured?
+      options:
+        - label: Mark as featured project (will be prominently displayed)
+
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Additional Information
+      description: Any other relevant details about the project
+      placeholder: "Special recognition, awards, notable users, performance metrics, etc."
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Verification
+      description: Please confirm the following
+      options:
+        - label: I have provided accurate information about this project
+          required: true
+        - label: I have permission to showcase this project publicly
+          required: true
+        - label: All URLs provided are functional and appropriate for public viewing
+          required: true

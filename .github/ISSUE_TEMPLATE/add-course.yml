@@ -1,0 +1,184 @@
+name: 📚 Add New Course
+description: Add a new course to the Educational Content & Courses section
+title: "Add Course: [COURSE NAME]"
+labels: ["content", "course", "education", "enhancement"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Add New Course to Educational Content
+
+        This template helps you add a new course to the Educational Content & Courses section. All information provided will be used to create a course card that showcases your educational offerings.
+
+        **Note**: Courses added through this template will be manually reviewed and integrated into the codebase.
+
+  - type: input
+    id: course-title
+    attributes:
+      label: Course Title
+      description: The full title of the course
+      placeholder: "e.g., Complete Selenium WebDriver with Java Bootcamp"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: course-category
+    attributes:
+      label: Course Category
+      description: Select the primary category for this course
+      options:
+        - automation (Test Automation)
+        - ai (AI & Testing)
+        - javascript (JavaScript & Web)
+        - enterprise (Enterprise Solutions)
+        - other
+    validations:
+      required: true
+
+  - type: input
+    id: custom-category
+    attributes:
+      label: Custom Category (if 'other' selected)
+      description: Specify the category if you selected 'other' above
+      placeholder: "e.g., DevOps, Mobile Testing"
+
+  - type: input
+    id: course-emoji
+    attributes:
+      label: Course Icon/Emoji
+      description: A single emoji that represents this course
+      placeholder: "e.g., ☕, 🤖, 🌐, 🏗️, 🚀"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: color-scheme
+    attributes:
+      label: Color Scheme
+      description: Choose a color scheme for the course card
+      options:
+        - from-orange-500 to-orange-600 (Orange)
+        - from-purple-500 to-purple-600 (Purple)
+        - from-blue-500 to-blue-600 (Blue)
+        - from-green-500 to-green-600 (Green)
+        - from-indigo-500 to-indigo-600 (Indigo)
+        - from-red-500 to-red-600 (Red)
+        - from-pink-500 to-pink-600 (Pink)
+        - from-teal-500 to-teal-600 (Teal)
+    validations:
+      required: true
+
+  - type: number
+    id: student-count
+    attributes:
+      label: Number of Students
+      description: Approximate number of students enrolled
+      placeholder: "25000"
+    validations:
+      required: true
+
+  - type: input
+    id: course-duration
+    attributes:
+      label: Course Duration
+      description: Total duration of the course
+      placeholder: "e.g., 25 hours, 18 hours"
+    validations:
+      required: true
+
+  - type: number
+    id: lesson-count
+    attributes:
+      label: Number of Lessons
+      description: Total number of lessons/modules
+      placeholder: "150"
+    validations:
+      required: true
+
+  - type: input
+    id: course-rating
+    attributes:
+      label: Course Rating
+      description: Average rating (e.g., 4.5, 4.7)
+      placeholder: "4.5"
+    validations:
+      required: true
+
+  - type: textarea
+    id: course-features
+    attributes:
+      label: Course Features
+      description: List the main features/topics covered (one per line, maximum 5)
+      placeholder: |
+        Complete Selenium WebDriver
+        TestNG Framework
+        Page Object Model
+        Maven Integration
+        CI/CD Pipeline
+    validations:
+      required: true
+
+  - type: textarea
+    id: student-testimonial
+    attributes:
+      label: Student Testimonial
+      description: A testimonial quote from a student
+      placeholder: "The most comprehensive Selenium course available. Nikolay's teaching style is exceptional!"
+    validations:
+      required: true
+
+  - type: input
+    id: testimonial-author
+    attributes:
+      label: Testimonial Author Name
+      description: Name of the person who gave the testimonial
+      placeholder: "Alex Rodriguez, Senior QA Engineer"
+    validations:
+      required: true
+
+  - type: input
+    id: course-url
+    attributes:
+      label: Course URL
+      description: Direct link to the course (Udemy, UltimateQA, etc.)
+      placeholder: "https://www.udemy.com/course/..."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Course Platform
+      description: Where is this course hosted?
+      options:
+        - Udemy
+        - UltimateQA
+        - Coursera
+        - edX
+        - YouTube
+        - Custom Platform
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Additional Information
+      description: Any other relevant details about the course
+      placeholder: "Special features, completion certificates, bonus materials, etc."
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Verification
+      description: Please confirm the following
+      options:
+        - label: I have provided accurate information about this course
+          required: true
+        - label: The course URL is functional and appropriate for public sharing
+          required: true
+        - label: I have permission to showcase this course and use the testimonial
+          required: true
