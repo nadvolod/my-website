@@ -91,6 +91,23 @@ const featuredProjects: FeaturedProject[] = [
     ],
     featured: true,
   },
+  {
+    id: 'nextjs-ecommerce',
+    name: 'NextJS E-commerce Test App',
+    description:
+      'A lightweight e-commerce web application built with Next.js 14+ and TypeScript for testing and workshop purposes. Features product catalog, shopping cart functionality, authentication system, and REST API endpoints - all using in-memory data.',
+    techStack: ['Next.js', 'TypeScript', 'REST API', 'GitHub Spark AI'],
+    repoUrl: 'https://github.com/nadvolod/e-commerce-web-app-w',
+    demoUrl: 'https://nextjs-e-commerce-wo--nadvolod.github.app',
+    status: 'live',
+    highlights: [
+      'Product catalog with search & filtering',
+      'Shopping cart functionality',
+      'Authentication system',
+      'In-memory data with no external dependencies',
+    ],
+    featured: true,
+  },
 ];
 
 // Tech stack colors
