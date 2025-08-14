@@ -149,6 +149,13 @@ export const DEMO_LINKS = {
 // ===== LINK COLLECTIONS FOR TESTING =====
 // These collect all links for easy testing
 
+// Newsletter links for testing
+export const NEWSLETTER_LINKS = {
+  weeklyNewsletter: NEWSLETTER_INFO.weekly.url,
+  jsTestingTips: NEWSLETTER_INFO.jsTestingTips.url,
+  playwrightTips: NEWSLETTER_INFO.playwrightTips.url,
+} as const;
+
 // All external links that should return 200 status
 export const ALL_EXTERNAL_LINKS = {
   ...SOCIAL_LINKS,
@@ -158,6 +165,7 @@ export const ALL_EXTERNAL_LINKS = {
   ...BUSINESS_LINKS,
   ...CONTENT_LINKS,
   ...DEMO_LINKS,
+  ...NEWSLETTER_LINKS,
 } as const;
 
 // Critical links that MUST work for business operations
@@ -243,4 +251,54 @@ export const PROFESSIONAL_RECOGNITION = [
     year: "2023",
     icon: "⭐"
   }
-] as const; 
+] as const;
+
+// Newsletter Configuration - Added for email newsletter subscriptions
+export const NEWSLETTER_INFO = {
+  // Weekly Newsletter - AI, testing, and web dev
+  weekly: {
+    title: "Weekly Newsletter",
+    subtitle: "Latest in AI, automated testing, and web dev",
+    description: "Join 25K+ engineers growing their skills",
+    url: "https://ultimateqa.kit.com/profile",
+    subscribers: "25,000+",
+    frequency: "Weekly",
+    topics: ["AI", "Automated Testing", "Web Development"],
+    testimonials: [
+      {
+        quote: "Go on, forward! Hug",
+        author: "Newsletter Subscriber"
+      },
+      {
+        quote: "Continue with your work weekly. Thanks. Hug",
+        author: "Newsletter Subscriber"
+      }
+    ],
+    icon: "📬",
+    color: "from-blue-600 to-purple-600"
+  },
+  // Testing Javascript Newsletter
+  jsTestingTips: {
+    title: "Testing Javascript",
+    subtitle: "Master JavaScript testing techniques",
+    description: "Tips and strategies for JavaScript testing",
+    url: "https://ultimateqa.kit.com/js-testing-tips",
+    subscribers: "15,000+",
+    frequency: "Weekly",
+    topics: ["JavaScript Testing", "Test Automation", "Best Practices"],
+    icon: "🧪",
+    color: "from-yellow-500 to-orange-600"
+  },
+  // Playwright Tips Newsletter
+  playwrightTips: {
+    title: "Playwright Tips",
+    subtitle: "Level up your Playwright skills",
+    description: "Advanced Playwright testing strategies and tips",
+    url: "https://testing-with-playwright.beehiiv.com/",
+    subscribers: "10,000+",
+    frequency: "Bi-weekly",
+    topics: ["Playwright", "End-to-End Testing", "Browser Automation"],
+    icon: "🎭",
+    color: "from-green-500 to-blue-600"
+  }
+} as const; 
