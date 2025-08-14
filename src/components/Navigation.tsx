@@ -93,6 +93,34 @@ const Navigation = () => {
     setIsMenuOpen(false);
   };
 
+  // Handle initial hash routing on page load
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.slice(1); // Remove the '#'
+      if (hash && document.getElementById(hash)) {
+        // Small delay to ensure page is loaded
+        setTimeout(() => {
+          scrollToSection(hash);
+        }, 100);
+      }
+    };
+
+    // Handle initial page load with hash
+    handleHashChange();
+
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  // Handle anchor link clicks for smooth scrolling
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    e.preventDefault();
+    scrollToSection(sectionId);
+    // Update URL hash
+    window.history.pushState(null, '', `#${sectionId}`);
+  };
+
   // Handle back to top
   const scrollToTop = () => {
     window.scrollTo({
@@ -213,13 +241,14 @@ const Navigation = () => {
               whileHover={{ scale: 1.05 }}
               className="flex-shrink-0"
             >
-              <button
-                onClick={() => scrollToSection('hero')}
+              <a
+                href="#hero"
+                onClick={(e) => handleAnchorClick(e, 'hero')}
                 className="text-2xl font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                 aria-label="Go to homepage"
               >
                 Nikolay Advolodkin
-              </button>
+              </a>
             </motion.div>
 
             {/* Desktop Navigation */}
@@ -237,9 +266,10 @@ const Navigation = () => {
                       {item.label}
                     </a>
                   ) : (
-                    <button
+                    <a
                       key={item.id}
-                      onClick={() => scrollToSection(item.id)}
+                      href={item.href}
+                      onClick={(e) => handleAnchorClick(e, item.id)}
                       className={`px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
                         activeSection === item.id
                           ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20'
@@ -248,7 +278,7 @@ const Navigation = () => {
                       aria-current={activeSection === item.id ? 'page' : undefined}
                     >
                       {item.label}
-                    </button>
+                    </a>
                   )
                 ))}
               </div>
@@ -283,13 +313,14 @@ const Navigation = () => {
               )}
 
               {/* CTA Button */}
-              <Button
-                variant="primary"
-                size="md"
-                onClick={() => scrollToSection('contact')}
-              >
-                Get In Touch
-              </Button>
+              <a href="#contact" onClick={(e) => handleAnchorClick(e, 'contact')}>
+                <Button
+                  variant="primary"
+                  size="md"
+                >
+                  Get In Touch
+                </Button>
+              </a>
             </div>
 
             {/* Mobile Menu Button */}
@@ -413,9 +444,10 @@ const Navigation = () => {
                           {item.label}
                         </a>
                       ) : (
-                        <button
+                        <a
                           key={item.id}
-                          onClick={() => scrollToSection(item.id)}
+                          href={item.href}
+                          onClick={(e) => handleAnchorClick(e, item.id)}
                           className={`w-full text-left px-4 py-4 rounded-lg text-base font-medium transition-all duration-200 min-h-touch ${
                             activeSection === item.id
                               ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20'
@@ -424,7 +456,7 @@ const Navigation = () => {
                           aria-current={activeSection === item.id ? 'page' : undefined}
                         >
                           {item.label}
-                        </button>
+                        </a>
                       )
                     ))}
                   </div>
@@ -447,14 +479,15 @@ const Navigation = () => {
 
                 {/* Mobile CTA */}
                 <div className="px-6 py-4 border-t border-gray-200 dark:border-gray-700">
-                  <Button
-                    variant="primary"
-                    size="md"
-                    onClick={() => scrollToSection('contact')}
-                    className="w-full"
-                  >
-                    Get In Touch
-                  </Button>
+                  <a href="#contact" onClick={(e) => handleAnchorClick(e, 'contact')}>
+                    <Button
+                      variant="primary"
+                      size="md"
+                      className="w-full"
+                    >
+                      Get In Touch
+                    </Button>
+                  </a>
                 </div>
               </div>
             </motion.div>
@@ -471,15 +504,17 @@ const Navigation = () => {
             exit={{ opacity: 0, scale: 0.8 }}
             className="fixed bottom-8 right-8 z-40"
           >
-            <Button
-              variant="primary"
-              size="md"
-              onClick={scrollToTop}
-              className="!p-3 rounded-full shadow-lg"
-              aria-label="Back to top"
-            >
-              <ChevronUpIcon className="h-6 w-6" />
-            </Button>
+            <a href="#hero" onClick={(e) => handleAnchorClick(e, 'hero')}>
+              <Button
+                variant="primary"
+                size="md"
+                onClick={scrollToTop}
+                className="!p-3 rounded-full shadow-lg"
+                aria-label="Back to top"
+              >
+                <ChevronUpIcon className="h-6 w-6" />
+              </Button>
+            </a>
           </motion.div>
         )}
       </AnimatePresence>
