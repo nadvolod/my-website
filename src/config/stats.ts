@@ -62,10 +62,10 @@ export const CONTACT_INFO = {
 export const SOCIAL_LINKS = {
   linkedin: "https://www.linkedin.com/in/nikolayadvolodkin/",
   github: "https://github.com/nadvolod", // Updated to match verified username
-  twitter: "https://twitter.com/nikolayadvolod",
+  twitter: "https://x.com/nikolayadvolod",
   instagram: "https://www.instagram.com/nikolay.advolodkin/",
   tiktok: "https://www.tiktok.com/@nikolay.advolodkin/",
-  youtube: "https://www.youtube.com/@nikolayadvolodkin", // Fixed: added www.
+  youtube: "https://www.youtube.com/c/NikolayAdvolodkin",
   udemy: "https://www.udemy.com/user/nikolaya/",
   ultimateqa: "https://ultimateqa.com/nikolay-advolodkin-3/"
 } as const;
@@ -76,13 +76,13 @@ export const SOCIAL_LINKS = {
 // Conference and Speaking Links
 export const CONFERENCE_LINKS = {
   allThingsOpen: "https://allthingsopen.org/",
-  browserConference: "https://browserconference.com/", // Fixed: removed conf, added conference
+  // browserConference: "https://browserconference.com/", // REMOVED: Connection timeout, site may be down
   stareast: "https://starwest.techwell.com/", // Fixed: StarWest is the current active conference
   infoshare: "https://infoshare.pl/",
   apiWorld: "https://apiworld.co/",
   seleniumConf: "https://seleniumconf.com/", // Fixed: removed .us
   developerWeek: "https://developerweek.com/",
-  testingStage: "https://qahitech.com/", // Fixed: redirect to actual organizer site
+  // testingStage: "https://qahitech.com/", // REMOVED: Domain not found
   // Note: Some conference URLs may change year to year
   // Update these annually or as conferences move
 } as const;
@@ -99,11 +99,8 @@ export const GITHUB_LINKS = {
   jsCodeExamples: "https://github.com/nadvolod/js-code", // ✅ JavaScript development examples
   // HIDDEN: Testing-focused repositories (available but not featured)
   ultimateQAJavaSDET: "https://github.com/ultimate-qa/java-sdet", // Testing course
-  simpleSauce: "https://github.com/nadvolod/simple-sauce", // Testing library
-  playwrightExamples: "https://github.com/nadvolod/playwright-examples", // Testing examples
-  cypressExamples: "https://github.com/nadvolod/cypress-examples", // Testing examples
   testingBestPractices: "https://github.com/nadvolod/testing-best-practices", // Testing guidelines
-  aiTestingWorkshop: "https://github.com/nadvolod/ai-testing-workshop", // Testing workshop
+  // Note: Removed non-existent repos: simpleSauce, playwrightExamples, cypressExamples, aiTestingWorkshop
 } as const;
 
 // Education and Course Links
@@ -115,7 +112,7 @@ export const EDUCATION_LINKS = {
   // UltimateQA Links
   ultimateQAMain: "https://ultimateqa.com/", // ✅ VERIFIED
   nikolayProfilePage: "https://ultimateqa.com/nikolay-advolodkin-3/", // ✅ VERIFIED
-  javaSdetBootcamp: "https://ultimateqa.com/complete-java-automation-engineer-bootcamp/", // May need verification
+  // javaSdetBootcamp: "https://ultimateqa.com/complete-java-automation-engineer-bootcamp/", // REMOVED: Returns 404
   
   // Course landing pages - update these if URLs change
   aiTestingCourse: "https://www.udemy.com/user/nikolaya/", // Link to profile for now
@@ -126,13 +123,13 @@ export const EDUCATION_LINKS = {
 export const BUSINESS_LINKS = {
   ultimateQAMain: "https://ultimateqa.com/",
   caseStudies: "https://ultimateqa.com/case-studies/", // If exists
-  automationServices: "https://ultimateqa.com/automation-services/", // If exists
-  corporateTraining: "https://ultimateqa.com/corporate-training/", // If exists
+  // automationServices: "https://ultimateqa.com/automation-services/", // REMOVED: Returns 404
+  // corporateTraining: "https://ultimateqa.com/corporate-training/", // REMOVED: Returns 404
 } as const;
 
 // Video and Content Links
 export const CONTENT_LINKS = {
-  youtubeChannel: "https://www.youtube.com/@nikolayadvolodkin", // Fixed: added www.
+  youtubeChannel: "https://www.youtube.com/c/NikolayAdvolodkin",
   automationExperience: "https://saucelabs.com/resources/topic-hub/test-automation-experience", // ✅ VERIFIED
   // Add podcast or video series links here
 } as const;
@@ -175,18 +172,11 @@ export const CRITICAL_LINKS = {
 // Links that may need updates (repositories that might not exist yet)
 export const LINKS_NEED_VERIFICATION = {
   // HIDDEN: Testing repositories
-  simpleSauce: GITHUB_LINKS.simpleSauce,
-  playwrightExamples: GITHUB_LINKS.playwrightExamples,
-  cypressExamples: GITHUB_LINKS.cypressExamples,
   testingBestPractices: GITHUB_LINKS.testingBestPractices,
-  aiTestingWorkshop: GITHUB_LINKS.aiTestingWorkshop,
-  javaSdetBootcamp: EDUCATION_LINKS.javaSdetBootcamp,
   // Test applications with potentially unreliable hosting
   ecommerceTestApp: GITHUB_LINKS.ecommerceTestApp,
   ecommerceTestAppDemo: DEMO_LINKS.ecommerceTestApp,
-  // Add conference links that may change
-  browserConference: CONFERENCE_LINKS.browserConference,
-  testingStage: CONFERENCE_LINKS.testingStage,
+  // Note: Removed non-existent repositories and broken conference links
 } as const;
 
 // Company and achievement data - Updated with verified achievements
