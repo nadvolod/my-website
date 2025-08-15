@@ -62,10 +62,10 @@ export const CONTACT_INFO = {
 export const SOCIAL_LINKS = {
   linkedin: "https://www.linkedin.com/in/nikolayadvolodkin/",
   github: "https://github.com/nadvolod", // Updated to match verified username
-  twitter: "https://x.com/nikolayadvolod",
+  twitter: "https://x.com/Nikolay_A00",
   instagram: "https://www.instagram.com/nikolay.advolodkin/",
   tiktok: "https://www.tiktok.com/@nikolay.advolodkin/",
-  youtube: "https://www.youtube.com/c/NikolayAdvolodkin",
+  youtube: "https://www.youtube.com/@ultimateqa",
   udemy: "https://www.udemy.com/user/nikolaya/",
   ultimateqa: "https://ultimateqa.com/nikolay-advolodkin-3/"
 } as const;
@@ -123,13 +123,14 @@ export const EDUCATION_LINKS = {
 export const BUSINESS_LINKS = {
   ultimateQAMain: "https://ultimateqa.com/",
   caseStudies: "https://ultimateqa.com/case-studies/", // If exists
+  consulting: "https://ultimateqa.com/consulting",
   // automationServices: "https://ultimateqa.com/automation-services/", // REMOVED: Returns 404
   // corporateTraining: "https://ultimateqa.com/corporate-training/", // REMOVED: Returns 404
 } as const;
 
 // Video and Content Links
 export const CONTENT_LINKS = {
-  youtubeChannel: "https://www.youtube.com/c/NikolayAdvolodkin",
+  youtubeChannel: "https://www.youtube.com/@ultimateqa",
   automationExperience: "https://saucelabs.com/resources/topic-hub/test-automation-experience", // ✅ VERIFIED
   // Add podcast or video series links here
 } as const;
