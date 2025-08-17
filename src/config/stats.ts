@@ -146,12 +146,6 @@ export const DEMO_LINKS = {
   ecommerceTestApp: "https://nextjs-e-commerce-wo--nadvolod.github.app", // ✅ NextJS e-commerce test application
 } as const;
 
-// Newsletter links for testing
-export const NEWSLETTER_LINKS = {
-  weeklyNewsletter: NEWSLETTER_INFO.weekly.url,
-  jsTestingTips: NEWSLETTER_INFO.jsTestingTips.url,
-  playwrightTips: NEWSLETTER_INFO.playwrightTips.url,
-} as const;
 
 // ===== LINK COLLECTIONS FOR TESTING =====
 // These collect all links for easy testing
@@ -301,4 +295,11 @@ export const NEWSLETTER_INFO = {
     icon: "🎭",
     color: "from-green-500 to-blue-600"
   }
+} as const;
+
+// Newsletter links for testing
+export const NEWSLETTER_LINKS = {
+  weeklyNewsletter: NEWSLETTER_INFO.weekly.url,
+  jsTestingTips: NEWSLETTER_INFO.jsTestingTips.url,
+  playwrightTips: NEWSLETTER_INFO.playwrightTips.url,
 } as const; 
