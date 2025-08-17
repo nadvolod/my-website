@@ -149,12 +149,6 @@ export const DEMO_LINKS = {
 // ===== LINK COLLECTIONS FOR TESTING =====
 // These collect all links for easy testing
 
-// Newsletter links for testing
-export const NEWSLETTER_LINKS = {
-  weeklyNewsletter: NEWSLETTER_INFO.weekly.url,
-  jsTestingTips: NEWSLETTER_INFO.jsTestingTips.url,
-  playwrightTips: NEWSLETTER_INFO.playwrightTips.url,
-} as const;
 
 // All external links that should return 200 status
 export const ALL_EXTERNAL_LINKS = {
@@ -301,4 +295,11 @@ export const NEWSLETTER_INFO = {
     icon: "🎭",
     color: "from-green-500 to-blue-600"
   }
+} as const;
+
+// Newsletter links for testing
+export const NEWSLETTER_LINKS = {
+  weeklyNewsletter: NEWSLETTER_INFO.weekly.url,
+  jsTestingTips: NEWSLETTER_INFO.jsTestingTips.url,
+  playwrightTips: NEWSLETTER_INFO.playwrightTips.url,
 } as const; 

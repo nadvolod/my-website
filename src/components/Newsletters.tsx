@@ -86,7 +86,7 @@ const Newsletters = () => {
                 </div>
 
                 {/* Testimonials for weekly newsletter */}
-                {newsletter.testimonials && (
+                {'testimonials' in newsletter && newsletter.testimonials.length > 0 && (
                   <div className="mb-6 p-4 bg-gray-50 rounded-lg">
                     <h4 className="text-sm font-semibold text-gray-700 mb-3">
                       What readers say:
