@@ -150,18 +150,6 @@ export const DEMO_LINKS = {
 // ===== LINK COLLECTIONS FOR TESTING =====
 // These collect all links for easy testing
 
-// All external links that should return 200 status
-export const ALL_EXTERNAL_LINKS = {
-  ...SOCIAL_LINKS,
-  ...CONFERENCE_LINKS,
-  ...GITHUB_LINKS,
-  ...EDUCATION_LINKS,
-  ...BUSINESS_LINKS,
-  ...CONTENT_LINKS,
-  ...DEMO_LINKS,
-  ...NEWSLETTER_LINKS,
-} as const;
-
 // Critical links that MUST work for business operations
 export const CRITICAL_LINKS = {
   ultimateQAMain: EDUCATION_LINKS.ultimateQAMain,
@@ -302,4 +290,16 @@ export const NEWSLETTER_LINKS = {
   weeklyNewsletter: NEWSLETTER_INFO.weekly.url,
   jsTestingTips: NEWSLETTER_INFO.jsTestingTips.url,
   playwrightTips: NEWSLETTER_INFO.playwrightTips.url,
+} as const;
+
+// All external links that should return 200 status
+export const ALL_EXTERNAL_LINKS = {
+  ...SOCIAL_LINKS,
+  ...CONFERENCE_LINKS,
+  ...GITHUB_LINKS,
+  ...EDUCATION_LINKS,
+  ...BUSINESS_LINKS,
+  ...CONTENT_LINKS,
+  ...DEMO_LINKS,
+  ...NEWSLETTER_LINKS,
 } as const; 
