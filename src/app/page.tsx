@@ -7,6 +7,7 @@ import About from "../components/About";
 import Achievements from "../components/Achievements";
 import Contact from "../components/Contact";
 import Hero from "../components/Hero";
+import Newsletters from "../components/Newsletters";
 import Projects from "../components/Projects";
 import Services from "../components/Services";
 import Speaking from "../components/Speaking";
@@ -105,6 +106,11 @@ export default function Home() {
       {/* Courses Section */}
       <section id="courses" className="relative">
         <Courses />
+      </section>
+
+      {/* Newsletters Section */}
+      <section id="newsletters" className="relative">
+        <Newsletters />
       </section>
 
       {/* Contact Section */}
