@@ -8,8 +8,7 @@ import {
     EnvelopeIcon,
     MagnifyingGlassIcon,
     MapPinIcon,
-    PlayIcon,
-    UserGroupIcon
+    PlayIcon
 } from '@heroicons/react/24/outline';
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useMemo, useState } from 'react';
@@ -28,7 +27,6 @@ interface SpeakingEngagement {
   type: 'keynote' | 'workshop' | 'panel' | 'presentation';
   topic: string;
   description: string;
-  audience: number;
   videoUrl?: string;
   slidesUrl?: string;
   featured: boolean;
@@ -52,8 +50,7 @@ const speakingEngagements: SpeakingEngagement[] = [
     type: 'presentation',
     topic: 'AI & Development',
     description: 'Latest talk on AI integration in development workflows',
-    audience: 1200,
-    videoUrl: 'https://ultimateqa.com/nikolay-advolodkin-3/',
+    videoUrl: 'https://2024.allthingsopen.org/wp-content/uploads/2024/10/10.29.24.ATO_Schedule_Tuesday_10.29.pdf',
     slidesUrl: 'https://ultimateqa.com/nikolay-advolodkin-3/',
     featured: true,
     testimonial: {
@@ -73,8 +70,7 @@ const speakingEngagements: SpeakingEngagement[] = [
     type: 'keynote',
     topic: 'AI & Testing',
     description: 'Advanced AI testing methodologies and tools',
-    audience: 900,
-    videoUrl: 'https://browserconf.com/',
+    videoUrl: 'https://www.browserless.io/blog/ai-driven-testing',
     slidesUrl: 'https://ultimateqa.com/nikolay-advolodkin-3/',
     featured: true,
     testimonial: {
@@ -94,7 +90,6 @@ const speakingEngagements: SpeakingEngagement[] = [
     type: 'keynote',
     topic: 'AI & Testing',
     description: 'Comprehensive AI testing strategy presentation',
-    audience: 850,
     videoUrl: 'https://stareast.techwell.com/',
     slidesUrl: 'https://ultimateqa.com/nikolay-advolodkin-3/',
     featured: true,
@@ -115,7 +110,6 @@ const speakingEngagements: SpeakingEngagement[] = [
     type: 'presentation',
     topic: 'AI & Development',
     description: 'AI-powered development lifecycle optimization',
-    audience: 750,
     videoUrl: 'https://apiworld.co/',
     slidesUrl: 'https://ultimateqa.com/nikolay-advolodkin-3/',
     featured: true
@@ -131,8 +125,7 @@ const speakingEngagements: SpeakingEngagement[] = [
     type: 'workshop',
     topic: 'AI & Development',
     description: 'Quality-focused AI development presentation',
-    audience: 650,
-    videoUrl: 'https://seastar.qualityassurance.com/',
+    videoUrl: 'https://seastarquality2023.sched.com/event/1Pg9a/chatgpt-4-unleashed-revolutionizing-web-development-from-idea-to-deployment',
     slidesUrl: 'https://ultimateqa.com/nikolay-advolodkin-3/',
     featured: true
   },
@@ -147,8 +140,7 @@ const speakingEngagements: SpeakingEngagement[] = [
     type: 'presentation',
     topic: 'AI & Development',
     description: 'International presentation on AI web development',
-    audience: 1100,
-    videoUrl: 'https://infoshare.pl/',
+    videoUrl: 'https://infoshare.pl/speeches/chatgpt-takes-on-web-development-from-concept-to-launch-o2192gc191-one.html',
     slidesUrl: 'https://ultimateqa.com/nikolay-advolodkin-3/',
     featured: true,
     testimonial: {
@@ -160,7 +152,7 @@ const speakingEngagements: SpeakingEngagement[] = [
   {
     id: 'testing-stage-2023',
     title: 'ChatGPT Goes Tech: A Web Development Tale',
-    conference: 'Testing Stage Conference',
+    conference: 'Testing Stage 2023',
     location: 'Virtual',
     country: 'Global',
     date: '2023-04-21',
@@ -168,8 +160,7 @@ const speakingEngagements: SpeakingEngagement[] = [
     type: 'presentation',
     topic: 'AI & Development',
     description: 'Storytelling approach to AI in development',
-    audience: 500,
-    videoUrl: 'https://testingstage.com/',
+    videoUrl: 'https://www.youtube.com/watch?v=Yoh6Yk6Trjk',
     slidesUrl: 'https://ultimateqa.com/nikolay-advolodkin-3/',
     featured: true
   },
@@ -184,7 +175,6 @@ const speakingEngagements: SpeakingEngagement[] = [
     type: 'workshop',
     topic: 'AI & Testing',
     description: 'End-to-end AI development workflow with Selenium',
-    audience: 800,
     videoUrl: 'https://seleniumconf.us/',
     slidesUrl: 'https://ultimateqa.com/nikolay-advolodkin-3/',
     featured: true,
@@ -205,7 +195,6 @@ const speakingEngagements: SpeakingEngagement[] = [
     type: 'workshop',
     topic: 'AI & Development',
     description: 'Hands-on AI development techniques',
-    audience: 400,
     videoUrl: 'https://developerweek.com/',
     slidesUrl: 'https://ultimateqa.com/nikolay-advolodkin-3/',
     featured: true
@@ -435,14 +424,6 @@ const Speaking: React.FC = () => {
                   <p className="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
                     {engagement.description}
                   </p>
-
-                  {/* Stats */}
-                  <div className="flex items-center gap-4 mb-4 text-sm">
-                    <div className="flex items-center gap-1 text-gray-600 dark:text-gray-400">
-                      <UserGroupIcon className="h-4 w-4" />
-                      {engagement.audience.toLocaleString()} attendees
-                    </div>
-                  </div>
 
                   {/* Action Buttons */}
                   <div className="flex gap-2">
