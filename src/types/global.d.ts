@@ -1,3 +1,22 @@
+// Newsletter Types
+export interface NewsletterTestimonial {
+  quote: string;
+  author: string;
+}
+
+export interface Newsletter {
+  title: string;
+  subtitle: string;
+  description: string;
+  url: string;
+  subscribers: string;
+  frequency: string;
+  topics: string[];
+  testimonials?: NewsletterTestimonial[];
+  icon: string;
+  color: string;
+}
+
 declare global {
   interface Window {
     hbspt?: {
