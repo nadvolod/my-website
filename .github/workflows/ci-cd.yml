@@ -48,7 +48,7 @@ jobs:
         run: npm run test
 
       - name: 📊 Upload test results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         if: always()
         with:
           name: playwright-report
@@ -244,7 +244,7 @@ jobs:
           npx lighthouse https://nikolayadvolodkin.com --output=json --output-path=lighthouse-report.json --chrome-flags="--headless" || true
 
       - name: 📊 Upload Lighthouse report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         if: always()
         with:
           name: lighthouse-report
