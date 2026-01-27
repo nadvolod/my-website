@@ -2,15 +2,9 @@
 
 import { EnvelopeIcon, UserGroupIcon } from '@heroicons/react/24/outline';
 import { motion } from 'framer-motion';
-import { NEWSLETTER_INFO } from '@/config/stats';
+import { NEWSLETTERS_ARRAY } from '@/config/stats';
 
 const Newsletters = () => {
-  const newsletters = [
-    NEWSLETTER_INFO.weekly,
-    NEWSLETTER_INFO.jsTestingTips,
-    NEWSLETTER_INFO.playwrightTips,
-  ];
-
   return (
     <section className="py-20 bg-gradient-to-br from-gray-50 via-white to-blue-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -32,7 +26,7 @@ const Newsletters = () => {
 
         {/* Newsletter Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {newsletters.map((newsletter, index) => (
+          {NEWSLETTERS_ARRAY.map((newsletter, index) => (
             <motion.div
               key={newsletter.title}
               initial={{ opacity: 0, y: 20 }}
@@ -104,6 +98,7 @@ const Newsletters = () => {
                   href={newsletter.url}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={`Subscribe to ${newsletter.title} newsletter`}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   className={`w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r ${newsletter.color} text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300`}

@@ -276,6 +276,13 @@ export const NEWSLETTER_INFO = {
   }
 } as const;
 
+// Newsletter array for component consumption - prevents re-creation on every render
+export const NEWSLETTERS_ARRAY = [
+  NEWSLETTER_INFO.weekly,
+  NEWSLETTER_INFO.jsTestingTips,
+  NEWSLETTER_INFO.playwrightTips,
+] as const;
+
 // Newsletter links for testing
 export const NEWSLETTER_LINKS = {
   weeklyNewsletter: NEWSLETTER_INFO.weekly.url,
