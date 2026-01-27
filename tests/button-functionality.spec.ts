@@ -129,8 +129,8 @@ test.describe('Button Functionality Tests', () => {
     const mobileMenu = page.getByTestId('mobile-menu');
     await expect(mobileMenu).toBeVisible();
     
-    // Test navigation to About section
-    await page.getByRole('button', { name: 'About' }).click();
+    // Test navigation to About section - now using link instead of button
+    await page.getByRole('link', { name: 'About' }).click();
     await page.waitForTimeout(1000);
     
     // Menu should close and page should scroll to about section
